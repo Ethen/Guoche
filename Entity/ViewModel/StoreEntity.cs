@@ -37,6 +37,23 @@ namespace Entity.ViewModel
         public DateTime ModifyDate { get; set; }
         public long Operator { get; set; }
         public string AttachmentIDs { get; set; }
+        public string SupplierTypeName { get; set; }
+
+        //public string SupplierTypeName {
+        //    get { 
+        //        string result=string.Empty;
+        //        switch (SupplierType)
+        //        {
+        //            case 1: result = "租赁店"; break;
+        //            case 2: result = "销售店"; break;
+        //            case 3: result = "租售一体"; break;
+        //        }
+
+        //        return result;
+        //    }
+        //}
+
+        public City CityInfo { get; set; }
 
         public List<AttachmentEntity> Attachments { get; set; }
     }

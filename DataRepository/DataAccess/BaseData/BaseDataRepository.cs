@@ -41,6 +41,35 @@ namespace DataRepository.DataAccess.BaseData
             return result;
         }
 
+        public List<AttachmentInfo> GetAttachments(string keys)
+        {
+            List<AttachmentInfo> result = new List<AttachmentInfo>();
+            string sqlText = BaseDataStatement.GetAttachmentByKey;
+            sqlText = sqlText.Replace("#ids#", keys);
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sqlText, "Text"));
+            result = command.ExecuteEntityList<AttachmentInfo>();
+            return result;
+        }
+
+        public long CreateNewAttachment(AttachmentInfo attachment)
+        {
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(BaseDataStatement.CreateAttachment, "Text"));
+            command.AddInputParameter("@FileName", DbType.String, attachment.FileName);
+            command.AddInputParameter("@FileExtendName", DbType.String, attachment.FileExtendName);
+            command.AddInputParameter("@FilePath", DbType.String, attachment.FilePath);
+            command.AddInputParameter("@UploadDate", DbType.String, attachment.UploadDate);
+            command.AddInputParameter("@FileType", DbType.String, attachment.FileType);
+            command.AddInputParameter("@BusinessType", DbType.String, attachment.BusinessType);
+            command.AddInputParameter("@Channel", DbType.String, attachment.Channel);
+            command.AddInputParameter("@FileSize", DbType.String, attachment.FileSize);
+            command.AddInputParameter("@Remark", DbType.String, attachment.Remark);
+            command.AddInputParameter("@Operator", DbType.Int64, attachment.Operator);
+            command.AddInputParameter("@CreateDate", DbType.DateTime, attachment.CreateDate);
+
+            var o=command.ExecuteScalar<object>();
+            return Convert.ToInt64(o);
+        }
+
 
         public List<BaseDataInfo> GetAllData()
         {

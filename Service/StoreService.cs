@@ -30,20 +30,20 @@ namespace Service.BaseBiz
             StoreInfo storeInfo = new StoreInfo();
             if (storeEntity != null)
             {
-                 string[] attachmentids = storeEntity.AttachmentIDs.Split(',');
+                  string[] attachmentids = (storeEntity.AttachmentIDs??"").Split(',');
                   storeInfo.SupplierID=storeEntity.SupplierID;
-                  storeInfo.SupplierName=storeEntity.SupplierName;
-                  storeInfo.SupplierCode=storeEntity.SupplierCode;
+                  storeInfo.SupplierName=storeEntity.SupplierName??"";
+                  storeInfo.SupplierCode = storeEntity.SupplierCode ?? "";
                   storeInfo.SupplierType=storeEntity.SupplierType;
                   storeInfo.CityID=storeEntity.CityID;
-                  storeInfo.Address=storeEntity.Address;
-                  storeInfo.Telephone=storeEntity.Telephone;
-                  storeInfo.Mobile=storeEntity.Mobile;
-                  storeInfo.StartTime=storeEntity.StartTime;
-                  storeInfo.EndTime=storeEntity.EndTime;
-                  storeInfo.Coordinate=storeEntity.Coordinate;
+                  storeInfo.Address = storeEntity.Address ?? "";
+                  storeInfo.Telephone = storeEntity.Telephone ?? "";
+                  storeInfo.Mobile = storeEntity.Mobile ?? "";
+                  storeInfo.StartTime = storeEntity.StartTime ?? "";
+                  storeInfo.EndTime = storeEntity.EndTime ?? "";
+                  storeInfo.Coordinate = storeEntity.Coordinate ?? "";
                   storeInfo.Status=storeEntity.Status;
-                  storeInfo.AttachmentIDs=storeEntity.AttachmentIDs;
+                  storeInfo.AttachmentIDs = storeEntity.AttachmentIDs ?? "";
                   storeInfo.CreateDate=storeEntity.CreateDate;
                   storeInfo.ModifyDate=storeEntity.ModifyDate;
                   storeInfo.Operator = storeEntity.Operator;
@@ -59,21 +59,25 @@ namespace Service.BaseBiz
             if (storeInfo != null)
             {
                 storeEntity.SupplierID = storeInfo.SupplierID;
-                storeEntity.SupplierName = storeInfo.SupplierName;
-                storeEntity.SupplierCode = storeInfo.SupplierCode;
+                storeEntity.SupplierName = storeInfo.SupplierName ?? "";
+                storeEntity.SupplierCode = storeInfo.SupplierCode ?? "";
                 storeEntity.SupplierType = storeInfo.SupplierType;
                 storeEntity.CityID = storeInfo.CityID;
-                storeEntity.Address = storeInfo.Address;
-                storeEntity.Telephone = storeInfo.Telephone;
-                storeEntity.Mobile = storeInfo.Mobile;
-                storeEntity.StartTime = storeInfo.StartTime;
-                storeEntity.EndTime = storeInfo.EndTime;
-                storeEntity.Coordinate = storeInfo.Coordinate;
+                storeEntity.Address = storeInfo.Address ?? "";
+                storeEntity.Telephone = storeInfo.Telephone ?? "";
+                storeEntity.Mobile = storeInfo.Mobile ?? "";
+                storeEntity.StartTime = storeInfo.StartTime ?? "";
+                storeEntity.EndTime = storeInfo.EndTime ?? "";
+                storeEntity.Coordinate = storeInfo.Coordinate ?? "";
                 storeEntity.Status = storeInfo.Status;
-                storeEntity.AttachmentIDs = storeInfo.AttachmentIDs;
+                storeEntity.AttachmentIDs = storeInfo.AttachmentIDs ?? "";
                 storeEntity.CreateDate = storeInfo.CreateDate;
                 storeEntity.ModifyDate = storeInfo.ModifyDate;
                 storeEntity.Operator = storeInfo.Operator;
+                City city = BaseDataService.GetAllCity().FirstOrDefault(t => t.CityID == storeInfo.CityID)??new City();
+                List<AttachmentEntity> attachments = BaseDataService.GetAttachmentInfoByKyes(storeInfo.AttachmentIDs);
+                storeEntity.CityInfo = city;
+                storeEntity.Attachments = attachments;
             }
 
 
@@ -92,6 +96,7 @@ namespace Service.BaseBiz
 
                 if (storeEntity.SupplierID > 0)
                 {
+                    storeInfo.ModifyDate = DateTime.Now;
                     result = mr.ModifyStore(storeInfo);
                 }
                 else
@@ -163,6 +168,8 @@ namespace Service.BaseBiz
         {
             StoreRepository mr = new StoreRepository();
             mr.RemoveStore(sid);
+            List<StoreInfo> miList = mr.GetAllStore();//刷新缓存
+            Cache.Add("StoreALL", miList);
         }
     }
 }

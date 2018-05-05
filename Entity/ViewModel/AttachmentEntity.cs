@@ -31,5 +31,6 @@ namespace Entity.ViewModel
         public string Channel { get; set; }
         public string FileSize { get; set; }
         public string Remark { get; set; }
+        public long Operator { get; set; }
     }
 }

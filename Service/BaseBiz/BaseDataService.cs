@@ -44,6 +44,80 @@ namespace Service.BaseBiz
             return baseDataEntity;
         }
 
+        private static AttachmentEntity TranslateAttachmentInfo(AttachmentInfo attachmentInfo)
+        {
+            AttachmentEntity result = new AttachmentEntity();
+            if (attachmentInfo != null)
+            {
+                  result.AttachmentID=attachmentInfo.AttachmentID;
+                  result.FileName=attachmentInfo.FileName;
+                  result.FileExtendName=attachmentInfo.FileExtendName;
+                  result.FilePath=attachmentInfo.FilePath;
+                  result.UploadDate=attachmentInfo.UploadDate;
+                  result.FileType=attachmentInfo.FileType;
+                  result.BusinessType=attachmentInfo.BusinessType;
+                  result.Channel=attachmentInfo.Channel;
+                  result.FileSize=attachmentInfo.FileSize;
+                  result.Remark=attachmentInfo.Remark;
+                  result.Operator=attachmentInfo.Operator;
+            }
+
+
+            return result;
+        }
+
+        private static AttachmentInfo TranslateAttachmentEntity(AttachmentEntity attachmentInfo)
+        {
+            AttachmentInfo result = new AttachmentInfo();
+            if (attachmentInfo != null)
+            {
+                result.AttachmentID = attachmentInfo.AttachmentID;
+                result.FileName = attachmentInfo.FileName;
+                result.FileExtendName = attachmentInfo.FileExtendName;
+                result.FilePath = attachmentInfo.FilePath;
+                result.UploadDate = attachmentInfo.UploadDate;
+                result.FileType = attachmentInfo.FileType;
+                result.BusinessType = attachmentInfo.BusinessType;
+                result.Channel = attachmentInfo.Channel;
+                result.FileSize = attachmentInfo.FileSize;
+                result.Remark = attachmentInfo.Remark;
+                result.Operator = attachmentInfo.Operator;
+            }
+
+
+            return result;
+        }
+
+        public static long CreateAttachment(AttachmentEntity attachmentInfo)
+        {
+            long result=0;
+            BaseDataRepository mr = new BaseDataRepository();
+
+            AttachmentInfo attachment = TranslateAttachmentEntity(attachmentInfo);
+            attachment.CreateDate = DateTime.Now;
+            result = mr.CreateNewAttachment(attachment);
+
+            return result;
+        }
+
+        public static List<AttachmentEntity> GetAttachmentInfoByKyes(string ids)
+        {
+            List<AttachmentEntity> all = new List<AttachmentEntity>();
+            BaseDataRepository mr = new BaseDataRepository();
+            List<AttachmentInfo> miList = mr.GetAttachments(ids);
+
+            if (!miList.IsEmpty())
+            {
+                foreach (AttachmentInfo mInfo in miList)
+                {
+                    AttachmentEntity attachEntity = TranslateAttachmentInfo(mInfo);
+                    all.Add(attachEntity);
+                }
+            }
+
+            return all;
+        }
+
         public static bool ModifyBaseData(BaseDataEntity baseDataEntity)
         {
             int result = 0;

@@ -169,6 +169,8 @@ namespace Service.BaseBiz
         {
             GroupRepository mr = new GroupRepository();
             mr.RemoveGroup(gid);
+            List<GroupInfo> miList = mr.GetAllGroup();//刷新缓存
+            Cache.Add("GroupALL", miList);
         }
     }
 }

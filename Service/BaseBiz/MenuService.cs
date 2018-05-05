@@ -172,6 +172,8 @@ namespace Service.BaseBiz
         {
             MenuRepository mr = new MenuRepository();
             mr.RemoveMenu(mid);
+            List<MenuInfo> miList = mr.GetAllMenu();//刷新缓存
+            Cache.Add("MenuALL", miList);
         }
     }
 }

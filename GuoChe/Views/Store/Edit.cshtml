@@ -3,29 +3,33 @@
 @{
     ViewBag.Title = "编辑经销商";
     List<Province> plist = (List<Province>)ViewBag.Province;
+    StoreEntity storeEntity = (StoreEntity)ViewBag.Store;
 }
 @section Header{
     <link href="~/source/assets/css/timepicker.css" rel="stylesheet" />
+    @*<link href="~/source/assets/css/local.css" rel="stylesheet" />*@
+    <link href="~/source/bootstrap-fileinput/css/fileinput.min.css" rel="stylesheet" />
+
 }
     <div class="row-fluid">
-        <form class="form-horizontal">
+        <form class="form-horizontal" id="storeForm" action="/Store/Modify" method="post">
             <div class="widget widget-padding span12">
                 <div class="widget-header" style="margin-top:30px">
                     <i class="icon-list-alt"></i><h5>租赁销售网点</h5>
                 </div>
                 <div class="widget-body" style="overflow: hidden; display: block;">
                     <div class="widget-forms clearfix">
-                        <input class="span5" type="hidden" id="SupplierID" name="SupplierID">
+                        <input type="hidden" id="SupplierID" name="SupplierID" value="@storeEntity.SupplierID">
                         <div class="control-group">
                             <label class="control-label">经销商名称</label>
                             <div class="controls">
-                                <input class="span5" type="text" placeholder="经销商名称" id="SupplierName" name="SupplierName">
+                                <input class="span5" type="text" placeholder="经销商名称" id="SupplierName" name="SupplierName" value="@storeEntity.SupplierName">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">经销商编码</label>
                             <div class="controls">
-                                <input class="span5" type="text" placeholder="经销商编码" id="SupplierCode" name="SupplierCode">
+                                <input class="span5" type="text" placeholder="经销商编码" id="SupplierCode" name="SupplierCode" value="@storeEntity.SupplierCode">
                             </div>
                         </div>
                         <div class="control-group">
@@ -33,21 +37,23 @@
                             <div class="controls">
                                 <select tabindex="1" class="span5" id="SupplierType" name="SupplierType">
                                     <option value="">--请选择--</option>
-                                    <option value="1">租赁店</option>
-                                    <option value="2">经销店</option>
-                                    <option value="3">租赁店+经销店</option>
+                                    <option value="1" @(storeEntity.SupplierType == 1 ? "selected" : "")>租赁店</option>
+                                    <option value="2" @(storeEntity.SupplierType == 2 ? "selected" : "")>经销店</option>
+                                    <option value="3" @(storeEntity.SupplierType == 3 ? "selected" : "")>租售一体</option>
                                 </select>
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">所在城市</label>
                             <div class="controls">
+                                <input type="hidden" id="cityid" value="@((storeEntity.CityID == 0) ? "" : storeEntity.CityID.ToString())">
+                                <input type="hidden" id="provinceid" value="@((storeEntity.CityInfo == null) ? "": storeEntity.CityInfo.ProvinceID.ToString())">
                                 <select tabindex="1" class="span2" id="sltProvince">
                                     <option value="">--省份--</option>
-                                     @foreach (var item in plist)
-                                     {
+                                    @foreach (var item in plist)
+                                    {
                                         <option value="@item.ProvinceID">@item.ProvinceName</option>
-                                     }
+                                    }
                                 </select>
                                 <select tabindex="1" class="span2" id="sltCity" name="CityID">
                                     <option value="">--城市--</option>
@@ -57,140 +63,89 @@
                         <div class="control-group">
                             <label class="control-label">经销商地址</label>
                             <div class="controls">
-                                <input class="span5" type="text" placeholder="经销商地址" id="Address" name="Address">
+                                <input class="span5" type="text" placeholder="经销商地址" id="Address" name="Address" value="@storeEntity.Address">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">联系电话</label>
                             <div class="controls">
-                                <input class="span5" type="text" placeholder="联系电话" id="Telephone" name="Telephone">
+                                <input class="span5" type="text" placeholder="联系电话" id="Telephone" name="Telephone" value="@storeEntity.Telephone">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">联系手机</label>
                             <div class="controls">
-                                <input class="span5" type="text" placeholder="联系手机" id="Mobile" name="Mobile">
+                                <input class="span5" type="text" placeholder="联系手机" id="Mobile" name="Mobile" value="@storeEntity.Mobile">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">经纬度</label>
                             <div class="controls">
-                                <input class="span5" type="text" placeholder="经纬度" id="Coordinate" name="Coordinate">
+                                <input class="span5" type="text" placeholder="经纬度" id="Coordinate" name="Coordinate" value="@storeEntity.Coordinate">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">是否可用</label>
                             <div class="controls">
-                                <input type="checkbox" value="1" id="Status" name="Status">
+                                <input type="checkbox" value="1" id="Status" name="Status" @(storeEntity.Status == 1 ? "checked" : "")>
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">营业开始时间</label>
                             <div class="controls">
-                                <div class="input-append bootstrap-timepicker-component span5">
-                                    <input type="text" class="input-small timepicker-24hrs" id="StartTime" name="StartTime">
-                                    <span class="add-on">
-                                        <i class="icon-time"></i>
-                                    </span>
-                                </div>
+                                <input class="span5" type="text" placeholder="营业开始时间(XX:XX)" id="StartTime" name="StartTime" value="@storeEntity.StartTime">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">营业结束时间</label>
                             <div class="controls">
-                                <div class="input-append bootstrap-timepicker-component span5">
-                                    <input type="text" class="input-small timepicker-24hrs" id="EndTime" name="EndTime">
-                                    <span class="add-on">
-                                        <i class="icon-time"></i>
-                                    </span>
-                                </div>
+                                <input class="span5" type="text" placeholder="营业结束时间(XX:XX)" id="EndTime" name="EndTime" value="@storeEntity.EndTime">
                             </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="controls" id="picContainer">
+                                @if (storeEntity.Attachments != null && storeEntity.Attachments.Count > 0)
+                                {
+                                    foreach (var item in storeEntity.Attachments)
+                                    {
+                                        <img src="@item.FilePath.Replace("~","")" alt="@(item.FileName+item.FileExtendName)" style="width: 150px; height: 150px; margin-top: 15px">
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <input type="hidden" id="AttachmentIDs" name="AttachmentIDs" value="@storeEntity.AttachmentIDs">
+                            <label class="control-label">上传图片</label>
+                            <div class="controls">
+                                <input type="file" name="file" id="file" multiple />
+                            </div>
+
                         </div>
                     </div>
                 </div>
+
                 <div class="widget-footer">
-                    <button class="btn btn-primary" type="button" id="submit">保存</button>
+                    <button class="btn btn-primary" type="button" id="save">保存</button>
                 </div>
+            
             </div>
         </form>
+        
 </div>
 
 @section Footer{
-
-<script type="text/javascript" src="~/source/assets/js/bootstrap-timepicker.js"></script>
+<script type="text/javascript" src="~/source/bootstrap-fileinput/js/fileinput.js"></script>
+<script type="text/javascript" src="~/source/bootstrap-fileinput/js/fileinput_locale_zh.js"></script>
+<script type="text/javascript" src="~/source/Store.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        var elemnets = {
-            ids: ["SupplierName", "SupplierCode", "SupplierType", "sltCity", "Address", "Telephone", "Mobile"],
-            methods: [
-                {
-                    required: true,
-                    //maxlength: 100,
-                    //minlength: 0,
-                    //rule: "",
-                    messages:["请输入经销商名称","","",""]
-                },
-                {
-                    required: true,
-                    messages: ["请输入经销商编码", "", "", ""]
-                },
-                {
-                    required: true,
-                    messages: ["请选择网点类型", "", "", ""]
-                },
-                {
-                    required: true,
-                    messages: ["请选择所在城市", "", "", ""]
-                },
-                {
-                    required: true,
-                    messages: ["请输入经销商地址", "", "", ""]
-                },
-                {
-                    required: true,
-                    messages: ["请输入联系电话", "", "", ""]
-                },
-                {
-                    required: true,
-                    messages: ["请输入联系人手机", "", "", ""]
-                }
-            ]
-        }
+ 
+        var oFileInput = new FileInput();
+        oFileInput.Init("file", "/Upload/UploadFile");
 
-        valid.init(elemnets);
-
-        $('.timepicker-24hrs').timepicker({ showMeridian: false });
-
-        $("#sltProvince").on("change", function () {
-            var $this = $(this);
-            if (!!$this.val()) {
-                $.post("GetCity", { pid: $this.val() }, function (data) {
-                    if (!!data) {
-                        $("#sltCity").html("").append("<option value=''>--城市--</option>");
-
-                        for (var i = 0; i < data.length; i++) {
-                            $("#sltCity").append("<option value='" + data[i].CityID + "'>" + data[i].CityName + "</option>");
-                        }
-                    }
-                });
-            }
-            else {
-                $("#sltCity").html("").append("<option value=''>--城市--</option>");
-            }
-        });
-
-        $("#submit").click(function () {
-            if (valid.validate())
-            {
-                $("form").submit();
-            }
-        })
-
-
-
+        storeInfo.init();
 
     });
-
 
 
 

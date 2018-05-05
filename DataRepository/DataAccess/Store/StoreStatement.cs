@@ -14,7 +14,7 @@ namespace DataRepository.DataAccess.Store
 
         public static string GetStoreByKey = @"SELECT * FROM StoreInfo(NOLOCK) WHERE SupplierID=@SupplierID";
 
-        public static string Remove = @"UPDATE UserInfo SET Status=0 WHERE SupplierID=@SupplierID";
+        public static string Remove = @"UPDATE StoreInfo SET Status=0 WHERE SupplierID=@SupplierID";
 
         public static string GetStoreByKeys = @"SELECT * FROM StoreInfo(NOLOCK) WHERE SupplierID IN (#ids#)";
 

@@ -176,6 +176,8 @@ namespace Service.BaseBiz
         {
             UserRepository mr = new UserRepository();
             mr.RemoveUser(uid);
+            List<UserInfo> miList = mr.GetAllUser();//刷新缓存
+            Cache.Add("UserALL", miList);
         }
 
         public static int ModifyPassword(long uid, string pwd)

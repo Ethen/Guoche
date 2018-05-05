@@ -25,7 +25,7 @@ namespace DataRepository.DataAccess
     public class DataAccessBase
     {
         //public static string ConnectionString = @"Server=.\SQLEXPRESS;Database=GuoChe;UID=sa;Password=123456";
-        public static string ConnectionString = @"Server=MS-20180429SNAC;Database=GuoChe;UID=sa;Password=123456";
+        public static string ConnectionString = @"Server=118.31.13.37;Database=GuoChe;UID=sa;Password=ABCabc123";
 
         protected static DbCommand GetDbCommand(string commandText, string commandType)
         {

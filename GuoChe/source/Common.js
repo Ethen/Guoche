@@ -51,6 +51,11 @@ var valid = {
                 if (current.is("input")) {
                     current.keyup(function () {
                         $(this).removeClass("error").next(".verror").remove();
+                    }).blur(function () {
+                        if ($(this).val().length > 0)
+                        {
+                            $(this).removeClass("error").next(".verror").remove();
+                        }
                     });
                 }
                 if (current.is("select")) {
@@ -67,6 +72,7 @@ var valid = {
             for (var i = 0; i < valid.elemnets.ids.length; i++) {
                 var obj = valid.elemnets.methods[i], id = valid.elemnets.ids[i];
                 var current = $("#" + id), iserror = false;
+                current.parent().find(".verror").remove();
                 if (!!obj.required && !$.trim(current.val()))//必填
                 {
                     current.addClass("error").after('<span class="help-inline verror" style="color:red">' + obj.messages[0] + '</span>');
@@ -88,7 +94,7 @@ var valid = {
                     }
                 }
 
-                if (!iserror && !!obj.rule) {//正则表达式
+                if (!iserror && !!obj.rule && $.trim(current.val()).length>0) {//正则表达式
                     if (!obj.rule.test(current.val())) {
                         current.addClass("error").after('<span class="help-inline verror" style="color:red">' + obj.messages[3] + '</span>');
                         iserror = true;

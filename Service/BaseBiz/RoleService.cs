@@ -155,6 +155,8 @@ namespace Service.BaseBiz
         {
             RoleRepository mr = new RoleRepository();
             mr.RemoveRole(rid);
+            List<RoleInfo> miList = mr.GetAllRole();//刷新缓存
+            Cache.Add("RoleALL", miList);
         }
     }
 }

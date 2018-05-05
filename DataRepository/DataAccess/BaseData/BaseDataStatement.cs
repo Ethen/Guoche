@@ -31,5 +31,9 @@ namespace DataRepository.DataAccess.BaseData
                                                   ,[Description]=@Description
                                                   ,[Status] = @Status
                                              WHERE ID=@ID";
+        public static string CreateAttachment = @"INSERT INTO [Attachment]([FileName],[FileExtendName],[FilePath],[UploadDate],[FileType],[BusinessType],[Channel],[FileSize],[Remark],[Operator],[CreateDate]) 
+                                                     VALUES(@FileName,@FileExtendName,@FilePath,@UploadDate,@FileType,@BusinessType,@Channel,@FileSize,@Remark,@Operator,@CreateDate);SELECT IDENT_CURRENT('Attachment')";
+
+        public static string GetAttachmentByKey = @"SELECT * FROM [Attachment](NOLOCK) WHERE AttachmentID IN (#ids#)";
     }
 }

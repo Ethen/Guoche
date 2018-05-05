@@ -10,14 +10,17 @@ namespace Print
     {
         static void Main(string[] args)
         {
-            List<string> a = new List<string> { "1", "2", "3", "4", "5" };
-            List<string> b = new List<string> { "1", "2", "3", "4", "5" };
-            a = a.Except(b).ToList();
+            //List<string> a = new List<string> { "1", "2", "3", "4", "5" };
+            //List<string> b = new List<string> { "1", "2", "3", "4", "5" };
+            //a = a.Except(b).ToList();
 
-            foreach (string item in a)
-            {
-                Console.WriteLine(item);
-            }
+            //foreach (string item in a)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+            string a = "asdjasahjkdhasjk.jpg";
+            Console.WriteLine(a.Substring(0, a.IndexOf(".")));
 
             Console.Read();
         }

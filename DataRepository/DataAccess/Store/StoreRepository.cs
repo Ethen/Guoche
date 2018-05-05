@@ -25,7 +25,7 @@ namespace DataRepository.DataAccess.Store
             string sqlText = StoreStatement.GetAllStoresByRule;
             if (!string.IsNullOrEmpty(name))
             {
-                sqlText += " AND StoreName LIKE '%'+@key+'%'";
+                sqlText += " AND SupplierName LIKE '%'+@key+'%'";
             }
             if (status > -1)
             {
@@ -66,8 +66,8 @@ namespace DataRepository.DataAccess.Store
             command.AddInputParameter("@Address", DbType.String, store.Address);
             command.AddInputParameter("@Telephone", DbType.String, store.Telephone);
             command.AddInputParameter("@Mobile", DbType.String, store.Mobile);
-            command.AddInputParameter("@StartTime", DbType.DateTime, store.StartTime);
-            command.AddInputParameter("@EndTime", DbType.DateTime, store.EndTime);
+            command.AddInputParameter("@StartTime", DbType.String, store.StartTime);
+            command.AddInputParameter("@EndTime", DbType.String, store.EndTime);
             command.AddInputParameter("@Coordinate", DbType.String, store.Coordinate);
             command.AddInputParameter("@Status", DbType.Int32, store.Status);
             command.AddInputParameter("@AttachmentIDs", DbType.String, store.AttachmentIDs);
@@ -89,8 +89,8 @@ namespace DataRepository.DataAccess.Store
             command.AddInputParameter("@Address", DbType.String, store.Address);
             command.AddInputParameter("@Telephone", DbType.String, store.Telephone);
             command.AddInputParameter("@Mobile", DbType.String, store.Mobile);
-            command.AddInputParameter("@StartTime", DbType.DateTime, store.StartTime);
-            command.AddInputParameter("@EndTime", DbType.DateTime, store.EndTime);
+            command.AddInputParameter("@StartTime", DbType.String, store.StartTime);
+            command.AddInputParameter("@EndTime", DbType.String, store.EndTime);
             command.AddInputParameter("@Coordinate", DbType.String, store.Coordinate);
             command.AddInputParameter("@Status", DbType.Int32, store.Status);
             command.AddInputParameter("@AttachmentIDs", DbType.String, store.AttachmentIDs);
