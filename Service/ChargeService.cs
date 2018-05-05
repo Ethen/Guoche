@@ -1,4 +1,5 @@
-﻿using DataRepository.DataModel;
+﻿using DataRepository.DataAccess.Charge;
+using DataRepository.DataModel;
 using Entity.ViewModel;
 using Service.BaseBiz;
 using System;
@@ -174,7 +175,64 @@ namespace Service
             return all;
         }
 
-          
+        /// <summary>
+        ///  1、 不传 返回所有2、 充电桩ID CPid  3、 供应点信息ID ChargeBaseID
+        /// </summary>
+        /// <param name="CPid">充电桩ID</param>
+        /// <param name="ChargeBaseID">供应点信息ID</param>
+        /// <returns></returns>
+        public static List<ChargingPileEntity> GetChargingPileInfo(string CPid, string ChargeBaseID)
+        {
+            List<ChargingPileEntity> lstCP = null;
+            List<ChargingPileInfo> lstCharging = ChargeRepository.GetChargingPileInfo(CPid, ChargeBaseID);
+            if (lstCharging != null && lstCharging.Count > 0)
+            {
+                lstCP = new List<ChargingPileEntity>();
+                foreach (ChargingPileInfo info in lstCharging)
+                {
+                    ChargingPileEntity entity = new ChargingPileEntity();
+                    entity.ID = info.ID;
+                    entity.Code = info.Code;
+                    entity.ChargingBaseID = info.ChargingBaseID;
+                    entity.Standard = info.Standard;
+                    entity.SOC = info.SOC;
+                    entity.Power = info.Power;
+                    entity.Electric = info.Electric;
+                    entity.CElectric = info.CElectric;
+                    entity.Voltage = info.Voltage;
+                    entity.CVoltage = info.CVoltage;
+                    lstCP.Add(entity);
+                }
+            }
+            return lstCP;
+            
+        }
+
+        public static List<ChargingBaseEntity> GetChargingBaseInfo(string CPid, string ChargeBaseID)
+        {
+            List<ChargingBaseEntity> lstCP = null;
+            List<ChargingBaseInfo> lstCharging = ChargeRepository.GetChargingBaseInfo(CPid, ChargeBaseID);
+            if (lstCharging != null && lstCharging.Count > 0)
+            {
+                lstCP = new List<ChargingBaseEntity>();
+                foreach (ChargingBaseInfo info in lstCharging)
+                {
+                    ChargingBaseEntity entity = new ChargingBaseEntity();
+                    entity.ChargeBaseID = info.ChargeBaseID;
+                    entity.Name = info.Name;
+                    entity.Code = info.Code;
+                    entity.ChargeFee = info.ChargeFee;
+                    entity.ParkFee = info.ParkFee;
+                    entity.ChargeNum = info.ChargeNum;
+                    entity.PayType = info.PayType;
+                    entity.StartTime = info.StartTime;
+                    entity.EndTime = info.EndTime;
+                    lstCP.Add(entity);
+                }
+            }
+            return lstCP;
+
+        }
 
     }
 }

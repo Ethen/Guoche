@@ -182,6 +182,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ApiCarController.cs" />
+    <Compile Include="Controllers\ApiChargingController.cs" />
     <Compile Include="Controllers\ApiUserController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BaseDataController.cs" />
@@ -458,6 +460,8 @@
     <Content Include="source\bootstrap-fileinput\package.json" />
     <Content Include="source\bootstrap-fileinput\README.md" />
     <Content Include="Views\ApiUser\Index.cshtml" />
+    <Content Include="Views\ApiCar\Index.cshtml" />
+    <Content Include="Views\ApiCharging\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

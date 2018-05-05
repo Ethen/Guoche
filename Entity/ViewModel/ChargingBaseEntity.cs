@@ -23,6 +23,8 @@ namespace Entity.ViewModel
 
         public int IsUse { get; set; }
 
+        public int CityID { get; set; }
+
         public string UseStatus {
             get {
                 string result = "正常使用";
