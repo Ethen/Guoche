@@ -60,6 +60,7 @@
     <Compile Include="DataAccess\Store\StoreStatement.cs" />
     <Compile Include="DataAccess\User\UserRepository.cs" />
     <Compile Include="DataAccess\User\UserStatement.cs" />
+    <Compile Include="DataModel\AttachmentInfo.cs" />
     <Compile Include="DataModel\BaseDataInfo.cs" />
     <Compile Include="DataModel\CityInfo.cs" />
     <Compile Include="DataModel\GroupInfo.cs" />
