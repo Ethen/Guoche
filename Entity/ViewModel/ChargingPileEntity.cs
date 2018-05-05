@@ -18,14 +18,6 @@ namespace Entity.ViewModel
         public string CElectric { get; set; }
         public string Voltage { get; set; }
         public string CVoltage { get; set; }
-        public decimal ChargeFee { get; set; }
-        public decimal ServerFee { get; set; }
-        public decimal ParkFee { get; set; }
-        public string PayType { get; set; }
-        public string Address { get; set; }
-        public string Coordinate { get; set; }
-        public string StartTime { get; set; }
-        public string EndTime { get; set; }
 
         public int ChargingBaseID { get; set; }
 
@@ -46,7 +38,6 @@ namespace Entity.ViewModel
         }
 
         public ChargingBaseEntity ChargingBase { get; set; }
-        public List<BaseDataEntity> PayTypeName { get; set; }
 
     }
 }

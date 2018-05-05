@@ -21,9 +21,9 @@ namespace Entity.ViewModel
         public string StartTime { get; set; }
         public string EndTime { get; set; }
 
-        public int IsUse { get; set; }
-
         public int CityID { get; set; }
+
+        public int IsUse { get; set; }
 
         public string UseStatus {
             get {
@@ -36,6 +36,8 @@ namespace Entity.ViewModel
                 return result;
             }
         }
+
+        public City CityInfo { get; set; }
 
         public List<BaseDataEntity> PayTypeName { get; set; }
 

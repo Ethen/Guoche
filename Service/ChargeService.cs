@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Infrastructure.Helper;
 
 namespace Service
 {
@@ -51,6 +52,7 @@ namespace Service
                 chargeBaseInfo.StartTime = chargingBaseEntity.StartTime;
                 chargeBaseInfo.EndTime = chargingBaseEntity.EndTime;
                 chargeBaseInfo.IsUse = chargingBaseEntity.IsUse;
+                chargeBaseInfo.CityID = chargingBaseEntity.CityID;
             }
 
             return chargeBaseInfo;
@@ -74,10 +76,16 @@ namespace Service
                 chargingBaseEntity.StartTime = chargeBaseInfo.StartTime;
                 chargingBaseEntity.EndTime = chargeBaseInfo.EndTime;
                 chargingBaseEntity.IsUse = chargeBaseInfo.IsUse;
-
+                chargingBaseEntity.CityID = chargeBaseInfo.CityID;
                 if (!string.IsNullOrEmpty(chargingBaseEntity.PayType))
                 {
                     chargingBaseEntity.PayTypeName = GetPayTypeNames(chargingBaseEntity.PayType);
+                }
+
+                if (chargingBaseEntity.CityID > 0)
+                {
+                    City city = BaseDataService.GetAllCity().FirstOrDefault(t => t.CityID == chargingBaseEntity.CityID);
+                    chargingBaseEntity.CityInfo = city;
                 }
             }
 
@@ -99,14 +107,6 @@ namespace Service
                 chargingPileInfo.CElectric = chargingPileEntity.CElectric;
                 chargingPileInfo.Voltage = chargingPileEntity.Voltage;
                 chargingPileInfo.CVoltage = chargingPileEntity.CVoltage;
-                chargingPileInfo.ChargeFee = chargingPileEntity.ChargeFee;
-                chargingPileInfo.ServerFee = chargingPileEntity.ServerFee;
-                chargingPileInfo.ParkFee = chargingPileEntity.ParkFee;
-                chargingPileInfo.PayType = chargingPileEntity.PayType;
-                chargingPileInfo.Address = chargingPileEntity.Address;
-                chargingPileInfo.Coordinate = chargingPileEntity.Coordinate;
-                chargingPileInfo.StartTime = chargingPileEntity.StartTime;
-                chargingPileInfo.EndTime = chargingPileEntity.EndTime;
                 chargingPileInfo.ChargingBaseID = chargingPileEntity.ChargingBaseID;
                 chargingPileInfo.IsUse = chargingPileEntity.IsUse;
             }
@@ -128,24 +128,11 @@ namespace Service
                 chargingPileEntity.CElectric = chargingPileInfo.CElectric;
                 chargingPileEntity.Voltage = chargingPileInfo.Voltage;
                 chargingPileEntity.CVoltage = chargingPileInfo.CVoltage;
-                chargingPileEntity.ChargeFee = chargingPileInfo.ChargeFee;
-                chargingPileEntity.ServerFee = chargingPileInfo.ServerFee;
-                chargingPileEntity.ParkFee = chargingPileInfo.ParkFee;
-                chargingPileEntity.PayType = chargingPileInfo.PayType;
-                chargingPileEntity.Address = chargingPileInfo.Address;
-                chargingPileEntity.Coordinate = chargingPileInfo.Coordinate;
-                chargingPileEntity.StartTime = chargingPileInfo.StartTime;
-                chargingPileEntity.EndTime = chargingPileInfo.EndTime;
                 chargingPileEntity.ChargingBaseID = chargingPileInfo.ChargingBaseID;
                 chargingPileEntity.IsUse = chargingPileInfo.IsUse;
 
                 ChargingBaseEntity chargeBase = new ChargingBaseEntity();
                 chargingPileEntity.ChargingBase = chargeBase;
-
-                if (!string.IsNullOrEmpty(chargingPileEntity.PayType))
-                {
-                    chargingPileEntity.PayTypeName = GetPayTypeNames(chargingPileEntity.PayType);
-                }
 
 
 
@@ -153,29 +140,165 @@ namespace Service
             return chargingPileEntity;
         }
 
-        public static List<ChargingPileEntity> GetALlChargingPileEntity()
+        public static List<ChargingPileEntity> GetAllChargingPileEntity()
         {
             List<ChargingPileEntity> all = new List<ChargingPileEntity>();
-            //GroupRepository mr = new GroupRepository();
-            //List<GroupInfo> miList = Cache.Get<List<GroupInfo>>("GroupALL");
-            //if (miList.IsEmpty())
-            //{
-            //    miList = mr.GetAllGroup();
-            //    Cache.Add("GroupALL", miList);
-            //}
-            //if (!miList.IsEmpty())
-            //{
-            //    foreach (GroupInfo mInfo in miList)
-            //    {
-            //        GroupEntity GroupEntity = TranslateGroupEntity(mInfo);
-            //        all.Add(GroupEntity);
-            //    }
-            //}
+            ChargeRepository mr = new ChargeRepository();
+            List<ChargingPileInfo> miList = Cache.Get<List<ChargingPileInfo>>("ChargingPileALL");
+            if (miList.IsEmpty())
+            {
+                miList = mr.GetAllChargingPileInfo();
+                Cache.Add("ChargingPileALL", miList);
+            }
+            if (!miList.IsEmpty())
+            {
+                foreach (ChargingPileInfo mInfo in miList)
+                {
+                    ChargingPileEntity chargingPileEntity = TranslateChargingPileInfo(mInfo);
+                    all.Add(chargingPileEntity);
+                }
+            }
 
             return all;
         }
 
-        /// <summary>
+        public static List<ChargingBaseEntity> GetAllChargingBaseEntity()
+        {
+            List<ChargingBaseEntity> all = new List<ChargingBaseEntity>();
+            ChargeRepository mr = new ChargeRepository();
+            List<ChargingBaseInfo> miList = Cache.Get<List<ChargingBaseInfo>>("ChargingBaseALL");
+            if (miList.IsEmpty())
+            {
+                miList = mr.GetAllChargingBaseInfo();
+                Cache.Add("ChargingBaseALL", miList);
+            }
+            if (!miList.IsEmpty())
+            {
+                foreach (ChargingBaseInfo mInfo in miList)
+                {
+                    ChargingBaseEntity chargingBaseEntity = TranslateChargingBaseInfo(mInfo);
+                    all.Add(chargingBaseEntity);
+                }
+            }
+
+            return all;
+        }
+
+        public static List<ChargingPileEntity> GetChargingPileListByBaseID(int baseID)
+        {
+            List<ChargingPileEntity> all = new List<ChargingPileEntity>();
+            ChargeRepository mr = new ChargeRepository();
+            List<ChargingPileInfo> miList = mr.GetChargingPileListByBaseID(baseID);
+            if (!miList.IsEmpty())
+            {
+                foreach (ChargingPileInfo mInfo in miList)
+                {
+                    ChargingPileEntity chargingPileEntity = TranslateChargingPileInfo(mInfo);
+                    all.Add(chargingPileEntity);
+                }
+            }
+
+            return all;
+
+        }
+
+        public static ChargingPileEntity GetChargingPileEntityById(long id)
+        {
+            ChargingPileEntity entity = new ChargingPileEntity();
+            ChargingPileInfo info = new ChargeRepository().GetChargingPileById(id);
+            if (info != null)
+            {
+                entity = TranslateChargingPileInfo(info);
+            }
+            
+            return entity;
+        }
+
+        public static ChargingBaseEntity GetChargingBaseById(int id)
+        {
+            ChargingBaseEntity entity = new ChargingBaseEntity();
+            ChargingBaseInfo info = new ChargeRepository().GetChargingBaseById(id);
+            if (info != null)
+            {
+                entity = TranslateChargingBaseInfo(info);
+            }
+
+            return entity;
+        }
+
+        public static bool ModifyChargingPile(ChargingPileEntity entity)
+        {
+            int result = 0;
+            if (entity != null)
+            {
+                ChargeRepository mr = new ChargeRepository();
+
+                ChargingPileInfo info = TranslateChargingPileEntity(entity);
+
+
+                if (entity.ID>0)
+                {
+                    result = mr.ModifyChargingPile(info);
+                }
+                else
+                {
+                    info.CreateDate = DateTime.Now;
+                    result = mr.CreateNewChargingPile(info);
+                }
+
+                List<ChargingPileInfo> miList = mr.GetAllChargingPileInfo();//刷新缓存
+                Cache.Add("ChargingPileALL", miList);
+            }
+            return result > 0;
+        }
+
+        public static bool ModifyChargingBase(ChargingBaseEntity entity)
+        {
+            int result = 0;
+            if (entity != null)
+            {
+                ChargeRepository mr = new ChargeRepository();
+
+                ChargingBaseInfo info = TranslateChargingBaseEntity(entity);
+
+
+                if (entity.ChargeBaseID > 0)
+                {
+                    result = mr.CreateNewChargingBase(info);
+                }
+                else
+                {
+                    info.CreateDate = DateTime.Now;
+                    result = mr.ModifyChargingBase(info);
+                }
+
+                List<ChargingPileInfo> miList = mr.GetAllChargingPileInfo();//刷新缓存
+                Cache.Add("ChargingPileALL", miList);
+            }
+            return result > 0;
+        }
+
+
+        public static int RemoveChargingBase(int id)
+        {
+            ChargeRepository mr=new ChargeRepository();
+            List<ChargingBaseInfo> miList = mr.GetAllChargingBaseInfo();//刷新缓存
+            Cache.Add("ChargingBaseALL", miList);
+            int r=mr.RemoveChargeBase(id);
+            return r;
+        }
+
+        public static int RemoveChargingPiple(long id)
+        {
+            ChargeRepository mr = new ChargeRepository();
+            List<ChargingPileInfo> miList = mr.GetAllChargingPileInfo();//刷新缓存
+            Cache.Add("ChargingPileALL", miList);
+            int r = mr.RemoveChargePile(id);
+            return r;
+        }
+
+
+               /// <summary>
         ///  1、 不传 返回所有2、 充电桩ID CPid  3、 供应点信息ID ChargeBaseID
         /// </summary>
         /// <param name="CPid">充电桩ID</param>
@@ -232,7 +355,7 @@ namespace Service
             }
             return lstCP;
 
-        }
+        }  
 
     }
 }

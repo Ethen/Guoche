@@ -164,7 +164,6 @@ namespace Service.BaseBiz
             return all;
         }
 
-
         public static void Remove(long gid)
         {
             GroupRepository mr = new GroupRepository();

@@ -52,5 +52,8 @@ namespace DataRepository.DataModel
 
         [DataMapping("IsUse", DbType.Int32)]
         public int IsUse { get; set; }
+
+        [DataMapping("CityID", DbType.Int32)]
+        public int CityID { get; set; }
     }
 }
