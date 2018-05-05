@@ -103,7 +103,9 @@
                             </div>
                         </div>
                         <div class="control-group">
+                            <label class="control-label">图片预览</label>
                             <div class="controls" id="picContainer">
+                                
                                 @if (storeEntity.Attachments != null && storeEntity.Attachments.Count > 0)
                                 {
                                     foreach (var item in storeEntity.Attachments)
@@ -113,14 +115,17 @@
                                 }
                             </div>
                         </div>
-                        <div class="control-group">
-                            <input type="hidden" id="AttachmentIDs" name="AttachmentIDs" value="@storeEntity.AttachmentIDs">
-                            <label class="control-label">上传图片</label>
-                            <div class="controls">
-                                <input type="file" name="file" id="file" multiple />
-                            </div>
+                        @if (storeEntity.Attachments == null || storeEntity.Attachments.Count<5)
+                        {
+                            <div class="control-group" id="uploadC">
+                                <input type="hidden" id="AttachmentIDs" name="AttachmentIDs" value="@storeEntity.AttachmentIDs">
+                                <label class="control-label">上传图片</label>
+                                <div class="controls">
+                                    <input type="file" name="file" id="file" multiple />
+                                </div>
+                            </div>                         
+                        }
 
-                        </div>
                     </div>
                 </div>
 
@@ -139,9 +144,16 @@
 <script type="text/javascript" src="~/source/Store.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
+        var len = 5;
+        var ids = $("#AttachmentIDs").val().split(",");
+        if (ids.length < 5)
+        {
+            len = 5 - ids.length;
+        }
+
  
         var oFileInput = new FileInput();
-        oFileInput.Init("file", "/Upload/UploadFile");
+        oFileInput.Init("file", "/Upload/UploadFile", len);
 
         storeInfo.init();
 

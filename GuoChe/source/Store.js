@@ -53,7 +53,7 @@ var FileInput = function () {
     var oFile = new Object();
 
     //初始化fileinput控件（第一次初始化）
-    oFile.Init = function (ctrlName, uploadUrl) {
+    oFile.Init = function (ctrlName, uploadUrl,maxCount) {
         var control = $('#' + ctrlName);
 
         //初始化上传控件的样式
@@ -67,13 +67,14 @@ var FileInput = function () {
             dropZoneEnabled: false,//是否显示拖拽区域
             maxFileSize: 20000,//单位为kb，如果为0表示不限制文件大小
             minFileCount: 0,//限制上传的文件数量
-            maxFileCount: 3,
+            maxFileCount: maxCount,
             enctype: 'multipart/form-data',
             validateInitialCount: true,
             previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
             msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
             layoutTemplates: {
-                actionUpload: ""
+                actionUpload: "",
+                actionDelete:""
             }
         });
 
@@ -90,8 +91,9 @@ var FileInput = function () {
                 }
                 $("#AttachmentIDs").val(aids);
                 $("#picContainer").append('<img src="' + fpath + '" alt="' + fName + '" style="width: 150px; height: 150px; margin-top: 15px">');
+                storeInfo.clearUpload();
             }
-            $(".fileinput-remove").click();
+            
         }).on('fileerror', function (event, data, msg) {
             alert("上传失败，失败原因" + msg);
         });
@@ -145,5 +147,18 @@ var storeInfo = {
         var pid = $("#provinceid").val(), cid = $("#cityid").val();
         $("#sltProvince").val(pid).trigger("change");
         $("#sltCity").val(cid);
+    },
+
+    clearUpload: function () {
+        $(".close").trigger("click");
+        $(".fileinput-cancel-button").attr("disabled", "disabled").hide();
+        $(".btn-primary").removeAttr("disabled");
+        $("#file").removeAttr("disabled");
+        var ids=$("#AttachmentIDs").val().split(",");
+
+        if (ids.length > 4)
+        {
+            $("#uploadC").hide();
+        }
     }
 }

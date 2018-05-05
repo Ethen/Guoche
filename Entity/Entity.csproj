@@ -43,6 +43,8 @@
     <Compile Include="ViewModel\ApiUserEntity.cs" />
     <Compile Include="ViewModel\AttachmentEntity.cs" />
     <Compile Include="ViewModel\BaseDataEntity.cs" />
+    <Compile Include="ViewModel\ChargingBaseEntity.cs" />
+    <Compile Include="ViewModel\ChargingPileEntity.cs" />
     <Compile Include="ViewModel\City.cs" />
     <Compile Include="ViewModel\CustomerEntity.cs" />
     <Compile Include="ViewModel\GroupEntity.cs" />

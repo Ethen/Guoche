@@ -50,6 +50,10 @@
   <ItemGroup>
     <Compile Include="DataAccess\BaseData\BaseDataStatement.cs" />
     <Compile Include="DataAccess\BaseData\BaseDataRepository.cs" />
+    <Compile Include="DataAccess\Charge\ChargeRepository.cs" />
+    <Compile Include="DataAccess\Charge\ChargeStatement.cs" />
+    <Compile Include="DataModel\ChargingBaseInfo.cs" />
+    <Compile Include="DataModel\ChargingPileInfo.cs" />
     <Compile Include="DataAccess\CommonStatement.cs" />
     <Compile Include="DataAccess\Customer\CustomerRepository.cs" />
     <Compile Include="DataAccess\Customer\CustomerStatement.cs" />
