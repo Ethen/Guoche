@@ -39,6 +39,7 @@
       <HintPath>..\Libs\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -50,6 +51,8 @@
     <Compile Include="DataAccess\BaseData\BaseDataStatement.cs" />
     <Compile Include="DataAccess\BaseData\BaseDataRepository.cs" />
     <Compile Include="DataAccess\CommonStatement.cs" />
+    <Compile Include="DataAccess\Customer\CustomerRepository.cs" />
+    <Compile Include="DataAccess\Customer\CustomerStatement.cs" />
     <Compile Include="DataAccess\Group\GroupRepository.cs" />
     <Compile Include="DataAccess\Group\GroupStatement.cs" />
     <Compile Include="DataAccess\Menu\MenuRepository.cs" />
@@ -63,6 +66,7 @@
     <Compile Include="DataModel\AttachmentInfo.cs" />
     <Compile Include="DataModel\BaseDataInfo.cs" />
     <Compile Include="DataModel\CityInfo.cs" />
+    <Compile Include="DataModel\CustomerInfo.cs" />
     <Compile Include="DataModel\GroupInfo.cs" />
     <Compile Include="DataModel\MenuInfo.cs" />
     <Compile Include="DataModel\ProvinceInfo.cs" />
