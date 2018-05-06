@@ -298,7 +298,7 @@ namespace Service
         }
 
 
-               /// <summary>
+        /// <summary>
         ///  1、 不传 返回所有2、 充电桩ID CPid  3、 供应点信息ID ChargeBaseID
         /// </summary>
         /// <param name="CPid">充电桩ID</param>
@@ -307,7 +307,14 @@ namespace Service
         public static List<ChargingPileEntity> GetChargingPileInfo(string CPid, string ChargeBaseID)
         {
             List<ChargingPileEntity> lstCP = null;
-            List<ChargingPileInfo> lstCharging = ChargeRepository.GetChargingPileInfo(CPid, ChargeBaseID);
+
+            List<ChargingPileInfo> lstCharging = Cache.Get<List<ChargingPileInfo>>("GetChargingPileInfo" + CPid + ChargeBaseID);
+            if (lstCharging.IsEmpty())
+            {
+                lstCharging = ChargeRepository.GetChargingPileInfo(CPid, ChargeBaseID); ;
+                Cache.Add("GetChargingPileInfo" + CPid + ChargeBaseID, lstCharging);
+            }
+
             if (lstCharging != null && lstCharging.Count > 0)
             {
                 lstCP = new List<ChargingPileEntity>();
@@ -334,7 +341,14 @@ namespace Service
         public static List<ChargingBaseEntity> GetChargingBaseInfo(string CPid, string ChargeBaseID)
         {
             List<ChargingBaseEntity> lstCP = null;
-            List<ChargingBaseInfo> lstCharging = ChargeRepository.GetChargingBaseInfo(CPid, ChargeBaseID);
+
+            List<ChargingBaseInfo> lstCharging = Cache.Get<List<ChargingBaseInfo>>("GetChargingBaseInfo" + CPid + ChargeBaseID);
+            if (lstCharging.IsEmpty())
+            {
+                lstCharging = ChargeRepository.GetChargingBaseInfo(CPid, ChargeBaseID);
+                Cache.Add("GetChargingBaseInfo" + CPid + ChargeBaseID, lstCharging);
+            }
+
             if (lstCharging != null && lstCharging.Count > 0)
             {
                 lstCP = new List<ChargingBaseEntity>();

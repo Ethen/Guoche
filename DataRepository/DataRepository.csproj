@@ -52,6 +52,8 @@
     <Compile Include="DataAccess\BaseData\BaseDataRepository.cs" />
     <Compile Include="DataAccess\Charge\ChargeRepository.cs" />
     <Compile Include="DataAccess\Charge\ChargeStatement.cs" />
+    <Compile Include="DataAccess\News\NewsRepository.cs" />
+    <Compile Include="DataAccess\News\NewsStatement.cs" />
     <Compile Include="DataModel\ChargingBaseInfo.cs" />
     <Compile Include="DataModel\ChargingPileInfo.cs" />
     <Compile Include="DataAccess\CommonStatement.cs" />
@@ -73,6 +75,7 @@
     <Compile Include="DataModel\CustomerInfo.cs" />
     <Compile Include="DataModel\GroupInfo.cs" />
     <Compile Include="DataModel\MenuInfo.cs" />
+    <Compile Include="DataModel\NewsInfo.cs" />
     <Compile Include="DataModel\ProvinceInfo.cs" />
     <Compile Include="DataModel\RoleInfo.cs" />
     <Compile Include="DataModel\StoreInfo.cs" />

@@ -50,6 +50,7 @@
     <Compile Include="ViewModel\GroupEntity.cs" />
     <Compile Include="ViewModel\MenuCompare.cs" />
     <Compile Include="ViewModel\MenuEntity.cs" />
+    <Compile Include="ViewModel\NewsEntity.cs" />
     <Compile Include="ViewModel\Province.cs" />
     <Compile Include="ViewModel\RoleEntity.cs" />
     <Compile Include="ViewModel\StoreEntity.cs" />
