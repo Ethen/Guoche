@@ -30,7 +30,7 @@ namespace GuoChe.Controllers
         {
             ApiUserEntity viewE = new ApiUserEntity();
 
-            CustomerEntity entity= CustomerService.Login(telephone, password);
+            CustomerEntity entity = CustomerService.Login(telephone, EncryptHelper.MD5Encrypt(password));
             if (entity != null)
             {
                 viewE.result = true;
@@ -78,7 +78,7 @@ namespace GuoChe.Controllers
             CustomerEntity chkENtity = CustomerService.GetCustomerByTelephone(telephone);
             if (chkENtity == null)
             {
-                CustomerEntity entity = CustomerService.Register(telephone, password, vcode);
+                CustomerEntity entity = CustomerService.Register(telephone, EncryptHelper.MD5Encrypt(password), vcode);
                 if (entity != null)
                 {
                     viewE.result = true;
@@ -137,7 +137,7 @@ namespace GuoChe.Controllers
         public JsonResult Forget(string userid, string telephone, string vcode, string newpassword)
         {
             ApiUserEntity viewE = new ApiUserEntity();
-            CustomerEntity chkENtity = CustomerService.UpdatePassword(telephone, newpassword, vcode);
+            CustomerEntity chkENtity = CustomerService.UpdatePassword(telephone, EncryptHelper.MD5Encrypt(newpassword), vcode);
             if (chkENtity != null)
             {
                 viewE.customerEntity = chkENtity;

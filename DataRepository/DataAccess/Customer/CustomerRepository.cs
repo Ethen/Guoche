@@ -73,7 +73,7 @@ namespace DataRepository.DataAccess.Customer
             command.AddInputParameter("@Password", DbType.String, password);
             command.AddInputParameter("@Channel", DbType.Int32, 1);
             command.AddInputParameter("@Name", DbType.String, "");
-            command.AddInputParameter("@Mobile", DbType.Int32, telephone);
+            command.AddInputParameter("@Mobile", DbType.String, telephone);
             command.AddInputParameter("@CreateDate", DbType.DateTime, DateTime.Now);
             command.AddInputParameter("@LastLoginDate", DbType.DateTime, DateTime.Now);
             return command.ExecuteNonQuery();
