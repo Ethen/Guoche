@@ -83,18 +83,36 @@ namespace GuoChe.Controllers
             Response.Redirect("/User/");
         }
 
-
-        public ContentResult ModifyPassword(long userid, string pwd)
+        [HttpGet]
+        public ActionResult ModifyPassword()
         {
-            string result = "";
-            int r = UserService.ModifyPassword(userid, EncryptHelper.MD5Encrypt(pwd));
+            ViewBag.CurrentUser = CurrentUser;
+            return View();
+        }
+
+        [HttpPost]
+        public ContentResult CheckPwd(string oldPwd)
+        {
+            string result = "F";
+
+            UserEntity user = UserService.GetLoginUser(CurrentUser.UserName, EncryptHelper.MD5Encrypt(oldPwd));
+
+            if (user != null && user.UserID == CurrentUser.UserID)
+            {
+                result = "T";
+            }
+
+            return Content(result);
+        }
+
+        [HttpPost]
+        public ContentResult ModifyPassword(string npwd)
+        {
+            string result = "F";
+            int r = UserService.ModifyPassword(CurrentUser.UserID, EncryptHelper.MD5Encrypt(npwd));
             if (r > 0)
             {
-                //todo:放入缓存，并跳转
-            }
-            else
-            {
-
+                result = "T";
             }
             return Content(result);
         }

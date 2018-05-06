@@ -395,6 +395,7 @@
     <Content Include="source\bootstrap-fileinput\js\fileinput_locale_zh.js" />
     <Content Include="source\bootstrap-fileinput\js\plugins\canvas-to-blob.js" />
     <Content Include="source\bootstrap-fileinput\js\plugins\canvas-to-blob.min.js" />
+    <Content Include="source\ChargeBase.js" />
     <Content Include="source\Common.js" />
     <Content Include="source\News.js" />
     <Content Include="source\Store.js" />
@@ -471,6 +472,7 @@
     <Content Include="Views\Charge\EditChargePile.cshtml" />
     <Content Include="Views\News\Index.cshtml" />
     <Content Include="Views\News\Edit.cshtml" />
+    <Content Include="Views\User\ModifyPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

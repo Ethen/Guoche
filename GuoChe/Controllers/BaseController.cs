@@ -41,7 +41,7 @@ namespace GuoChe.Controllers
                 UserEntity user = Cache.Get<UserEntity>(UKey);
                 if (user == null)
                 {
-                    //Response.Redirect("/", true);
+                    Response.Redirect("/", true);
                 }
 
                 return user;
