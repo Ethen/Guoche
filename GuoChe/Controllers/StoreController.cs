@@ -58,16 +58,7 @@ namespace GuoChe.Controllers
             Response.Redirect("/Store/");
         } 
 
-        public JsonResult GetCity(int pid)
-        {
-            List<City> listCity=BaseDataService.GetAllCity();
-            if (!listCity.IsEmpty())
-            {
-                listCity = listCity.Where(t => t.ProvinceID == pid).ToList();
-            }
 
-            return Json(listCity);
-        }
 
 
     }

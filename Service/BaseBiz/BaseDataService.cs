@@ -282,6 +282,12 @@ namespace Service.BaseBiz
 
         }
 
+        public static List<BaseDataEntity> GetAllPayType()
+        {
+            List<BaseDataEntity> payType = GetBaseDataAll().Where(p => p.PCode == "P00" && p.Status == 1).ToList();
+            return payType;
+        }
+
 
         public static void Remove(int id)
         {

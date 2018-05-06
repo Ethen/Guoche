@@ -82,7 +82,7 @@ namespace DataRepository.DataAccess.Charge
         public ChargingBaseInfo GetChargingBaseById(int id)
         {
             ChargingBaseInfo chbase = new ChargingBaseInfo();
-            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(ChargeStatement.RemoveChargingBase, "Text"));
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(ChargeStatement.GetChargingBaseByKey, "Text"));
             command.AddInputParameter("@ChargeBaseID", DbType.Int32, id);
             chbase = command.ExecuteEntity<ChargingBaseInfo>();
             return chbase;
@@ -91,7 +91,7 @@ namespace DataRepository.DataAccess.Charge
         public ChargingPileInfo GetChargingPileById(long id)
         {
             ChargingPileInfo chpile = new ChargingPileInfo();
-            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(ChargeStatement.RemoveChargingBase, "Text"));
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(ChargeStatement.GetChargingPileByKey, "Text"));
             command.AddInputParameter("@ID", DbType.Int64, id);
             chpile = command.ExecuteEntity<ChargingPileInfo>();
             return chpile;
@@ -178,6 +178,7 @@ namespace DataRepository.DataAccess.Charge
             command.AddInputParameter("@Coordinate", DbType.String, baseInfo.Coordinate);
             command.AddInputParameter("@StartTime", DbType.String, baseInfo.StartTime);
             command.AddInputParameter("@EndTime", DbType.String, baseInfo.EndTime);
+            command.AddInputParameter("@CityID", DbType.String, baseInfo.CityID);
             command.AddInputParameter("@IsUse", DbType.Int32, baseInfo.IsUse);
 
             return command.ExecuteNonQuery();
@@ -197,6 +198,71 @@ namespace DataRepository.DataAccess.Charge
             command.AddInputParameter("@ID", DbType.Int64, pid);
             int result = command.ExecuteNonQuery();
             return result;
-        } 
+        }
+
+
+        public List<ChargingBaseInfo> GetChargingBaseInfoRule(string name, int status)
+        {
+            List<ChargingBaseInfo> result = new List<ChargingBaseInfo>();
+            string sqlText = ChargeStatement.GetAllChargingBaseByRule;
+            if (!string.IsNullOrEmpty(name))
+            {
+                sqlText += " AND Name LIKE '%'+@key+'%'";
+            }
+            if (status > -1)
+            {
+                sqlText += " AND IsUse=@IsUse";
+            }
+
+
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sqlText, "Text"));
+            if (!string.IsNullOrEmpty(name))
+            {
+                command.AddInputParameter("@key", DbType.String, name);
+            }
+            if (status > -1)
+            {
+                command.AddInputParameter("@IsUse", DbType.Int32, status);
+            }
+
+            result = command.ExecuteEntityList<ChargingBaseInfo>();
+            return result;
+        }
+
+        public List<ChargingPileInfo> GetChargingPileInfoRule(string name, int status,int cid)
+        {
+            List<ChargingPileInfo> result = new List<ChargingPileInfo>();
+            string sqlText = ChargeStatement.GetAllChargingPileByRule;
+            if (!string.IsNullOrEmpty(name))
+            {
+                sqlText += " AND Code LIKE '%'+@key+'%'";
+            }
+            if (status > -1)
+            {
+                sqlText += " AND IsUse=@IsUse";
+            }
+            if (cid > -1)
+            {
+                sqlText += " AND ChargingBaseID=@ChargingBaseID";
+            }
+
+
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sqlText, "Text"));
+            if (!string.IsNullOrEmpty(name))
+            {
+                command.AddInputParameter("@key", DbType.String, name);
+            }
+            if (status > -1)
+            {
+                command.AddInputParameter("@IsUse", DbType.Int32, status);
+            }
+            if (cid > -1)
+            {
+                command.AddInputParameter("@ChargingBaseID", DbType.Int32, cid);
+            }
+
+            result = command.ExecuteEntityList<ChargingPileInfo>();
+            return result;
+        }
     }
 }

@@ -131,7 +131,7 @@ namespace Service
                 chargingPileEntity.ChargingBaseID = chargingPileInfo.ChargingBaseID;
                 chargingPileEntity.IsUse = chargingPileInfo.IsUse;
 
-                ChargingBaseEntity chargeBase = new ChargingBaseEntity();
+                ChargingBaseEntity chargeBase = GetAllChargingBaseEntity().FirstOrDefault(t => t.IsUse == 1 && t.ChargeBaseID == chargingPileEntity.ChargingBaseID) ?? new ChargingBaseEntity();
                 chargingPileEntity.ChargingBase = chargeBase;
 
 
@@ -264,16 +264,16 @@ namespace Service
 
                 if (entity.ChargeBaseID > 0)
                 {
-                    result = mr.CreateNewChargingBase(info);
+                    result = mr.ModifyChargingBase(info);
                 }
                 else
                 {
                     info.CreateDate = DateTime.Now;
-                    result = mr.ModifyChargingBase(info);
+                    result = mr.CreateNewChargingBase(info);
                 }
 
-                List<ChargingPileInfo> miList = mr.GetAllChargingPileInfo();//刷新缓存
-                Cache.Add("ChargingPileALL", miList);
+                List<ChargingBaseInfo> miList = mr.GetAllChargingBaseInfo();//刷新缓存
+                Cache.Add("ChargingBaseALL", miList);
             }
             return result > 0;
         }
@@ -295,6 +295,36 @@ namespace Service
             Cache.Add("ChargingPileALL", miList);
             int r = mr.RemoveChargePile(id);
             return r;
+        }
+
+        public static List<ChargingPileEntity> GetChargingPileInfoByRule(string name, int status,int cid)
+        {
+            List<ChargingPileEntity> list = new List<ChargingPileEntity>();
+            List<ChargingPileInfo> info = new ChargeRepository().GetChargingPileInfoRule(name, status, cid);
+            if (info != null)
+            {
+                foreach (ChargingPileInfo item in info)
+                {
+                    list.Add(TranslateChargingPileInfo(item));
+                }
+            }
+
+            return list;
+        }
+
+        public static List<ChargingBaseEntity> GetChargingBaseInfoByRule(string name, int status)
+        {
+            List<ChargingBaseEntity> list = new List<ChargingBaseEntity>();
+            List<ChargingBaseInfo> info = new ChargeRepository().GetChargingBaseInfoRule(name, status);
+            if (info != null)
+            {
+                foreach (ChargingBaseInfo item in info)
+                {
+                    list.Add(TranslateChargingBaseInfo(item));
+                }
+            }
+
+            return list;
         }
 
 
@@ -370,6 +400,8 @@ namespace Service
             return lstCP;
 
         }  
+
+
 
     }
 }
