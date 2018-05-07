@@ -399,6 +399,7 @@
     <Content Include="source\ChargeBase.js" />
     <Content Include="source\Common.js" />
     <Content Include="source\News.js" />
+    <Content Include="source\Car.js" />
     <Content Include="source\Store.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -476,6 +477,7 @@
     <Content Include="Views\User\ModifyPassword.cshtml" />
     <Content Include="Views\BaseData\Main.cshtml" />
     <Content Include="Views\Car\Index.cshtml" />
+    <Content Include="Views\Car\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -36,13 +36,14 @@ namespace GuoChe.Controllers
         public ActionResult Edit(string cid)
         {
             ViewBag.Store = StoreService.GetStoreAll().Where(t => t.Status == 1).ToList();
+            ViewBag.CarModel = BaseDataService.GetBaseDataAll().Where(t => t.PCode == "C00" && t.Status == 1).ToList();
             if (!string.IsNullOrEmpty(cid))
             {
                 ViewBag.Car = CarService.GetCarEntityById(cid.ToLong(0));
             }
             else
             {
-                ViewBag.Car = new StoreEntity();
+                ViewBag.Car = new CarEntity();
             }
             
             return View();
@@ -50,6 +51,7 @@ namespace GuoChe.Controllers
 
         public void Modify(CarEntity car)
         {
+            if (car != null) { car.Operator = CurrentUser.UserID; }
             CarService.ModifyCar(car);
             Response.Redirect("/Car/");
         }
