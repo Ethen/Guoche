@@ -54,6 +54,7 @@
     <Compile Include="ViewModel\NewsEntity.cs" />
     <Compile Include="ViewModel\Province.cs" />
     <Compile Include="ViewModel\RoleEntity.cs" />
+    <Compile Include="ViewModel\SendSmsData.cs" />
     <Compile Include="ViewModel\StoreEntity.cs" />
     <Compile Include="ViewModel\UserEntity.cs" />
   </ItemGroup>
