@@ -105,7 +105,7 @@ namespace DataRepository.DataAccess.BaseData
             {
                 sqlText += " AND Description LIKE '%'+@key+'%'";
             }
-
+            sqlText += " ORDER BY TypeCode";
 
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sqlText, "Text"));
             if (!string.IsNullOrEmpty(desc))

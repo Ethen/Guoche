@@ -21,7 +21,7 @@ namespace DataRepository.DataAccess.Menu
 {
     public class MenuSatement
     {
-        public static string GetAllMenus = @"SELECT * FROM Menu(NOLOCK)";
+        public static string GetAllMenus = @"SELECT * FROM Menu(NOLOCK) ORDER BY GroupCode";
 
         public static string GetAllMenusByRule = @"SELECT * FROM Menu(NOLOCK) WHERE 1=1 ";
 

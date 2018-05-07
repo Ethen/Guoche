@@ -20,6 +20,19 @@ String.prototype.StringFormat = function () {
 $(document).ready(function () {
     var rule = "#sidebar a[href='{0}']".StringFormat(location.pathname);
     $(rule).parent().parent().show();
+
+    $(".b_C1F8A9").click(function () {//处理左边栏菜单收缩放开
+        event.stopPropagation();
+        if ($(this).hasClass("collapsed")) {
+            console.log(1);
+            $(this).removeClass("collapsed").next(".collapse").css("height", "auto");
+        }
+        else {
+            console.log(2);
+            $(this).addClass("collapsed").next(".collapse").css("height", "0px");
+        }
+        
+    })
 })
 
 var WebHelper = {

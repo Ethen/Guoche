@@ -190,6 +190,7 @@
     <Compile Include="Controllers\ChargeController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
+    <Compile Include="Controllers\CarController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
@@ -473,6 +474,8 @@
     <Content Include="Views\News\Index.cshtml" />
     <Content Include="Views\News\Edit.cshtml" />
     <Content Include="Views\User\ModifyPassword.cshtml" />
+    <Content Include="Views\BaseData\Main.cshtml" />
+    <Content Include="Views\Car\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

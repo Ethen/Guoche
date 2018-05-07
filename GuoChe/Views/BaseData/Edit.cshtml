@@ -41,7 +41,8 @@
                                 <option value="">无</option>
                                 @if (allData != null && allData.Count > 0)
                                 {
-                                    foreach (BaseDataEntity b in allData)
+                                    List<BaseDataEntity> blist=allData.Where(t=>string.IsNullOrEmpty(t.PCode)).ToList();
+                                    foreach (BaseDataEntity b in blist)
                                     {
                                          <option value="@b.TypeCode" @((b.TypeCode==baseData.PCode)?"selected":"")>@b.Description</option>
                                     }

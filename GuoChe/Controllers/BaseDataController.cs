@@ -32,6 +32,11 @@ namespace GuoChe.Controllers
             return View();
         }
 
+        public ActionResult Main()
+        {
+            return View();
+        }
+
         [HttpGet]
         public ActionResult Edit(string id)
         {

@@ -25,8 +25,7 @@ namespace DataRepository.DataAccess
 {
     public class DataAccessBase
     {
-        // ConfigurationManager.AppSettings["ConnectionString"];//
-        public static string ConnectionString =  @"Server=118.31.13.37;Database=GuoChe;UID=sa;Password=ABCabc123";
+        public static string ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ToString();
 
         protected static DbCommand GetDbCommand(string commandText, string commandType)
         {

@@ -42,7 +42,7 @@ namespace GuoChe.Controllers
                 ViewBag.Menu = new MenuEntity();
             }
             
-            ViewBag.GroupCodes = BaseDataService.GetBaseDataAll().Where(t => t.Status == 1 && !string.IsNullOrEmpty(t.PCode)).ToList();
+            ViewBag.GroupCodes = BaseDataService.GetBaseDataAll().Where(t => t.Status == 1 && t.PCode=="S00").ToList();
 
             return View();
         }

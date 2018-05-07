@@ -54,7 +54,7 @@
                                 <tr class=@(i%2==0?"odd":"even")>
                                     <td class=" sorting_1">@menus[i].MenuName</td>
                                     <td class=" ">@menus[i].URL</td>
-                                    <td class=" ">@menus[i].GroupCode</td>
+                                    <td class=" ">@(menus[i].BaseData.Description+"("+menus[i].GroupCode+")" )</td>
                                     <td class=" ">@menus[i].Remark</td>                                 
                                     <td class=" ">
                                         @if (menus[i].Status == 0)

@@ -12,7 +12,7 @@ namespace DataRepository.DataAccess.BaseData
 
         public static string GetAllProvince = @"SELECT ProvinceID,ProvinceName FROM Province(NOLOCK)";
 
-        public static string GetAllBaseData = @"SELECT * FROM BaseData(NOLOCK)";
+        public static string GetAllBaseData = @"SELECT * FROM BaseData(NOLOCK) ORDER BY TypeCode";
 
         public static string GetAllBaseDataByRule = @"SELECT * FROM BaseData(NOLOCK) WHERE 1=1 ";
 
