@@ -132,6 +132,29 @@ namespace Service
             return all;
         }
 
+
+        public static List<CarEntity> GetAllCar(string carid, string supplierid)
+        {
+            List<CarEntity> all = new List<CarEntity>();
+            CarRepository mr = new CarRepository();
+            List<CarInfo> miList = Cache.Get<List<CarInfo>>("CarALL" + carid + supplierid);
+            if (miList.IsEmpty())
+            {
+                miList = mr.GetAllCarInfo(carid, supplierid);
+                Cache.Add("CarALL" + carid + supplierid, miList);
+            }
+            if (!miList.IsEmpty())
+            {
+                foreach (CarInfo mInfo in miList)
+                {
+                    CarEntity carEntity = TranslateCarEntity(mInfo);
+                    all.Add(carEntity);
+                }
+            }
+
+            return all;
+        }
+
         public static bool ModifyCar(CarEntity car)
         {
             int result = 0;

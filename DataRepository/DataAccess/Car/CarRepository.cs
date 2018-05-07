@@ -32,6 +32,25 @@ namespace DataRepository.DataAccess.Car
             return result;
         }
 
+        public List<CarInfo> GetAllCarInfo(string carid, string supplierid)
+        {
+
+            string sqltext = CarStatement.GetAllCarInfoByRule;
+            if (!string.IsNullOrEmpty(carid))
+            {
+                sqltext += " and CarID='" + carid + "'";
+            }
+            if (!string.IsNullOrEmpty(supplierid))
+            {
+                sqltext += " and SupplierID='" + supplierid + "'";
+
+            }
+            List<CarInfo> result = new List<CarInfo>();
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sqltext, "Text"));
+            result = command.ExecuteEntityList<CarInfo>();
+            return result;
+        }
+
         public List<CarInfo> GetCarInfoBySupplierID(long supplierID)
         {
             List<CarInfo> result = new List<CarInfo>();

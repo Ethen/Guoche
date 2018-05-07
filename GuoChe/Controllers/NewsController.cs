@@ -53,6 +53,7 @@ namespace GuoChe.Controllers
             int status = (Request["Status"] ?? "").ToInt(0);
             int ChannelID = (Request["ChannelID"] ?? "").ToInt(0);
             string content = Request["Content"] ?? "";
+            content = Request["txtEditorContents"] ?? "";
             string zhaiyao = Request["zhaiyao"] ?? "";
             string imageUrl = Request["ImageUrl"] ?? "";
             NewsEntity entity = new NewsEntity();
@@ -61,7 +62,7 @@ namespace GuoChe.Controllers
             entity.ChannelID = ChannelID;
             entity.zhaiyao = zhaiyao;
             entity.ImageUrl = imageUrl;
-            entity.Operator = 0;
+            entity.Operator = CurrentUser == null ? 0 : CurrentUser.UserID;
             entity.Content = content;
             entity.Status = status;
             NewsService.ModifiyNews(entity);
