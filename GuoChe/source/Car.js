@@ -25,7 +25,7 @@ var FileInput = function () {
     var oFile = new Object();
 
     //初始化fileinput控件（第一次初始化）
-    oFile.Init = function (ctrlName, uploadUrl,maxCount) {
+    oFile.Init = function (ctrlName, uploadUrl) {
         var control = $('#' + ctrlName);
 
         //初始化上传控件的样式
@@ -39,7 +39,7 @@ var FileInput = function () {
             dropZoneEnabled: false,//是否显示拖拽区域
             maxFileSize: 20000,//单位为kb，如果为0表示不限制文件大小
             minFileCount: 0,//限制上传的文件数量
-            maxFileCount: maxCount,
+            maxFileCount: 5,
             enctype: 'multipart/form-data',
             validateInitialCount: true,
             previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
@@ -62,8 +62,10 @@ var FileInput = function () {
                     aids = aid;
                 }
                 $("#AttachmentIDs").val(aids);
+                $("#picContainer").append('<span class="picRemove"  val="' + aid + '" style="height:0px"></span>');
                 $("#picContainer").append('<img src="' + fpath + '" alt="' + fName + '" style="width: 150px; height: 150px; margin-top: 15px">');
                 carInfo.clearUpload();
+                carInfo.initPicInfo();
             }
             
         }).on('fileerror', function (event, data, msg) {
@@ -78,6 +80,7 @@ var carInfo = {
     init: function () {
         valid.init(elemnets);
         carInfo.regEvent();
+        carInfo.initPicInfo();
         $("#ModelCode").trigger("change");
     },
 
@@ -109,9 +112,39 @@ var carInfo = {
         $("#file").removeAttr("disabled");
         var ids=$("#AttachmentIDs").val().split(",");
 
-        if (ids.length > 4)
+        if (ids.length > (maxPicCount-1))
         {
             $("#uploadC").hide();
         }
+    },
+
+    initPicInfo: function () {
+        $("#picContainer>img").on("mouseenter", function () {
+            $(this).prev(".picRemove").addClass("icon-trash").css("height", "15px");
+        }).on("mouseout", function () {
+            $(this).prev(".picRemove").removeClass("icon-trash").css("height", "0px");
+        });
+        $(".picRemove")
+          .on("click", function () {
+              var aids = $("#AttachmentIDs").val(), aid = $(this).attr("val");
+              if (aids.indexOf(aid + ",") > -1) {
+                  aids = aids.replace(aid + ",", "");
+              }
+              else {
+                  aids = aids.replace(aid, "");
+              }
+              $(this).next("img").remove();
+              $(this).remove();
+              $("#AttachmentIDs").val(aids);
+
+              $("#uploadC").show();
+          }).on("mouseenter", function () {
+              if ($(this).hasClass("icon-trash")) {
+                  $(this).css("height", "15px");
+              }
+              else {
+                  $(this).addClass("icon-trash").css("height", "15px");
+              }
+          });
     }
 }

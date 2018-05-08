@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Configuration;
 
 namespace GuoChe.Controllers
 {
@@ -33,6 +34,7 @@ namespace GuoChe.Controllers
         public ActionResult Edit(string sid)
         {
             ViewBag.Province = BaseDataService.GetAllProvince();
+            ViewBag.MaxPicCount = ConfigurationManager.AppSettings["MaxPicCount"].ToString();
             if (!string.IsNullOrEmpty(sid))
             {
                 ViewBag.Store = StoreService.GetStoreById(sid.ToInt(0));

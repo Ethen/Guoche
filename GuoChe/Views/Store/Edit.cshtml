@@ -9,6 +9,19 @@
     <link href="~/source/assets/css/timepicker.css" rel="stylesheet" />
     @*<link href="~/source/assets/css/local.css" rel="stylesheet" />*@
     <link href="~/source/bootstrap-fileinput/css/fileinput.min.css" rel="stylesheet" />
+    <style>
+        .picRemove {
+            height: 15px;
+            width: 15px;
+            background-color: #e4e5e6;
+            position: absolute;
+            margin-top: 15px;
+            /*filter: alpha(opacity:70);
+            opacity: 0.7;
+            -moz-opacity: 0.7;
+            -khtml-opacity: 0.7;*/
+        }
+    </style>
 
 }
     <div class="row-fluid">
@@ -110,21 +123,28 @@
                                 {
                                     foreach (var item in storeEntity.Attachments)
                                     {
-                                        <img src="@item.FilePath.Replace("~","")" alt="@(item.FileName+item.FileExtendName)" style="width: 150px; height: 150px; margin-top: 15px">
+                                         <span class="picRemove"  val="@item.AttachmentID" style="height:0px"></span>
+                                         <img src="@item.FilePath.Replace("~","")" alt="@(item.FileName+item.FileExtendName)" style="width: 150px; height: 150px; margin-top: 15px">
                                     }
                                 }
                             </div>
                         </div>
+                        <input type="hidden" id="AttachmentIDs" name="AttachmentIDs" value="@storeEntity.AttachmentIDs">
                         @if (storeEntity.Attachments == null || storeEntity.Attachments.Count<5)
                         {
-                            <div class="control-group" id="uploadC">
-                                <input type="hidden" id="AttachmentIDs" name="AttachmentIDs" value="@storeEntity.AttachmentIDs">
+                            <div class="control-group" id="uploadC">                      
                                 <label class="control-label">上传图片</label>
                                 <div class="controls">
                                     <input type="file" name="file" id="file" multiple />
                                 </div>
                             </div>                         
                         }
+                        <div class="control-group">
+                            <label class="control-label"></label>
+                            <div class="controls">
+                                <span style="color:red" id="spDesc"></span>
+                            </div>
+                        </div>  
 
                     </div>
                 </div>
@@ -143,17 +163,12 @@
 <script type="text/javascript" src="~/source/bootstrap-fileinput/js/fileinput_locale_zh.js"></script>
 <script type="text/javascript" src="~/source/Store.js"></script>
 <script type="text/javascript">
+    var maxPicCount = @ViewBag.MaxPicCount;
     $(document).ready(function () {
-        var len = 5;
-        var ids = $("#AttachmentIDs").val().split(",");
-        if (ids.length < 5)
-        {
-            len = 5 - ids.length;
-        }
-
- 
         var oFileInput = new FileInput();
-        oFileInput.Init("file", "/Upload/UploadFile", len);
+        oFileInput.Init("file", "/Upload/UploadFile");
+
+        $("#spDesc").text("最多只会保留" + maxPicCount + "张图片哦");
 
         storeInfo.init();
 

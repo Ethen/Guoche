@@ -30,6 +30,8 @@ namespace GuoChe.Controllers
             {
                 HttpCookie cookie=WebHelper.CreateSingleValueCookie("ukey", ukey, 0);//把缓存key放入cookie
                 Response.Cookies.Add(cookie);
+                HttpCookie cookieu = WebHelper.CreateSingleValueCookie("ckey", EncryptHelper.Encryption(user.UserID.ToString()), 0);//把缓存key放入cookie
+                Response.Cookies.Add(cookieu);
                 Cache.Add<UserEntity>(ukey, user);//用户信息放入缓存
                 result = "T";
             }
@@ -46,6 +48,7 @@ namespace GuoChe.Controllers
             string ukey=Request.Cookies["ukey"]!=null?Request.Cookies["ukey"].Value:"";
             Cache.Remove(ukey);//删掉缓存
             Response.Cookies["ukey"].Expires = DateTime.Now.AddDays(-1);
+            Response.Cookies["ckey"].Expires = DateTime.Now.AddDays(-1);
             Response.Redirect("/", true);
         }
 

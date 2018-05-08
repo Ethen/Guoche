@@ -264,5 +264,14 @@ namespace DataRepository.DataAccess.Charge
             result = command.ExecuteEntityList<ChargingPileInfo>();
             return result;
         }
+
+        public int ModifyPileNum(int num, int bid)
+        {
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(ChargeStatement.ModifyPileNum, "Text"));
+            command.AddInputParameter("@ChargeNum", DbType.Int32, num);
+            command.AddInputParameter("@ChargeBaseID", DbType.Int32, bid);
+            int result = command.ExecuteNonQuery();
+            return result;
+        }
     }
 }

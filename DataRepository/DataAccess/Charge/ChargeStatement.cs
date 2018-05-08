@@ -26,6 +26,8 @@ namespace DataRepository.DataAccess.Charge
 
         public static string RemoveChargingPile = @"UPDATE [ChargingPile] SET IsUse=0 WHERE ID=@ID";
 
+        public static string ModifyPileNum = @"UPDATE [ChargingBase] SET ChargeNum=@ChargeNum WHERE ChargeBaseID=@ChargeBaseID";
+
 
         public static string ModifyChargingBase = @"UPDATE [ChargingBase] SET Name=@Name,Code=@Code,ChargeFee=@ChargeFee,ServerFee=@ServerFee,ParkFee=@ParkFee,ChargeNum=@ChargeNum,PayType=@PayType,Address=@Address,Coordinate=@Coordinate,StartTime=@StartTime,EndTime=@EndTime,IsUse=@IsUse,CityID=@CityID
                                                     WHERE ChargeBaseID=@ChargeBaseID";

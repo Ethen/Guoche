@@ -244,6 +244,15 @@ namespace Service
                 {
                     info.CreateDate = DateTime.Now;
                     result = mr.CreateNewChargingPile(info);
+                    if (result > 0)
+                    {
+                        ChargingBaseInfo cb = mr.GetChargingBaseById(info.ChargingBaseID);
+                        if (cb != null)
+                        {
+                            int num = cb.ChargeNum + 1;
+                            mr.ModifyPileNum(num, info.ChargingBaseID);
+                        }
+                    }
                 }
 
                 List<ChargingPileInfo> miList = mr.GetAllChargingPileInfo();//刷新缓存

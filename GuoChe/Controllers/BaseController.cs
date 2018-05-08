@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Infrastructure.Helper;
+using Common;
 
 namespace GuoChe.Controllers
 {
@@ -39,9 +40,28 @@ namespace GuoChe.Controllers
         protected UserEntity CurrentUser {
             get {
                 UserEntity user = Cache.Get<UserEntity>(UKey);
+
                 if (user == null)
                 {
-                    Response.Redirect("/", true);
+                    string ckey=Request.Cookies["ckey"]!=null?Request.Cookies["ckey"].Value:"";
+                    if (string.IsNullOrEmpty(ckey))
+                    {
+                        Response.Redirect("/", true);
+                    }
+                    else
+                    {
+                        ckey = EncryptHelper.Decrypt(ckey);
+                        UserEntity cuser = UserService.GetUserById(ckey.ToLong(0));
+                        if (cuser == null)
+                        {
+                            Response.Redirect("/", true);
+                        }
+                        else
+                        {
+                            Cache.Add<UserEntity>(UKey, cuser);//用户信息放入缓存
+                        }
+                    }
+                    
                 }
 
                 return user;

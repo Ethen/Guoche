@@ -9,6 +9,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Service;
+using System.Configuration;
 
 namespace GuoChe.Controllers
 {
@@ -37,6 +38,7 @@ namespace GuoChe.Controllers
         {
             ViewBag.Store = StoreService.GetStoreAll().Where(t => t.Status == 1).ToList();
             ViewBag.CarModel = BaseDataService.GetBaseDataAll().Where(t => t.PCode == "C00" && t.Status == 1).ToList();
+            ViewBag.MaxPicCount = ConfigurationManager.AppSettings["MaxPicCount"].ToString();
             if (!string.IsNullOrEmpty(cid))
             {
                 ViewBag.Car = CarService.GetCarEntityById(cid.ToLong(0));

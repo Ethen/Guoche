@@ -48,6 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAccess\Advise\AdviseStatement.cs" />
+    <Compile Include="DataAccess\Advise\AdviseRepository.cs" />
     <Compile Include="DataAccess\BaseData\BaseDataStatement.cs" />
     <Compile Include="DataAccess\BaseData\BaseDataRepository.cs" />
     <Compile Include="DataAccess\Car\CarRepository.cs" />
@@ -56,6 +58,7 @@
     <Compile Include="DataAccess\Charge\ChargeStatement.cs" />
     <Compile Include="DataAccess\News\NewsRepository.cs" />
     <Compile Include="DataAccess\News\NewsStatement.cs" />
+    <Compile Include="DataModel\AdviseInfo.cs" />
     <Compile Include="DataModel\CarInfo.cs" />
     <Compile Include="DataModel\ChargingBaseInfo.cs" />
     <Compile Include="DataModel\ChargingPileInfo.cs" />
