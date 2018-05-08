@@ -50,7 +50,8 @@
                         <div class="control-group">
                             <label class="control-label">新闻内容</label>
                             <div class="controls">
-                                <input class="span5" type="text" placeholder="新闻内容" id="Content" name="Content" value="@newsEntity.Content">
+                                <span id="showcode" style="display:none;">@newsEntity.Content</span>
+                                <input class="span5" type="hidden" id="Content" name="Content" >                                
                                 <asp:TextBox ID="txtEditorContents" name="txtEditorContents" runat="server" TextMode="MultiLine" Height="400px" Width="1000px" ClientIDMode="Static"></asp:TextBox>
                             </div>
                         </div>
@@ -95,6 +96,23 @@
 
        });
 
+       var ues = UE.getEditor('txtEditorContents');//初始化对象  
+       $(document).ready(function () {
+           var ues = UE.getEditor('txtEditorContents');
+           var proinfo = $("#showcode").text();
+
+           ues.ready(function () {//编辑器初始化完成再赋值  
+               ues.setContent(proinfo);  //赋值给UEditor  
+           });
+
+       });
+
+       jQuery("#save").click(function () {
+           var arr = [];
+           arr.push(UE.getEditor('txtEditorContents').getContent());
+           jQuery("#Content").val(arr.join("\n"));
+           jQuery("#newsForm").submit();
+       });
 
        //实例化编辑器
        //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例

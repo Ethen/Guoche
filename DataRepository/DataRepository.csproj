@@ -86,6 +86,7 @@
     <Compile Include="DataModel\RoleInfo.cs" />
     <Compile Include="DataModel\StoreInfo.cs" />
     <Compile Include="DataModel\UserInfo.cs" />
+    <Compile Include="DataModel\VerificationCodeInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

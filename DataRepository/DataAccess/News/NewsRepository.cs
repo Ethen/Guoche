@@ -68,6 +68,17 @@ namespace DataRepository.DataAccess.News
             return result;
         }
 
+
+        public List<NewsInfo> GetCountNews(int count)
+        {
+            List<NewsInfo> result = new List<NewsInfo>();
+            string sqlText = string.Format(NewsStatement.SelectTopSql, count > 0 ? " TOP 3 " : "");
+
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sqlText, "Text"));
+            result = command.ExecuteEntityList<NewsInfo>();
+            return result;
+        }
+
         public NewsInfo GetNewsByID(int ID)
         {
             NewsInfo result = new NewsInfo();

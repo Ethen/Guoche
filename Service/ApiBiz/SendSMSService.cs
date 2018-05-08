@@ -1,4 +1,6 @@
-﻿using Entity.ViewModel;
+﻿using Common;
+using Entity.ViewModel;
+using Service.BaseBiz;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,21 +14,36 @@ namespace Service.ApiBiz
 {
     public class SendSMSService
     {
-        public static void SendSMSMess(string telephone)
+        public static string SendSMSMess(string telephone,int timeout)
         {
+            string vcode = ValidateCode.CreateValidateCode(6);
             string _serverURL = "http://www.dh3t.com/json/sms/Submit";
             string _data = string.Empty;
             string _account = "dh84741";
             string _passWord = md5("0A73nybh");
             SendSmsData sendSmsData = new SendSmsData();
             sendSmsData.Phones = telephone.Trim();
-            sendSmsData.Content = "您的验证码是442810，欢迎使用国车APP服务。如果非本人操作，请忽略。";
+            sendSmsData.Content = "您的验证码是" + vcode + "，欢迎使用国车APP服务。如果非本人操作，请忽略。";
             sendSmsData.Msgid = Guid.NewGuid().ToString();
             sendSmsData.Sign = "【国车汽车超市】";
             sendSmsData.Subcode = "";//短信子码
             _data = packageSendSmsJsonData(_account, _passWord, sendSmsData);
-
+            //调用接口发送短信
             postMethodConnServer(_serverURL, _data);
+            //插入短信息到表结构
+            AddVerificationCode(telephone, vcode, timeout);
+            return vcode;
+        }
+
+        public static void AddVerificationCode(string telephone,string vcode,int timeout)
+        {
+            VerificationCodeEntity entity = new VerificationCodeEntity();
+            entity.Mobile = telephone;
+            entity.Email = "";
+            entity.VCode = vcode;
+            entity.DeadLine = DateTime.Now.AddMinutes(timeout);
+            entity.Status = 1;//0 失效 1有效
+            BaseDataService.AddVerificationCode(entity);
         }
         //MD5加密程序（32位小写）
         private static string md5(string str)

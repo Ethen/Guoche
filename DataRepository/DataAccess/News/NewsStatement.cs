@@ -15,5 +15,7 @@ namespace DataRepository.DataAccess.News
         public static string UpdateSql = @"UPDATE News SET ChannelID = @ChannelID,Title = @Title,zhaiyao = @zhaiyao,Content = @Content,Sort = @Sort,Status = @Status,ModifyDate = @ModifyDate,Operator = @Operator,ImageUrl = @ImageUrl WHERE ID=@ID";
 
         public static string DeleteSql = @"UPDATE News SET Status = 0 WHERE ID=@ID";
+
+        public static string SelectTopSql = @"SELECT {0} * FROM News(NOLOCK) WHERE 1=1 ";
     }
 }

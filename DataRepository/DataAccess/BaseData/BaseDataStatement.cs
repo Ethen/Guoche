@@ -35,5 +35,11 @@ namespace DataRepository.DataAccess.BaseData
                                                      VALUES(@FileName,@FileExtendName,@FilePath,@UploadDate,@FileType,@BusinessType,@Channel,@FileSize,@Remark,@Operator,@CreateDate);SELECT IDENT_CURRENT('Attachment')";
 
         public static string GetAttachmentByKey = @"SELECT * FROM [Attachment](NOLOCK) WHERE AttachmentID IN (#ids#)";
+        /// <summary>
+        /// 短信验证码信息表操作
+        /// </summary>
+        public static string InsertVerificationCodeSql = @"INSERT INTO VerificationCode(Mobile,Email,VCode,Status,DeadLine,CreateDate) VALUES(@Mobile ,@Email ,@VCode ,@Status,@DeadLine,@CreateDate)";
+
+        public static string CheckVerificationCodeSql = @"select * from VerificationCode(NOLOCK)  where Mobile=@Mobile and VCode=@VCode and DeadLine>GETDATE()";
     }
 }

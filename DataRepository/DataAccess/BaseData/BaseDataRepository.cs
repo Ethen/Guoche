@@ -159,5 +159,41 @@ namespace DataRepository.DataAccess.BaseData
             int result=command.ExecuteNonQuery();
             return result;
         }
+
+
+        /// <summary>
+        /// 短信验证码信息
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public int AddVerificationCode(VerificationCodeInfo info)
+        {
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(BaseDataStatement.InsertVerificationCodeSql, "Text"));
+            command.AddInputParameter("@ID", DbType.Int32, info.ID);
+            command.AddInputParameter("@Mobile", DbType.String, info.Mobile);
+            command.AddInputParameter("@Email", DbType.String, info.Email);
+            command.AddInputParameter("@VCode", DbType.String, info.VCode);
+            command.AddInputParameter("@Status", DbType.Int32, info.Status);
+            command.AddInputParameter("@DeadLine", DbType.DateTime, info.DeadLine);
+            command.AddInputParameter("@CreateDate", DbType.DateTime, DateTime.Now);
+            return command.ExecuteNonQuery();
+        }
+
+        /// <summary>
+        /// 判断手机号 VCODE 是否有效
+        /// </summary>
+        /// <param name="telephone"></param>
+        /// <param name="vcode"></param>
+        /// <returns></returns>
+        public VerificationCodeInfo CheckVerificationCode(string telephone, string vcode)
+        {
+            VerificationCodeInfo result = new VerificationCodeInfo();
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(BaseDataStatement.CheckVerificationCodeSql, "Text"));
+            command.AddInputParameter("@Mobile", DbType.String, telephone);
+            command.AddInputParameter("@VCode", DbType.String, vcode);
+            result = command.ExecuteEntity<VerificationCodeInfo>();
+            return result;
+        }
+
     }
 }

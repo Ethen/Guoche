@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using Entity.ViewModel;
 using Common;
 using Service.ApiBiz;
+using Service.BaseBiz;
+using Service;
 
 namespace GuoChe.Controllers
 {
@@ -55,13 +57,14 @@ namespace GuoChe.Controllers
         /// 手机注册返回验证码
         /// </summary>
         /// <param name="telephone"></param>
+        /// <param name="timeout">默认一分钟</param>
         /// <returns></returns>
-        public JsonResult RegisterVCode(string telephone)
+        public JsonResult RegisterVCode(string telephone,string timeout="1")
         {
             ApiUserEntity viewE = new ApiUserEntity();
             viewE.result = true;
             viewE.message = "验证码返回成功！";
-            viewE.vcode = "898929";
+            viewE.vcode = SendSMSService.SendSMSMess(telephone,timeout.ToInt(0));
             return Json(JsonHelper.ToJson(viewE));
         }
 
@@ -78,17 +81,28 @@ namespace GuoChe.Controllers
             CustomerEntity chkENtity = CustomerService.GetCustomerByTelephone(telephone);
             if (chkENtity == null)
             {
-                CustomerEntity entity = CustomerService.Register(telephone, EncryptHelper.MD5Encrypt(password), vcode);
-                if (entity != null)
+                //判断验证码是否正确、是否已经过期了
+                VerificationCodeEntity VCode= BaseDataService.CheckVerificationCode(telephone,vcode);
+                if (VCode != null)
                 {
-                    viewE.result = true;
-                    viewE.message = "注册成功！";
-                    viewE.customerEntity = entity;
+
+                    CustomerEntity entity = CustomerService.Register(telephone, EncryptHelper.MD5Encrypt(password), vcode);
+                    if (entity != null)
+                    {
+                        viewE.result = true;
+                        viewE.message = "注册成功！";
+                        viewE.customerEntity = entity;
+                    }
+                    else
+                    {
+                        viewE.result = false;
+                        viewE.message = "注册失败！";
+                    }
                 }
                 else
                 {
                     viewE.result = false;
-                    viewE.message = "注册失败！";
+                    viewE.message = "验证码已经过期！";
                 }
             }
             else
@@ -151,6 +165,23 @@ namespace GuoChe.Controllers
             }
 
             return Json(JsonHelper.ToJson(viewE));
+        }
+
+        public JsonResult GetNews(int count, string newsid)
+        {
+            NewsEntity news = new NewsEntity();
+            string jsonstr = string.Empty;
+            if (count > 0)
+            {
+                List<NewsEntity> lstNews = NewsService.GetCountNews(count);
+                jsonstr = JsonHelper.ToJson<List<NewsEntity>>(lstNews);
+            }
+            if (!string.IsNullOrEmpty(newsid))
+            {
+                NewsEntity newe = NewsService.GetNewsByID(newsid.ToInt(0));
+                jsonstr = JsonHelper.ToJson(newe);
+            }
+            return Json(jsonstr);
         }
     }
 }

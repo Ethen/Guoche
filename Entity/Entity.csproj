@@ -58,6 +58,7 @@
     <Compile Include="ViewModel\SendSmsData.cs" />
     <Compile Include="ViewModel\StoreEntity.cs" />
     <Compile Include="ViewModel\UserEntity.cs" />
+    <Compile Include="ViewModel\VerificationCodeEntity.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

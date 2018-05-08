@@ -46,6 +46,7 @@ namespace GuoChe.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         public void Modify()
         {
             int id = (Request["ID"] ?? "").ToInt(0);
@@ -53,7 +54,7 @@ namespace GuoChe.Controllers
             int status = (Request["Status"] ?? "").ToInt(0);
             int ChannelID = (Request["ChannelID"] ?? "").ToInt(0);
             string content = Request["Content"] ?? "";
-            content = Request["txtEditorContents"] ?? "";
+            content = Request["Content"] ?? "";
             string zhaiyao = Request["zhaiyao"] ?? "";
             string imageUrl = Request["ImageUrl"] ?? "";
             NewsEntity entity = new NewsEntity();
