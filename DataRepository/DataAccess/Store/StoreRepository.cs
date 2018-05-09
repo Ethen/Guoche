@@ -19,6 +19,20 @@ namespace DataRepository.DataAccess.Store
             return result;
         }
 
+        public List<StoreInfo> GetAllStore(string cityid)
+        {
+            string sqlText=StoreStatement.GetAllStores;
+            if (!string.IsNullOrEmpty(cityid))
+            {
+                sqlText += " where 1=1 and cityid='" + cityid + "'";
+            }
+
+            List<StoreInfo> result = new List<StoreInfo>();
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sqlText, "Text"));
+            result = command.ExecuteEntityList<StoreInfo>();
+            return result;
+        }
+
         public List<StoreInfo> GetStoresByRule(string name, int status)
         {
             List<StoreInfo> result = new List<StoreInfo>();

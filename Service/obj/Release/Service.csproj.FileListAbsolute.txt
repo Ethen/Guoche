@@ -1,0 +1,17 @@
+D:\国车APP项目\Guoche\Service\bin\Release\Service.dll
+D:\国车APP项目\Guoche\Service\bin\Release\Service.pdb
+D:\国车APP项目\Guoche\Service\bin\Release\Common.dll
+D:\国车APP项目\Guoche\Service\bin\Release\DataRepository.dll
+D:\国车APP项目\Guoche\Service\bin\Release\Entity.dll
+D:\国车APP项目\Guoche\Service\bin\Release\Infrastructure.dll
+D:\国车APP项目\Guoche\Service\bin\Release\Newtonsoft.Json.dll
+D:\国车APP项目\Guoche\Service\bin\Release\Microsoft.Practices.EnterpriseLibrary.Data.dll
+D:\国车APP项目\Guoche\Service\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.dll
+D:\国车APP项目\Guoche\Service\bin\Release\Common.pdb
+D:\国车APP项目\Guoche\Service\bin\Release\DataRepository.pdb
+D:\国车APP项目\Guoche\Service\bin\Release\Entity.pdb
+D:\国车APP项目\Guoche\Service\bin\Release\Infrastructure.pdb
+D:\国车APP项目\Guoche\Service\bin\Release\Newtonsoft.Json.xml
+D:\国车APP项目\Guoche\Service\obj\Release\Service.csprojResolveAssemblyReference.cache
+D:\国车APP项目\Guoche\Service\obj\Release\Service.dll
+D:\国车APP项目\Guoche\Service\obj\Release\Service.pdb

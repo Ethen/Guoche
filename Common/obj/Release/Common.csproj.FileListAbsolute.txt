@@ -1,0 +1,7 @@
+D:\国车APP项目\Guoche\Common\bin\Release\Common.dll
+D:\国车APP项目\Guoche\Common\bin\Release\Common.pdb
+D:\国车APP项目\Guoche\Common\bin\Release\Newtonsoft.Json.dll
+D:\国车APP项目\Guoche\Common\bin\Release\Newtonsoft.Json.xml
+D:\国车APP项目\Guoche\Common\obj\Release\Common.csprojResolveAssemblyReference.cache
+D:\国车APP项目\Guoche\Common\obj\Release\Common.dll
+D:\国车APP项目\Guoche\Common\obj\Release\Common.pdb

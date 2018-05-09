@@ -25,6 +25,7 @@ namespace DataRepository.DataAccess
 {
     public class DataAccessBase
     {
+
         public static string ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ToString();
 
         protected static DbCommand GetDbCommand(string commandText, string commandType)

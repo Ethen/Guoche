@@ -35,15 +35,15 @@ namespace GuoChe.Controllers
             CustomerEntity entity = CustomerService.Login(telephone, EncryptHelper.MD5Encrypt(password));
             if (entity != null)
             {
-                viewE.result = true;
-                viewE.message = "登录成功！";
+                viewE.code = "200";
+                viewE.codeinfo = "登录成功！";
                 viewE.customerEntity = entity;
                 viewE.token = Guid.NewGuid().ToString();
             }
             else
             {
-                viewE.result = false;
-                viewE.message = "登录失败！";
+                viewE.code = "201";
+                viewE.codeinfo = "登录失败！";
                 viewE.customerEntity = entity;
                 viewE.token = Guid.NewGuid().ToString();
             }
@@ -62,9 +62,20 @@ namespace GuoChe.Controllers
         public JsonResult RegisterVCode(string telephone,string timeout="1")
         {
             ApiUserEntity viewE = new ApiUserEntity();
-            viewE.result = true;
-            viewE.message = "验证码返回成功！";
-            viewE.vcode = SendSMSService.SendSMSMess(telephone,timeout.ToInt(0));
+            string vcode= SendSMSService.SendSMSMess(telephone, timeout.ToInt(0));
+            if (!string.IsNullOrEmpty(vcode))
+            {
+                viewE.vcode = vcode;
+                viewE.code = "200";
+                viewE.codeinfo = "验证码返回成功！";
+            }
+            else
+            {
+                viewE.vcode = "";
+                viewE.code = "201";
+                viewE.codeinfo = "验证码返回失败！";
+            }
+            
             return Json(JsonHelper.ToJson(viewE));
         }
 
@@ -89,26 +100,26 @@ namespace GuoChe.Controllers
                     CustomerEntity entity = CustomerService.Register(telephone, EncryptHelper.MD5Encrypt(password), vcode);
                     if (entity != null)
                     {
-                        viewE.result = true;
-                        viewE.message = "注册成功！";
+                        viewE.code = "200";
+                        viewE.codeinfo = "注册成功！";
                         viewE.customerEntity = entity;
                     }
                     else
                     {
-                        viewE.result = false;
-                        viewE.message = "注册失败！";
+                        viewE.code = "201";
+                        viewE.codeinfo = "注册失败！";
                     }
                 }
                 else
                 {
-                    viewE.result = false;
-                    viewE.message = "验证码已经过期！";
+                    viewE.code = "202";
+                    viewE.codeinfo = "验证码已经过期！";
                 }
             }
             else
             {
-                viewE.result = false;
-                viewE.message = "手机号已经注册！";
+                viewE.code = "203";
+                viewE.codeinfo = "手机号已经注册！";
             }
 
             return Json(JsonHelper.ToJson(viewE));
@@ -126,14 +137,14 @@ namespace GuoChe.Controllers
             CustomerEntity chkENtity = CustomerService.GetCustomerByTelephone(telephone);
             if (chkENtity == null)
             {
-                viewE.result = true;
-                viewE.message = "未使用！";
+                viewE.code = "200";
+                viewE.codeinfo = "未使用！";
                 viewE.customerEntity = chkENtity;
             }
             else
             {
-                viewE.result = false;
-                viewE.message = "已使用！";
+                viewE.code = "201";
+                viewE.codeinfo = "已使用！";
             }
             return Json(JsonHelper.ToJson(viewE));
         }
@@ -155,13 +166,13 @@ namespace GuoChe.Controllers
             if (chkENtity != null)
             {
                 viewE.customerEntity = chkENtity;
-                viewE.result = true;
-                viewE.message = "密码修改成功！";
+                viewE.code = "200";
+                viewE.codeinfo = "密码修改成功！";
             }
             else
             {
-                viewE.result = false;
-                viewE.message = "密码修改失败！";
+                viewE.code = "201";
+                viewE.codeinfo = "密码修改失败！";
             }
 
             return Json(JsonHelper.ToJson(viewE));

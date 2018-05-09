@@ -1,6 +1,7 @@
 ﻿using Common;
 using Entity.ViewModel;
 using Service;
+using Service.BaseBiz;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +31,24 @@ namespace GuoChe.Controllers
             return Json(JsonHelper.ToJson<List<CarEntity>>(lstCar));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cityid"></param>
+        /// <returns></returns>
         public JsonResult SupplierInfo(string cityid)
+        {
+            List<StoreEntity> lstStore = StoreService.GetStoreAll(cityid);
+            return Json(JsonHelper.ToJson<List<StoreEntity>>(lstStore));
+        }
+
+        /// <summary>
+        ///  用户预约车辆信息
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <param name="carid"></param>
+        /// <returns></returns>
+        public JsonResult Reservation(string userid,  string carid)
         {
             return Json("");
         }

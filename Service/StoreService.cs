@@ -144,6 +144,29 @@ namespace Service.BaseBiz
 
         }
 
+        public static List<StoreEntity> GetStoreAll(string cityid)
+        {
+            List<StoreEntity> all = new List<StoreEntity>();
+            StoreRepository mr = new StoreRepository();
+            List<StoreInfo> miList = Cache.Get<List<StoreInfo>>("StoreALL" + cityid);
+            if (miList.IsEmpty())
+            {
+                miList = mr.GetAllStore(cityid);
+                Cache.Add("StoreALL" + cityid, miList);
+            }
+            if (!miList.IsEmpty())
+            {
+                foreach (StoreInfo mInfo in miList)
+                {
+                    StoreEntity StoreEntity = TranslateStoreEntity(mInfo);
+                    all.Add(StoreEntity);
+                }
+            }
+
+            return all;
+
+        }
+
 
         public static List<StoreEntity> GetStoreByRule(string name, int status)
         {

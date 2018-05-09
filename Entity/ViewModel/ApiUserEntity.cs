@@ -9,10 +9,16 @@ namespace Entity.ViewModel
     [Serializable]
     public class ApiUserEntity
     {
-        public bool result { get; set; }
+        /// <summary>
+        ///  状态码 200成功
+        /// </summary>
+        public string code { get; set; }
         public string token { get; set; }
 
-        public string message { get; set; }
+        /// <summary>
+        /// 状态码信息
+        /// </summary>
+        public string codeinfo { get; set; }
         public string vcode { get; set; }
 
         public CustomerEntity customerEntity { get; set; }
