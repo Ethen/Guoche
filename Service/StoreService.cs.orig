@@ -145,29 +145,8 @@ namespace Service.BaseBiz
 
         }
 
-        public static List<StoreEntity> GetStorePager(PagerInfo pager)
-        {
-            List<StoreEntity> all = new List<StoreEntity>();
-            StoreRepository mr = new StoreRepository();
-            List<StoreInfo> miList = mr.GetAllStorePager(pager);
-            if (!miList.IsEmpty())
-            {
-                foreach (StoreInfo mInfo in miList)
-                {
-                    StoreEntity StoreEntity = TranslateStoreEntity(mInfo);
-                    all.Add(StoreEntity);
-                }
-            }
-
-            return all;
-        }
-
-        public static int GetSoreCount(string name, int status)
-        {
-            return new StoreRepository().GetStoreCount(name,status);
-        }
-
-       public static List<StoreEntity> GetStoreAll(string cityid)
+<<<<<<< Updated upstream
+        public static List<StoreEntity> GetStoreAll(string cityid)
         {
             List<StoreEntity> all = new List<StoreEntity>();
             StoreRepository mr = new StoreRepository();
@@ -177,6 +156,13 @@ namespace Service.BaseBiz
                 miList = mr.GetAllStore(cityid);
                 Cache.Add("StoreALL" + cityid, miList);
             }
+=======
+        public static List<StoreEntity> GetStorePager(PagerInfo pager)
+        {
+            List<StoreEntity> all = new List<StoreEntity>();
+            StoreRepository mr = new StoreRepository();
+            List<StoreInfo> miList = mr.GetAllStorePager(pager);
+>>>>>>> Stashed changes
             if (!miList.IsEmpty())
             {
                 foreach (StoreInfo mInfo in miList)
@@ -187,8 +173,17 @@ namespace Service.BaseBiz
             }
 
             return all;
+<<<<<<< Updated upstream
 
+=======
         }
+
+        public static int GetSoreCount(string name, int status)
+        {
+            return new StoreRepository().GetStoreCount(name,status);
+>>>>>>> Stashed changes
+        }
+
 
         public static List<StoreEntity> GetStoreByRule(string name, int status,PagerInfo pager)
         {

@@ -21,6 +21,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Infrastructure.Helper;
+using Common;
 
 namespace Service
 {
@@ -94,8 +95,11 @@ namespace Service
                 carEntity.ModifyDate =carInfo.ModifyDate;
                 carEntity.Operator =carInfo.Operator;
 
-
-                List<AttachmentEntity> attachments = BaseDataService.GetAttachmentInfoByKyes(carEntity.AttachmentIDs);
+                List<AttachmentEntity> attachments=new List<AttachmentEntity>();
+                if (!string.IsNullOrEmpty(carEntity.AttachmentIDs))
+                {
+                    attachments = BaseDataService.GetAttachmentInfoByKyes(carEntity.AttachmentIDs);
+                }
                 carEntity.AttachmentsInfo = attachments;
 
                 StoreEntity store=StoreService.GetStoreById(carEntity.SupplierID)??new StoreEntity();
@@ -155,6 +159,8 @@ namespace Service
             return all;
         }
 
+
+
         public static bool ModifyCar(CarEntity car)
         {
             int result = 0;
@@ -192,11 +198,11 @@ namespace Service
             return result;
         }
 
-        public static List<CarEntity> GetCarInfoByRule(string name, string mcode, int status)
+        public static List<CarEntity> GetCarInfoByRule(string name, string mcode, int status,PagerInfo pager)
         {
             List<CarEntity> all = new List<CarEntity>();
             CarRepository mr = new CarRepository();
-            List<CarInfo> miList = mr.GetCarInfoByRule(name, mcode, status);
+            List<CarInfo> miList = mr.GetCarInfoByRule(name, mcode, status, pager);
 
             if (!miList.IsEmpty())
             {
@@ -207,6 +213,24 @@ namespace Service
                 }
             }
 
+            return all;
+        }
+
+        public static int GetCarCount(string name, string mcode, int status)
+        {
+            return new CarRepository().GetCarCount(name,mcode,status);
+        }
+
+        public static List<CarEntity> GetCarInfoPager(PagerInfo pager)
+        {
+            List<CarEntity> all = new List<CarEntity>();
+            CarRepository mr = new CarRepository();
+            List<CarInfo> miList = mr.GetAllCarInfoPager(pager);
+            foreach (CarInfo mInfo in miList)
+            {
+                CarEntity carEntity = TranslateCarEntity(mInfo);
+                all.Add(carEntity);
+            }
             return all;
         }
 

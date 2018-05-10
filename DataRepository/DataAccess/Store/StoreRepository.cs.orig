@@ -20,13 +20,25 @@ namespace DataRepository.DataAccess.Store
             return result;
         }
 
+<<<<<<< Updated upstream
         public List<StoreInfo> GetAllStore(string cityid)
         {
-            List<StoreInfo> result = GetAllStore().Where(t => t.CityID == cityid.ToInt(0)).ToList();
+            string sqlText=StoreStatement.GetAllStores;
+            if (!string.IsNullOrEmpty(cityid))
+            {
+                sqlText += " where 1=1 and cityid='" + cityid + "'";
+            }
+
+            List<StoreInfo> result = new List<StoreInfo>();
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sqlText, "Text"));
+            result = command.ExecuteEntityList<StoreInfo>();
             return result;
         }
 
+        public List<StoreInfo> GetStoresByRule(string name, int status)
+=======
         public List<StoreInfo> GetAllStorePager(PagerInfo pager)
+>>>>>>> Stashed changes
         {
             List<StoreInfo> result = new List<StoreInfo>();
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(StoreStatement.GetAllStorePager, "Text"));

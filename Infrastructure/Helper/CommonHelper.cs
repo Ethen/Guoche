@@ -69,5 +69,10 @@ namespace Infrastructure.Helper
            
             return mergedList;
         }
+
+         public static bool IsDefault<T>(this T value) 
+         {
+             return EqualityComparer<T>.Default.Equals(value, default(T)); 
+         }
     }
 }

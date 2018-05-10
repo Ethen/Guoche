@@ -90,6 +90,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{5ed0a578-fe0e-4e6e-a1cb-f69761278183}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
       <Project>{13365811-32ba-422c-91c3-ca359a76fd53}</Project>
       <Name>Infrastructure</Name>

@@ -32,9 +32,6 @@ namespace DataRepository.DataModel
         [DataMapping("DealStatus", DbType.Int32)]
         public int DealStatus { get; set; }
 
-        [DataMapping("DealResult", DbType.Int32)]
-        public int DealResult { get; set; }
-
         [DataMapping("DealSummary", DbType.String)]
         public string DealSummary { get; set; }
 

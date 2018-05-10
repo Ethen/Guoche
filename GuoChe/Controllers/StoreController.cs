@@ -14,20 +14,30 @@ namespace GuoChe.Controllers
 {
     public class StoreController : BaseController
     {
-        public ActionResult Index(string name,int status=-1)
+        private int PAGESIZE = 20;
+        public ActionResult Index(string name,int status=-1,int p=1)
         {
             List<StoreEntity> mList = null;
+            int count = StoreService.GetSoreCount(name, status);
+
+            PagerInfo pager = new PagerInfo();
+            pager.PageIndex = p;
+            pager.PageSize = PAGESIZE;
+            pager.SumCount = count;
+            pager.URL = "/Store";
+
             if (!string.IsNullOrEmpty(name) || status > -1)
             {
-                mList = StoreService.GetStoreByRule(name, status);
+                mList = StoreService.GetStoreByRule(name, status, pager);
             }
             else
             {
-                mList = StoreService.GetStoreAll();
+                mList = StoreService.GetStorePager(pager);
             }
             ViewBag.Name = name ?? "";
             ViewBag.Status = status;
-            ViewBag.Stores = mList; 
+            ViewBag.Stores = mList;
+            ViewBag.Pager = pager;
             return View();
         }
 

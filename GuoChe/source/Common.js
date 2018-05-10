@@ -50,6 +50,18 @@ var WebHelper = {
 
 }
 
+function makeDivCenter(divid) {
+    var target = jQuery("#" + divid),
+    win = jQuery(window),
+    docheight = jQuery(document).scrollTop();
+    target.css({
+        "width":"800px",
+        "left": ((win.width() - target.outerWidth())-200) / 2 + "px",
+        "position": "absolute",
+        "top": (win.height() - target.outerHeight()) / 2 + docheight + "px"
+    })
+}
+
 var valid = {
     elemnets: {},
     init: function (el) {

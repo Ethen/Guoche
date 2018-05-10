@@ -11,6 +11,7 @@
  * 代码请保留相关关键处的注释
  * ==============================================================================*/
 
+using Common;
 using DataRepository.DataModel;
 using Infrastructure.DataAccess;
 using System;
@@ -60,23 +61,25 @@ namespace DataRepository.DataAccess.Car
             return result;
         }
 
-        public List<CarInfo> GetCarInfoByRule(string name, string modelCode,int status)
+        public List<CarInfo> GetCarInfoByRule(string name, string modelCode,int status,PagerInfo pager)
         {
             List<CarInfo> result = new List<CarInfo>();
-            string sqlText = CarStatement.GetAllCarInfoByRule;
+           
+            StringBuilder builder = new StringBuilder();
+
             if (!string.IsNullOrEmpty(name))
             {
-                sqlText += " AND CarName LIKE '%'+@key+'%'";
+                builder.Append(" AND CarName LIKE '%'+@key+'%'");
             }
             if (!string.IsNullOrEmpty(modelCode))
             {
-                sqlText += " AND ModelCode=@ModelCode";
+                builder.Append(" AND ModelCode=@ModelCode");
             }
             if (status > -1)
             {
-                sqlText += " AND Status=@Status";
+                builder.Append(" AND Status=@Status");
             }
-            sqlText += " ORDER BY Status DESC ";
+            string sqlText = CarStatement.GetAllCarInfoByRulePagerHeader + builder.ToString() + CarStatement.GetAllCarInfoByRulePagerFooter;
 
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sqlText, "Text"));
             if (!string.IsNullOrEmpty(name))
@@ -91,10 +94,52 @@ namespace DataRepository.DataAccess.Car
             {
                 command.AddInputParameter("@Status", DbType.Int32, status);
             }
+            command.AddInputParameter("@PageIndex", DbType.Int32, pager.PageIndex);
+            command.AddInputParameter("@PageSize", DbType.Int32, pager.PageSize);
+            command.AddInputParameter("@recordCount", DbType.Int32, pager.SumCount);
 
             result = command.ExecuteEntityList<CarInfo>();
             return result;
         }
+
+        public int GetCarCount(string name, string modelCode, int status)
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.Append(CarStatement.GetCarCount);
+            if (!string.IsNullOrEmpty(name))
+            {
+                builder.Append(" AND CarName LIKE '%'+@key+'%'");
+            }
+            if (!string.IsNullOrEmpty(modelCode))
+            {
+                builder.Append(" AND ModelCode=@ModelCode");
+            }
+            if (status > -1)
+            {
+                builder.Append(" AND Status=@Status");
+            }
+
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(builder.ToString(), "Text"));
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                command.AddInputParameter("@key", DbType.String, name);
+            }
+            if (!string.IsNullOrEmpty(modelCode))
+            {
+                command.AddInputParameter("@ModelCode", DbType.String, modelCode);
+            }
+            if (status > -1)
+            {
+                command.AddInputParameter("@Status", DbType.Int32, status);
+            }
+
+
+            var o = command.ExecuteScalar<object>();
+            return Convert.ToInt32(o);
+        }
+
+
 
         public CarInfo GetCarInfoByKey(long cid)
         {
@@ -176,6 +221,17 @@ namespace DataRepository.DataAccess.Car
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(CarStatement.RemoveCarInfo, "Text"));
             command.AddInputParameter("@CarID", DbType.Int64, cid);
             int result = command.ExecuteNonQuery();
+            return result;
+        }
+
+        public List<CarInfo> GetAllCarInfoPager(PagerInfo pager)
+        {
+            List<CarInfo> result = new List<CarInfo>();
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(CarStatement.GetAllCarPager, "Text"));
+            command.AddInputParameter("@PageIndex", DbType.Int32, pager.PageIndex);
+            command.AddInputParameter("@PageSize", DbType.Int32, pager.PageSize);
+            command.AddInputParameter("@recordCount", DbType.Int32, pager.SumCount);
+            result = command.ExecuteEntityList<CarInfo>();
             return result;
         }
     }

@@ -1,8 +1,10 @@
 ﻿@using Entity.ViewModel;
+@using Common;
 @{
     ViewBag.Title = "车辆信息";
     List<CarEntity> cars = (List<CarEntity>)ViewBag.Cars;
     List<BaseDataEntity> carModel = ((List<BaseDataEntity>)ViewBag.CarModel) ?? new List<BaseDataEntity>();
+    PagerInfo p = (PagerInfo)ViewBag.Pager;
 }
 <div class="row-fluid">
     <h2 class="heading" style="margin-top:20px">车辆信息</h2>
@@ -101,6 +103,7 @@
                         </tbody>
                     </table>
                 }
+                @{ Html.RenderPartial("../Pager", p); }
             </div>
         </div> <!-- /widget-body -->
     </div> <!-- /widget -->

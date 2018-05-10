@@ -15,22 +15,35 @@ namespace GuoChe.Controllers
 {
     public class CarController : BaseController
     {
-        public ActionResult Index(string name,string mcode,int status=-1)
+        public int PAGESIZE = 20;
+
+        public ActionResult Index(string name,string mcode,int status=-1,int p=1)
         {
             List<CarEntity> mList = null;
+
+            int count = CarService.GetCarCount(name, mcode, status);
+
+            PagerInfo pager = new PagerInfo();
+            pager.PageIndex = p;
+            pager.PageSize = PAGESIZE;
+            pager.SumCount = count;
+            pager.URL = "/Car";
+
+
             ViewBag.CarModel = BaseDataService.GetBaseDataAll().Where(t => t.PCode == "C00" && t.Status == 1).ToList();
             if (!string.IsNullOrEmpty(name) || status > -1 || !string.IsNullOrEmpty(mcode))
             {
-                mList = CarService.GetCarInfoByRule(name, mcode, status);
+                mList = CarService.GetCarInfoByRule(name, mcode, status,pager);
             }
             else
             {
-                mList = CarService.GetAllCar();
+                mList = CarService.GetCarInfoPager(pager);
             }
             ViewBag.Name = name ?? "";
             ViewBag.Status = status;
             ViewBag.ModelCode = mcode;
-            ViewBag.Cars = mList; 
+            ViewBag.Cars = mList;
+            ViewBag.Pager = pager;
             return View();
         }
 

@@ -21,6 +21,50 @@ namespace DataRepository.DataAccess.Car
 {
     public class CarStatement
     {
+        public static string GetAllCarPager = @" DECLARE @UP INT
+        
+	                                                  ---------分页区间计算-------------最大页数
+                                                      IF(@recordCount<@PageSize*(@PageIndex-1)) 
+                                                      BEGIN
+                                                        SET @PageIndex= @recordCount/@PageSize+1
+                                                      END
+                                                      --最小页数
+	                                                  IF(@PageIndex<1)
+	                                                     SET @PageIndex=1
+                                                      --当前页起始游标值
+	                                                  IF(@recordCount>@PageSize*(@PageIndex-1))
+	                                                  BEGIN
+		                                                  SET @UP=@PageSize*(@PageIndex-1);
+		                                                  ---------分页查询-----------
+		                                                  WITH car AS
+		                                                  (SELECT *,ROW_NUMBER() OVER (ORDER BY Status DESC) AS RowNumber FROM (SELECT * FROM CarInfo WHERE 1=1 )as T ) 
+		                                                  SELECT *  FROM car 
+		                                                  WHERE RowNumber BETWEEN @UP+1 AND @UP+@PageSize
+	                                                  END";
+        public static string GetAllCarInfoByRulePagerHeader = @"DECLARE @UP INT
+        
+	                                                  ---------分页区间计算-------------最大页数
+                                                      IF(@recordCount<@PageSize*(@PageIndex-1)) 
+                                                      BEGIN
+                                                        SET @PageIndex= @recordCount/@PageSize+1
+                                                      END
+                                                      --最小页数
+	                                                  IF(@PageIndex<1)
+	                                                     SET @PageIndex=1
+                                                      --当前页起始游标值
+	                                                  IF(@recordCount>@PageSize*(@PageIndex-1))
+	                                                  BEGIN
+		                                                  SET @UP=@PageSize*(@PageIndex-1);
+		                                                  ---------分页查询-----------
+		                                                  WITH car AS
+		                                                  (SELECT *,ROW_NUMBER() OVER (ORDER BY Status DESC) AS RowNumber FROM (SELECT * FROM CarInfo WHERE 1=1 ";
+        public static string GetAllCarInfoByRulePagerFooter = @")as T ) 
+		                                                  SELECT *  FROM car 
+		                                                  WHERE RowNumber BETWEEN @UP+1 AND @UP+@PageSize
+	                                                  END";
+
+        public static string GetCarCount = @"SELECT COUNT(1) AS C FROM CarInfo(NOLOCK) WHERE 1=1 ";
+
         public static string GetAllCarInfo = @"SELECT * FROM [CarInfo](NOLOCK) ORDER BY Status DESC ";
 
         public static string GetAllCarInfoByID = @"SELECT * FROM [CarInfo](NOLOCK) WHERE CarID=@CarID";

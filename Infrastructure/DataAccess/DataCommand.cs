@@ -34,6 +34,7 @@ namespace Infrastructure.DataAccess
             e_DatabaseName = databaseName;
             e_DbCommand = command;
             e_DbCommand.CommandTimeout = 600;
+           
         }
 
         public DataCommand()

@@ -58,6 +58,7 @@ namespace GuoChe.Controllers
                         }
                         else
                         {
+                            user = cuser;
                             Cache.Add<UserEntity>(UKey, cuser);//用户信息放入缓存
                         }
                     }
