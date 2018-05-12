@@ -50,6 +50,7 @@
     <Compile Include="CarService.cs" />
     <Compile Include="ChargeService.cs" />
     <Compile Include="NewsService.cs" />
+    <Compile Include="ReservationsService.cs" />
     <Compile Include="StoreService.cs" />
     <Compile Include="BaseBiz\UserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

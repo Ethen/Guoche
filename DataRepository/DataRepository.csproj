@@ -58,6 +58,8 @@
     <Compile Include="DataAccess\Charge\ChargeStatement.cs" />
     <Compile Include="DataAccess\News\NewsRepository.cs" />
     <Compile Include="DataAccess\News\NewsStatement.cs" />
+    <Compile Include="DataAccess\Reservations\ReservationsRepository.cs" />
+    <Compile Include="DataAccess\Reservations\ReservationsStatement.cs" />
     <Compile Include="DataModel\AdviseInfo.cs" />
     <Compile Include="DataModel\CarInfo.cs" />
     <Compile Include="DataModel\ChargingBaseInfo.cs" />
@@ -83,6 +85,7 @@
     <Compile Include="DataModel\MenuInfo.cs" />
     <Compile Include="DataModel\NewsInfo.cs" />
     <Compile Include="DataModel\ProvinceInfo.cs" />
+    <Compile Include="DataModel\ReservationsInfo.cs" />
     <Compile Include="DataModel\RoleInfo.cs" />
     <Compile Include="DataModel\StoreInfo.cs" />
     <Compile Include="DataModel\UserInfo.cs" />
