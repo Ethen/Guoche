@@ -15,7 +15,7 @@ namespace Entity.ViewModel
 
         public int RType { get; set; }
 
-        public int PayType { get; set; }
+        public string PayType { get; set; }
 
         public int CarID { get; set; }
 
@@ -29,6 +29,16 @@ namespace Entity.ViewModel
 
         public int Status { get; set; }
 
-        public DateTime CreateDate { get; set; }
+
+        public CustomerEntity Customer { get; set; }
+
+
+        public CarEntity Car { get; set; }
+
+        public ChargingPileEntity ChargingPile { get; set; }
+
+
+        public BaseDataEntity PayTypeInfo { get; set; }
+
     }
 }

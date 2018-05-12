@@ -28,5 +28,13 @@ namespace DataRepository.DataAccess.Reservations
 
             return command.ExecuteNonQuery();
         }
+
+
+        public ReservationsInfo GetReservationsInfoByID(long rid)
+        {
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(ReservationsStatement.GetReservationByID, "Text"));
+            command.AddInputParameter("@ID", DbType.Int64, rid);
+            return command.ExecuteEntity<ReservationsInfo>();
+        }
     }
 }

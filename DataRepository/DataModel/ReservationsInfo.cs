@@ -21,8 +21,8 @@ namespace DataRepository.DataModel
         [DataMapping("RType", DbType.Int32)]
         public int RType { get; set; }
 
-        [DataMapping("PayType", DbType.Int32)]
-        public int PayType { get; set; }
+        [DataMapping("PayType", DbType.String)]
+        public string PayType { get; set; }
 
         [DataMapping("CarID", DbType.Int32)]
         public int CarID { get; set; }

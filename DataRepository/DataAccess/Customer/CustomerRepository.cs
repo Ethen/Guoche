@@ -78,5 +78,12 @@ namespace DataRepository.DataAccess.Customer
             command.AddInputParameter("@LastLoginDate", DbType.DateTime, DateTime.Now);
             return command.ExecuteNonQuery();
         }
+
+        public CustomerInfo GetCustomerByID(long cid)
+        {
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(CustomerStatement.GetCustomerByID, "Text"));
+            command.AddInputParameter("@CustomerID", DbType.Int64, cid);
+            return command.ExecuteEntity<CustomerInfo>();
+        }
     }
 }

@@ -16,5 +16,7 @@ namespace DataRepository.DataAccess.Customer
         public static string RegisterSql = "INSERT INTO Customer(CustomerName,CustomerCode,Password,Channel,Name,Mobile,CreateDate, LastLoginDate)VALUES(@CustomerName,@CustomerCode, @Password,@Channel,@Name, @Mobile, @CreateDate, @LastLoginDate)";
 
         public static string UpdatePassword = "Update Customer set Password=@Password,CustomerCode=@CustomerCode where Mobile=@Mobile";
+
+        public static string GetCustomerByID = @"SELECT * FROM Customer(NOLOCK) WHERE CustomerID=@CustomerID ";
     }
 }

@@ -116,5 +116,24 @@ namespace Service.ApiBiz
             }
             return entity;
         }
+
+
+        public static CustomerEntity GetCustomerByID(long cid)
+        {
+            CustomerEntity entity = null;
+            CustomerRepository CR = new CustomerRepository();
+            CustomerInfo info = CR.GetCustomerByID(cid);
+            if (info != null)
+            {
+                entity = new CustomerEntity();
+                entity.Channel = info.Channel;
+                entity.CustomerCode = info.CustomerCode;
+                entity.CustomerID = info.CustomerID;
+                entity.CustomerName = info.CustomerName;
+                entity.Mobile = info.Mobile;
+                entity.Name = info.Name;
+            }
+            return entity;
+        }
     }
 }
