@@ -18,5 +18,33 @@ namespace DataRepository.DataAccess.Customer
         public static string UpdatePassword = "Update Customer set Password=@Password,CustomerCode=@CustomerCode where Mobile=@Mobile";
 
         public static string GetCustomerByID = @"SELECT * FROM Customer(NOLOCK) WHERE CustomerID=@CustomerID ";
+
+        public static string GetCustomerExtendByID = @"SELECT * FROM CustomerExtend(NOLOCK) WHERE ID=@ID ";
+
+        public static string GetCustomerAllCount = @"SELECT * FROM CustomerExtend(NOLOCK) WHERE 1=1 ";
+
+        public static string GetCustomerAllPagerHeader = @"DECLARE @UP INT
+        
+	                                                  ---------分页区间计算-------------最大页数
+                                                      IF(@recordCount<@PageSize*(@PageIndex-1)) 
+                                                      BEGIN
+                                                        SET @PageIndex= @recordCount/@PageSize+1
+                                                      END
+                                                      --最小页数
+	                                                  IF(@PageIndex<1)
+	                                                     SET @PageIndex=1
+                                                      --当前页起始游标值
+	                                                  IF(@recordCount>@PageSize*(@PageIndex-1))
+	                                                  BEGIN
+		                                                  SET @UP=@PageSize*(@PageIndex-1);
+		                                                  ---------分页查询-----------
+		                                                  WITH ce AS
+		                                                  (SELECT *,ROW_NUMBER() OVER (ORDER BY DealStatus) AS RowNumber FROM (SELECT * FROM CustomerExtend WHERE 1=1 ";
+
+        public static string GetCustomerAllPagerFooter = @")as T ) 
+		                                                  SELECT *  FROM ce 
+		                                                  WHERE RowNumber BETWEEN @UP+1 AND @UP+@PageSize
+	                                                  END";
+
     }
 }

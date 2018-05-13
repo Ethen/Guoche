@@ -4,19 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataRepository.DataAccess.Reservations
+namespace DataRepository.DataAccess.Order
 {
-    public class ReservationsStatement
+    public class OrderStatement
     {
-        public static string SelectSql = @"SELECT * FROM Reservations";
 
-        public static string InsertSql = @"INSERT INTO Reservations(CustomerID,CustomerName,RType,PayType,CarID,LeaseTime,Price,Remark,RDate,Status,CreateDate)VALUES(@CustomerID,@CustomerName,@RType,@PayType,@CarID,@LeaseTime,@Price,@Remark,@RDate,@Status,@CreateDate)";
+        public static string GetOrderCount = @"SELECT * FROM [OrderInfo](NOLOCK) WHERE 1=1 ";
 
-        public static string GetReservationCount = @"SELECT * FROM Reservations(NOLOCK) WHERE 1=1 ";
+        public static string GetOrderByID = @"SELECT TOP 1 * FROM [OrderInfo](NOLOCK) WHERE [OrderID]=@OrderID ";
 
-        public static string GetReservationByID = @"SELECT * FROM Reservations(NOLOCK) WHERE ID=@ID ";
+        public static string GetOrderByInnerID = @"SELECT * FROM [OrderInfo](NOLOCK) WHERE OrderInnerID=@OrderInnerID ";
 
-        public static string GetReservationPagerHeader = @"DECLARE @UP INT
+        public static string GetOrderPagerHeader = @"DECLARE @UP INT
         
 	                                                  ---------分页区间计算-------------最大页数
                                                       IF(@recordCount<@PageSize*(@PageIndex-1)) 
@@ -31,11 +30,11 @@ namespace DataRepository.DataAccess.Reservations
 	                                                  BEGIN
 		                                                  SET @UP=@PageSize*(@PageIndex-1);
 		                                                  ---------分页查询-----------
-		                                                  WITH resever AS
-		                                                  (SELECT *,ROW_NUMBER() OVER (ORDER BY Status) AS RowNumber FROM (SELECT * FROM Reservations WHERE 1=1";
+		                                                  WITH order AS
+		                                                  (SELECT *,ROW_NUMBER() OVER (ORDER BY Status) AS RowNumber FROM (SELECT * FROM OrderInfo WHERE 1=1";
 
-        public static string GetReservationPagerFooter = @")as T ) 
-		                                                  SELECT *  FROM resever 
+        public static string GetOrderPagerFooter = @")as T ) 
+		                                                  SELECT *  FROM order 
 		                                                  WHERE RowNumber BETWEEN @UP+1 AND @UP+@PageSize
 	                                                  END";
     }

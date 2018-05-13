@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DataRepository.DataModel;
 using Infrastructure.DataAccess;
 using System.Data;
+using Common;
 namespace DataRepository.DataAccess.Customer
 {
     public class CustomerRepository : DataAccessBase
@@ -85,5 +86,97 @@ namespace DataRepository.DataAccess.Customer
             command.AddInputParameter("@CustomerID", DbType.Int64, cid);
             return command.ExecuteEntity<CustomerInfo>();
         }
+
+
+        public List<CustomerExtendInfo> GetCustomerExtend(string name, string code,int status,PagerInfo pager)
+        {
+            List<CustomerExtendInfo> result = new List<CustomerExtendInfo>();
+
+
+            StringBuilder builder = new StringBuilder();
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                builder.Append(" AND CustomerName LIKE '%'+@CustomerName+'%' ");
+            }
+            if (!string.IsNullOrEmpty(code))
+            {
+                builder.Append(" AND CustomerCode LIKE '%'+@CustomerCode+'%' ");
+            }
+            if (status > -1)
+            {
+                builder.Append(" AND Status = @Status ");
+            }
+
+            string sql = CustomerStatement.GetCustomerAllPagerHeader + builder.ToString() + CustomerStatement.GetCustomerAllPagerFooter;
+
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sql, "Text"));
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                command.AddInputParameter("@CustomerName", DbType.String, name);
+            }
+            if (!string.IsNullOrEmpty(code))
+            {
+                command.AddInputParameter("@AdviseTitle", DbType.String, code);
+            }
+            if (status > -1)
+            {
+                command.AddInputParameter("@Status", DbType.Int32, status);
+            }
+
+            command.AddInputParameter("@PageIndex", DbType.Int32, pager.PageIndex);
+            command.AddInputParameter("@PageSize", DbType.Int32, pager.PageSize);
+            command.AddInputParameter("@recordCount", DbType.Int32, pager.SumCount);
+
+            result = command.ExecuteEntityList<CustomerExtendInfo>();
+            return result;
+        }
+
+        public int GetCustomerExtendCount(string name, string code, int status)
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.Append(CustomerStatement.GetCustomerAllCount);
+            if (!string.IsNullOrEmpty(name))
+            {
+                builder.Append(" AND CustomerName LIKE '%'+@CustomerName+'%' ");
+            }
+            if (!string.IsNullOrEmpty(code))
+            {
+                builder.Append(" AND CustomerCode LIKE '%'+@CustomerCode+'%' ");
+            }
+            if (status > -1)
+            {
+                builder.Append(" AND Status = @Status ");
+            }
+
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(builder.ToString(), "Text"));
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                command.AddInputParameter("@CustomerName", DbType.String, name);
+            }
+            if (!string.IsNullOrEmpty(code))
+            {
+                command.AddInputParameter("@AdviseTitle", DbType.String, code);
+            }
+            if (status > -1)
+            {
+                command.AddInputParameter("@Status", DbType.Int32, status);
+            }
+
+
+            var o = command.ExecuteScalar<object>();
+            return Convert.ToInt32(o);
+        }
+
+        public CustomerExtendInfo GetCustomerExtendByID(long cid)
+        {
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(CustomerStatement.GetCustomerByID, "Text"));
+            command.AddInputParameter("@ID", DbType.Int64, cid);
+            return command.ExecuteEntity<CustomerExtendInfo>();
+        }
+
+
     }
 }

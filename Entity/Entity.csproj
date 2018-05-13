@@ -49,10 +49,12 @@
     <Compile Include="ViewModel\ChargingPileEntity.cs" />
     <Compile Include="ViewModel\City.cs" />
     <Compile Include="ViewModel\CustomerEntity.cs" />
+    <Compile Include="ViewModel\CustomerExtendEntity.cs" />
     <Compile Include="ViewModel\GroupEntity.cs" />
     <Compile Include="ViewModel\MenuCompare.cs" />
     <Compile Include="ViewModel\MenuEntity.cs" />
     <Compile Include="ViewModel\NewsEntity.cs" />
+    <Compile Include="ViewModel\OrderEntity.cs" />
     <Compile Include="ViewModel\Province.cs" />
     <Compile Include="ViewModel\ReservationsEntity.cs" />
     <Compile Include="ViewModel\RoleEntity.cs" />

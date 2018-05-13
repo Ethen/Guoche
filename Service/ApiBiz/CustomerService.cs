@@ -1,4 +1,5 @@
-﻿using DataRepository.DataAccess.Customer;
+﻿using Common;
+using DataRepository.DataAccess.Customer;
 using DataRepository.DataModel;
 using Entity.ViewModel;
 using Service.BaseBiz;
@@ -134,6 +135,91 @@ namespace Service.ApiBiz
                 entity.Name = info.Name;
             }
             return entity;
+        }
+
+
+        private static CustomerExtendEntity TranslateCustomerExtendEntity(CustomerExtendInfo info)
+        {
+            CustomerExtendEntity entity = new CustomerExtendEntity();
+
+            if (info != null)
+            {
+                entity.ID = info.ID;
+                entity.CustomerID = info.CustomerID;
+                entity.CustomerCode = info.CustomerCode;
+                entity.AttachmentIDs = info.AttachmentIDs;
+                entity.CustomerName = info.CustomerName;
+                entity.Mobile = info.Mobile;
+                entity.Email = info.Email;
+                entity.CardType = info.CardType;
+                entity.CardNo = info.CardNo;
+                entity.Channel = info.Channel;
+                entity.RegisterTime = info.RegisterTime;
+                entity.Status = info.Status;
+                entity.AuditTime = info.AuditTime;
+                entity.Auditor = info.Auditor;
+                entity.ModifyDate = info.ModifyDate;
+                entity.Operator = info.Operator;
+            }
+
+            return entity;
+        }
+
+        private static CustomerExtendInfo TranslateCustomerExtendEntity(CustomerExtendEntity entity)
+        {
+            CustomerExtendInfo info = new CustomerExtendInfo();
+
+            if (entity != null)
+            {
+                info.ID = entity.ID;
+                info.CustomerID = entity.CustomerID;
+                info.CustomerCode = entity.CustomerCode;
+                info.AttachmentIDs = entity.AttachmentIDs;
+                info.CustomerName = entity.CustomerName;
+                info.Mobile = entity.Mobile;
+                info.Email = entity.Email;
+                info.CardType = entity.CardType;
+                info.CardNo = entity.CardNo;
+                info.Channel = entity.Channel;
+                info.RegisterTime = entity.RegisterTime;
+                info.Status = entity.Status;
+                info.AuditTime = entity.AuditTime;
+                info.Auditor = entity.Auditor;
+                info.ModifyDate = entity.ModifyDate;
+                info.Operator = entity.Operator;
+            }
+
+            return info;
+        }
+
+
+        public CustomerExtendEntity GetCustomerExtendInfoByID(long id)
+        {
+
+            CustomerRepository mr = new CustomerRepository();
+            CustomerExtendInfo info = mr.GetCustomerExtendByID(id);
+            CustomerExtendEntity entity = TranslateCustomerExtendEntity(info);
+
+            return entity;
+        }
+
+        public static List<CustomerExtendEntity> GetCustomerList(string name, string code, int status, PagerInfo pager)
+        {
+            List<CustomerExtendEntity> all = new List<CustomerExtendEntity>();
+            CustomerRepository mr = new CustomerRepository();
+            List<CustomerExtendInfo> miList = mr.GetCustomerExtend(name, code, status, pager);
+            foreach (CustomerExtendInfo mInfo in miList)
+            {
+                CustomerExtendEntity customerExtendEntity = TranslateCustomerExtendEntity(mInfo);
+                all.Add(customerExtendEntity);
+            }
+            return all;
+        }
+
+
+        public static int GetCustomerExtendCount(string name, string code, int status)
+        {
+            return new CustomerRepository().GetCustomerExtendCount(name, code, status);
         }
     }
 }

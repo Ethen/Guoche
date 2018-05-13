@@ -1,4 +1,5 @@
-﻿using DataRepository.DataAccess.Reservations;
+﻿using Common;
+using DataRepository.DataAccess.Reservations;
 using DataRepository.DataModel;
 using Entity.ViewModel;
 using Service.ApiBiz;
@@ -79,12 +80,30 @@ namespace Service
             return reservationsEntity;
         }
 
-
         public ReservationsEntity GetReservationsByID(long rid)
         {
             ReservationsRepository rr = new ReservationsRepository();
             ReservationsInfo info=rr.GetReservationsInfoByID(rid);
             return TranslateReservationsEntity(info);
+        }
+
+        public List<ReservationsEntity> GetReservationsByRule(ReservationsSearchEntity search,PagerInfo pager)
+        {
+            List<ReservationsEntity> all = new List<ReservationsEntity>();
+            ReservationsRepository mr = new ReservationsRepository();
+            List<ReservationsInfo> miList = mr.GetReservationsPagerByRule(search, pager);
+            foreach (ReservationsInfo mInfo in miList)
+            {
+                ReservationsEntity entity = TranslateReservationsEntity(mInfo);
+                all.Add(entity);
+            }
+            return all;
+        }
+
+        public static int GetReservationsCount(ReservationsSearchEntity search)
+        {
+            return new ReservationsRepository().GetReservationsCount(search);
+        
         }
 
         public static bool AddReservations(ReservationsEntity entity)
