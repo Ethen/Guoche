@@ -44,22 +44,25 @@ namespace Service.BaseBiz
             return baseDataEntity;
         }
 
-        private static AttachmentEntity TranslateAttachmentInfo(AttachmentInfo attachmentInfo)
+        private static AttachmentEntity TranslateAttachmentInfo(AttachmentInfo attachmentInfo,bool isAPI)
         {
             AttachmentEntity result = new AttachmentEntity();
             if (attachmentInfo != null)
             {
-                  result.AttachmentID=attachmentInfo.AttachmentID;
-                  result.FileName=attachmentInfo.FileName;
-                  result.FileExtendName=attachmentInfo.FileExtendName;
-                  result.FilePath=attachmentInfo.FilePath;
-                  result.UploadDate=attachmentInfo.UploadDate;
-                  result.FileType=attachmentInfo.FileType;
-                  result.BusinessType=attachmentInfo.BusinessType;
-                  result.Channel=attachmentInfo.Channel;
-                  result.FileSize=attachmentInfo.FileSize;
-                  result.Remark=attachmentInfo.Remark;
-                  result.Operator=attachmentInfo.Operator;
+                result.AttachmentID = attachmentInfo.AttachmentID;
+                result.FileName = attachmentInfo.FileName;
+                result.FileExtendName = attachmentInfo.FileExtendName;
+                if (isAPI)
+                    result.FilePath = attachmentInfo.FilePath.Replace("~", FileUrl);
+                else
+                    result.FilePath = attachmentInfo.FilePath;
+                result.UploadDate = attachmentInfo.UploadDate;
+                result.FileType = attachmentInfo.FileType;
+                result.BusinessType = attachmentInfo.BusinessType;
+                result.Channel = attachmentInfo.Channel;
+                result.FileSize = attachmentInfo.FileSize;
+                result.Remark = attachmentInfo.Remark;
+                result.Operator = attachmentInfo.Operator;
             }
 
 
@@ -110,7 +113,31 @@ namespace Service.BaseBiz
             {
                 foreach (AttachmentInfo mInfo in miList)
                 {
-                    AttachmentEntity attachEntity = TranslateAttachmentInfo(mInfo);
+                    AttachmentEntity attachEntity = TranslateAttachmentInfo(mInfo, false);
+                    all.Add(attachEntity);
+                }
+            }
+
+            return all;
+        }
+
+
+        /// <summary>
+        /// API接口返回  包含完整路径
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        public static List<AttachmentEntity> GetAttachmentAPIInfoByKyes(string ids)
+        {
+            List<AttachmentEntity> all = new List<AttachmentEntity>();
+            BaseDataRepository mr = new BaseDataRepository();
+            List<AttachmentInfo> miList = mr.GetAttachments(ids);
+
+            if (!miList.IsEmpty())
+            {
+                foreach (AttachmentInfo mInfo in miList)
+                {
+                    AttachmentEntity attachEntity = TranslateAttachmentInfo(mInfo, true);
                     all.Add(attachEntity);
                 }
             }

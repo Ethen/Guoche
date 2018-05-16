@@ -27,7 +27,7 @@ namespace GuoChe.Controllers
         /// <returns></returns>
         public JsonResult CarInfo(string carid, string supplierid)
         {
-            List<CarEntity> lstCar = CarService.GetAllCar(carid, supplierid);
+            List<CarEntity> lstCar = CarService.GetAllCar(carid, supplierid, true);
             return Json(JsonHelper.ToJson<List<CarEntity>>(lstCar));
         }
 

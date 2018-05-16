@@ -63,7 +63,7 @@ namespace Service
             return carInfo;
         }
 
-        private static CarEntity TranslateCarEntity(CarInfo carInfo)
+        private static CarEntity TranslateCarEntity(CarInfo carInfo,bool isAPI=false)
         {
             CarEntity carEntity = new CarEntity();
             if (carInfo != null)
@@ -95,18 +95,30 @@ namespace Service
                 carEntity.ModifyDate =carInfo.ModifyDate;
                 carEntity.Operator =carInfo.Operator;
 
-                List<AttachmentEntity> attachments=new List<AttachmentEntity>();
-                if (!string.IsNullOrEmpty(carEntity.AttachmentIDs))
+                if (isAPI)
                 {
-                    attachments = BaseDataService.GetAttachmentInfoByKyes(carEntity.AttachmentIDs);
+                    List<AttachmentEntity> attachments = new List<AttachmentEntity>();
+                    if (!string.IsNullOrEmpty(carEntity.AttachmentIDs))
+                    {
+                        attachments = BaseDataService.GetAttachmentAPIInfoByKyes(carEntity.AttachmentIDs);
+                    }
+                    carEntity.AttachmentsInfo = attachments;
                 }
-                carEntity.AttachmentsInfo = attachments;
+                else
+                {
+                    List<AttachmentEntity> attachments = new List<AttachmentEntity>();
+                    if (!string.IsNullOrEmpty(carEntity.AttachmentIDs))
+                    {
+                        attachments = BaseDataService.GetAttachmentInfoByKyes(carEntity.AttachmentIDs);
+                    }
+                    carEntity.AttachmentsInfo = attachments;
 
-                StoreEntity store=StoreService.GetStoreById(carEntity.SupplierID)??new StoreEntity();
-                carEntity.Store=store;
+                    StoreEntity store = StoreService.GetStoreById(carEntity.SupplierID) ?? new StoreEntity();
+                    carEntity.Store = store;
 
-                UserEntity user=UserService.GetUserById(carEntity.Operator)??new UserEntity();
-                carEntity.OperatorInfo=user;
+                    UserEntity user = UserService.GetUserById(carEntity.Operator) ?? new UserEntity();
+                    carEntity.OperatorInfo = user;
+                }
 
 
             }
@@ -137,7 +149,7 @@ namespace Service
         }
 
 
-        public static List<CarEntity> GetAllCar(string carid, string supplierid)
+        public static List<CarEntity> GetAllCar(string carid, string supplierid,bool isAPI)
         {
             List<CarEntity> all = new List<CarEntity>();
             CarRepository mr = new CarRepository();
@@ -151,7 +163,7 @@ namespace Service
             {
                 foreach (CarInfo mInfo in miList)
                 {
-                    CarEntity carEntity = TranslateCarEntity(mInfo);
+                    CarEntity carEntity = TranslateCarEntity(mInfo, isAPI);
                     all.Add(carEntity);
                 }
             }
