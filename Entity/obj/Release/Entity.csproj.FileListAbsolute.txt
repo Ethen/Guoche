@@ -1,4 +1,0 @@
-D:\国车APP项目\Guoche\Entity\bin\Release\Entity.dll
-D:\国车APP项目\Guoche\Entity\bin\Release\Entity.pdb
-D:\国车APP项目\Guoche\Entity\obj\Release\Entity.dll
-D:\国车APP项目\Guoche\Entity\obj\Release\Entity.pdb

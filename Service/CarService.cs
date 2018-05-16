@@ -100,7 +100,7 @@ namespace Service
                     List<AttachmentEntity> attachments = new List<AttachmentEntity>();
                     if (!string.IsNullOrEmpty(carEntity.AttachmentIDs))
                     {
-                        attachments = BaseDataService.GetAttachmentAPIInfoByKyes(carEntity.AttachmentIDs);
+                        attachments = BaseDataService.GetAttachmentInfoByKyes(carEntity.AttachmentIDs, isAPI);
                     }
                     carEntity.AttachmentsInfo = attachments;
                 }

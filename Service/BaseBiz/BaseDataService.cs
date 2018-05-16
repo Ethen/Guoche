@@ -103,7 +103,7 @@ namespace Service.BaseBiz
             return result;
         }
 
-        public static List<AttachmentEntity> GetAttachmentInfoByKyes(string ids)
+        public static List<AttachmentEntity> GetAttachmentInfoByKyes(string ids, bool isAPI = false)
         {
             List<AttachmentEntity> all = new List<AttachmentEntity>();
             BaseDataRepository mr = new BaseDataRepository();
@@ -113,7 +113,7 @@ namespace Service.BaseBiz
             {
                 foreach (AttachmentInfo mInfo in miList)
                 {
-                    AttachmentEntity attachEntity = TranslateAttachmentInfo(mInfo, false);
+                    AttachmentEntity attachEntity = TranslateAttachmentInfo(mInfo, isAPI);
                     all.Add(attachEntity);
                 }
             }

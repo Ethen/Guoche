@@ -1,9 +1,0 @@
-D:\国车APP项目\Guoche\DataRepository\bin\Release\DataRepository.dll
-D:\国车APP项目\Guoche\DataRepository\bin\Release\DataRepository.pdb
-D:\国车APP项目\Guoche\DataRepository\bin\Release\Infrastructure.dll
-D:\国车APP项目\Guoche\DataRepository\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.dll
-D:\国车APP项目\Guoche\DataRepository\bin\Release\Microsoft.Practices.EnterpriseLibrary.Data.dll
-D:\国车APP项目\Guoche\DataRepository\bin\Release\Infrastructure.pdb
-D:\国车APP项目\Guoche\DataRepository\obj\Release\DataRepository.csprojResolveAssemblyReference.cache
-D:\国车APP项目\Guoche\DataRepository\obj\Release\DataRepository.dll
-D:\国车APP项目\Guoche\DataRepository\obj\Release\DataRepository.pdb
