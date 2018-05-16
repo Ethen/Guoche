@@ -18,7 +18,7 @@ namespace DataRepository.DataAccess.News
             command.AddInputParameter("@Title", DbType.String, info.Title);
             command.AddInputParameter("@zhaiyao", DbType.String, info.zhaiyao);
             command.AddInputParameter("@Content", DbType.String, info.Content);
-            command.AddInputParameter("@ImageUrl", DbType.String, info.ImageUrl);
+            command.AddInputParameter("@AttachmentIDs", DbType.String, info.AttachmentIDs);
             command.AddInputParameter("@Sort", DbType.Int32, info.Sort);
             command.AddInputParameter("@Status", DbType.Int32, info.Status);
             command.AddInputParameter("@CreateDate", DbType.DateTime, DateTime.Now);
@@ -34,7 +34,7 @@ namespace DataRepository.DataAccess.News
             command.AddInputParameter("@Title", DbType.String, info.Title);
             command.AddInputParameter("@zhaiyao", DbType.String, info.zhaiyao);
             command.AddInputParameter("@Content", DbType.String, info.Content);
-            command.AddInputParameter("@ImageUrl", DbType.String, info.ImageUrl);
+            command.AddInputParameter("@AttachmentIDs", DbType.String, info.AttachmentIDs);
             command.AddInputParameter("@Sort", DbType.Int32, info.Sort);
             command.AddInputParameter("@Status", DbType.Int32, info.Status);
             command.AddInputParameter("@ModifyDate", DbType.DateTime, DateTime.Now);

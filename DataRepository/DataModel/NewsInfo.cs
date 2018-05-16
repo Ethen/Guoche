@@ -19,8 +19,8 @@ namespace DataRepository.DataModel
         [DataMapping("Title", DbType.String)]
         public String Title { get; set; }
 
-        [DataMapping("ImageUrl", DbType.String)]
-        public string ImageUrl { get; set; }
+        [DataMapping("AttachmentIDs", DbType.String)]
+        public string AttachmentIDs { get; set; }
 
         [DataMapping("zhaiyao", DbType.String)]
         public String zhaiyao { get; set; }

@@ -56,13 +56,13 @@ namespace GuoChe.Controllers
             string content = Request["Content"] ?? "";
             content = Request["Content"] ?? "";
             string zhaiyao = Request["zhaiyao"] ?? "";
-            string imageUrl = Request["ImageUrl"] ?? "";
+            string AttachmentIDs = Request["AttachmentIDs"] ?? "";
             NewsEntity entity = new NewsEntity();
             entity.ID = id;
             entity.Title = Title;
             entity.ChannelID = ChannelID;
             entity.zhaiyao = zhaiyao;
-            entity.ImageUrl = imageUrl;
+            entity.AttachmentIDs = AttachmentIDs;
             entity.Operator = CurrentUser == null ? 0 : CurrentUser.UserID;
             entity.Content = content;
             entity.Status = status;

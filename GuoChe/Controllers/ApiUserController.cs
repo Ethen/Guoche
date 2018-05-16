@@ -159,7 +159,7 @@ namespace GuoChe.Controllers
         /// <param name="vcode"></param>
         /// <param name="newpassword"></param>
         /// <returns></returns>
-        public JsonResult Forget(string userid, string telephone, string vcode, string newpassword)
+        public JsonResult Forget(string telephone, string vcode, string newpassword)
         {
             ApiUserEntity viewE = new ApiUserEntity();
             CustomerEntity chkENtity = CustomerService.UpdatePassword(telephone, EncryptHelper.MD5Encrypt(newpassword), vcode);
@@ -184,7 +184,7 @@ namespace GuoChe.Controllers
             string jsonstr = string.Empty;
             if (count > 0)
             {
-                List<NewsEntity> lstNews = NewsService.GetCountNews(count);
+                List<NewsEntity> lstNews = NewsService.GetCountNews(count,true);
                 jsonstr = JsonHelper.ToJson<List<NewsEntity>>(lstNews);
             }
             if (!string.IsNullOrEmpty(newsid))

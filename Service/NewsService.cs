@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Infrastructure.Helper;
+using Service.BaseBiz;
 
 namespace Service
 {
@@ -43,25 +44,13 @@ namespace Service
             {
                 foreach (NewsInfo info in lstInfo)
                 {
-                    NewsEntity entity = new NewsEntity();
-                    entity.ID = info.ID;
-                    entity.ChannelID = info.ChannelID;
-                    entity.Title = info.Title;
-                    entity.ImageUrl = info.ImageUrl;
-                    entity.zhaiyao = info.zhaiyao;
-                    entity.Content = info.Content;
-                    entity.Sort = info.Sort;
-                    entity.Status = info.Status;
-                    entity.Operator = info.Operator;
-                    entity.CreateDate = info.CreateDate;
-                    entity.ModifyDate = info.ModifyDate;
-                    lstNews.Add(entity);
+                    lstNews.Add(TranslateNewsEntity(info,false));
                 }
             }
             return lstNews;
         }
 
-        public static List<NewsEntity> GetCountNews(int count)
+        public static List<NewsEntity> GetCountNews(int count,bool isApi)
         {
             List<NewsEntity> lstNews = new List<NewsEntity>();
             NewsRepository mr = new NewsRepository();
@@ -77,23 +66,45 @@ namespace Service
             {
                 foreach (NewsInfo info in lstInfo)
                 {
-                    NewsEntity entity = new NewsEntity();
-                    entity.ID = info.ID;
-                    entity.ChannelID = info.ChannelID;
-                    entity.Title = info.Title;
-                    entity.ImageUrl = info.ImageUrl;
-                    entity.zhaiyao = info.zhaiyao;
-                    entity.Content = info.Content;
-                    entity.Sort = info.Sort;
-                    entity.Status = info.Status;
-                    entity.Operator = info.Operator;
-                    entity.CreateDate = info.CreateDate;
-                    entity.ModifyDate = info.ModifyDate;
-                    lstNews.Add(entity);
+                    lstNews.Add(TranslateNewsEntity(info, isApi));
                 }
             }
             return lstNews;
         }
+
+        public static NewsEntity TranslateNewsEntity(NewsInfo info,bool isApi)
+        {
+            NewsEntity entity = new NewsEntity();
+            entity.ID = info.ID;
+            entity.ChannelID = info.ChannelID;
+            entity.Title = info.Title;
+            entity.AttachmentIDs = info.AttachmentIDs;
+            entity.zhaiyao = info.zhaiyao;
+            if (isApi)//如果API接口调用 需要将图片地址替换成完成路径
+            {
+                entity.Content = info.Content.Replace("/Scripts/", FileUrl + "/Scripts/");
+            }
+            else
+            {
+                entity.Content = info.Content;
+            }
+            entity.Sort = info.Sort;
+            entity.Status = info.Status;
+            entity.Operator = info.Operator;
+            entity.CreateDate = info.CreateDate;
+            entity.ModifyDate = info.ModifyDate;
+            List<AttachmentEntity>  lstAttach= BaseDataService.GetAttachmentInfoByKyes(info.AttachmentIDs);
+            if (isApi == false)
+            {
+                entity.Attachments = lstAttach;
+            }
+            if (lstAttach != null && lstAttach.Count > 0)
+            {
+                entity.ImageUrl = lstAttach[0].FilePath.Replace("~", FileUrl);
+            }
+            return entity;
+        }
+
 
         public static NewsEntity GetNewsByID(int ID)
         {
@@ -102,15 +113,7 @@ namespace Service
             NewsInfo info = mr.GetNewsByID(ID);
             if (info != null)
             {
-                entity.ID = info.ID;
-                entity.ChannelID = info.ChannelID;
-                entity.Title = info.Title;
-                entity.ImageUrl = info.ImageUrl;
-                entity.zhaiyao = info.zhaiyao;
-                entity.Content = info.Content;
-                entity.Sort = info.Sort;
-                entity.Status = info.Status;
-                entity.Operator = info.Operator;
+                entity=TranslateNewsEntity(info,false);
             }
             return entity;
         }
@@ -132,7 +135,7 @@ namespace Service
                 info.Title = entity.Title;
                 info.zhaiyao = entity.zhaiyao;
                 info.Content = entity.Content;
-                info.ImageUrl = entity.ImageUrl;
+                info.AttachmentIDs = entity.AttachmentIDs;
                 info.Sort = entity.Sort;
                 info.Status = entity.Status;
                 info.Operator = entity.Operator;

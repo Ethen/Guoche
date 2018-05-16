@@ -15,7 +15,7 @@ namespace Entity.ViewModel
 
         public string Title { get; set; }
 
-        public string ImageUrl { get; set; }
+        public string AttachmentIDs { get; set; }
 
         public string zhaiyao { get; set; }
 
@@ -30,5 +30,39 @@ namespace Entity.ViewModel
         public DateTime ModifyDate { get; set; }
 
         public long Operator { get; set; }
+
+        public string ImageUrl { get; set; }
+
+        public List<AttachmentEntity> Attachments { get; set; }
+    }
+
+
+    [Serializable]
+    public class NewsApiEntity
+    {
+        public long ID { get; set; }
+
+        public int ChannelID { get; set; }
+
+        public string Title { get; set; }
+
+        public string AttachmentIDs { get; set; }
+
+        public string zhaiyao { get; set; }
+
+        public string Content { get; set; }
+
+        public int Sort { get; set; }
+
+        public int Status { get; set; }
+
+        public DateTime CreateDate { get; set; }
+
+        public DateTime ModifyDate { get; set; }
+
+        public long Operator { get; set; }
+
+        public string ImageUrl { get; set; }
+
     }
 }

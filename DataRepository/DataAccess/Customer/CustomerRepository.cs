@@ -55,7 +55,7 @@ namespace DataRepository.DataAccess.Customer
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(CustomerStatement.UpdatePassword, "Text"));
             command.AddInputParameter("@CustomerCode", DbType.String, vcode);
             command.AddInputParameter("@Password", DbType.String, password);
-            command.AddInputParameter("@Mobile", DbType.Int32, telephone);
+            command.AddInputParameter("@Mobile", DbType.String, telephone);
             return command.ExecuteNonQuery();
         }
 
