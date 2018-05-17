@@ -33,6 +33,15 @@ namespace DataRepository.DataAccess.BaseData
             return result;
         }
 
+        public List<CityInfo> GetAllHasCity()
+        {
+            List<CityInfo> result = new List<CityInfo>();
+            string sqlText = BaseDataStatement.GetAllHasCity;
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(BaseDataStatement.GetAllHasCity, "Text"));
+            result = command.ExecuteEntityList<CityInfo>();
+            return result;
+        }
+
         public List<ProvinceInfo> GetAllProvince()
         {
             List<ProvinceInfo> result = new List<ProvinceInfo>();

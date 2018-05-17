@@ -18,8 +18,9 @@ namespace DataRepository.DataModel
         [DataMapping("CustomerName", DbType.String)]
         public string CustomerName { get; set; }
 
-        [DataMapping("RType", DbType.Int32)]
-        public int RType { get; set; }
+        [DataMapping("RType", DbType.String)]
+        //SJ:汽车试驾  ZL：汽车租赁 DZ:电桩预约
+        public string  RType { get; set; }
 
         [DataMapping("PayType", DbType.String)]
         public string PayType { get; set; }

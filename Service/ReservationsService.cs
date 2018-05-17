@@ -60,12 +60,12 @@ namespace Service
                 CustomerEntity customer = CustomerService.GetCustomerByID(info.CustomerID);
                 reservationsEntity.Customer = customer;
 
-                if (info.RType == 1)//汽车预约
+                if (info.RType == "SJ" || info.RType == "ZL")//汽车预约
                 {
                     CarEntity car = CarService.GetCarEntityById(info.CarID);
                     reservationsEntity.Car = car;
                 }
-                else if(info.RType==2)//充电桩预约
+                else if(info.RType=="DZ")//充电桩预约
                 {
                     ChargingPileEntity chargingPile = ChargeService.GetChargingPileEntityById(info.CarID);
                     reservationsEntity.ChargingPile = chargingPile;

@@ -25,7 +25,7 @@ namespace GuoChe.Controllers
 
         /// </summary>
         /// <returns></returns>
-        public JsonResult CarInfo(string carid, string supplierid)
+        public JsonResult CarInfo(string carid, string supplierid, string cityid)
         {
             List<CarEntity> lstCar = CarService.GetAllCar(carid, supplierid, true);
             return Json(JsonHelper.ToJson<List<CarEntity>>(lstCar));
@@ -43,7 +43,7 @@ namespace GuoChe.Controllers
         }
 
         /// <summary>
-        ///  用户预约车辆信息
+        ///  用户预约车辆试驾信息
         /// </summary>
         /// <param name="userid"></param>
         /// <param name="carid"></param>
@@ -53,14 +53,42 @@ namespace GuoChe.Controllers
             ReservationsEntity entity = new ReservationsEntity();
             entity.CustomerID = Convert.ToInt64(userid);
             entity.CarID = Convert.ToInt32(carid);
-            entity.RType = 1;//1:销售预约 2：租车预约
+            entity.RType = "SJ";//SJ:销售试驾 2：ZL：租车预约 DZ：电桩预约
             entity.Status = 0;//0未处理 1：已处理
             bool result = ReservationsService.AddReservations(entity);
             ApiReservationsEntity apiE = new ApiReservationsEntity();
             if (result)
             {
                 apiE.code = "200";
-                apiE.codeinfo = "预约成功！";
+                apiE.codeinfo = "汽车试驾预约成功！稍后客服联系您！";
+            }
+            else
+            {
+                apiE.code = "201";
+                apiE.codeinfo = "预约失败，请稍后再试！";
+            }
+            return Json(JsonHelper.ToJson(apiE));
+        }
+
+        /// <summary>
+        ///  用户预约车辆租赁信息
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <param name="carid"></param>
+        /// <returns></returns>
+        public JsonResult LeaseReservation(string userid, string carid)
+        {
+            ReservationsEntity entity = new ReservationsEntity();
+            entity.CustomerID = Convert.ToInt64(userid);
+            entity.CarID = Convert.ToInt32(carid);
+            entity.RType = "ZL";//SJ:销售试驾 2：ZL：租车预约 DZ：电桩预约
+            entity.Status = 0;//0未处理 1：已处理
+            bool result = ReservationsService.AddReservations(entity);
+            ApiReservationsEntity apiE = new ApiReservationsEntity();
+            if (result)
+            {
+                apiE.code = "200";
+                apiE.codeinfo = "汽车租赁预约成功！稍后客服联系您！";
             }
             else
             {

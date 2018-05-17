@@ -96,6 +96,9 @@ namespace DataRepository.DataModel
         [DataMapping("CarLicNumber", DbType.String)]
         public string CarLicNumber { get; set; }
 
+        [DataMapping("CuidePrice", DbType.Decimal)]
+        public decimal CuidePrice { get; set; }
+
         [DataMapping("CreateDate", DbType.DateTime)]
         public DateTime CreateDate { get; set; }
 

@@ -12,8 +12,10 @@ namespace Entity.ViewModel
         public long CustomerID { get; set; }
 
         public string CustomerName { get; set; }
-
-        public int RType { get; set; }
+        /// <summary>
+        /// SJ:汽车试驾  ZL：汽车租赁 DZ:电桩预约
+        /// </summary>
+        public string RType { get; set; }
 
         public string PayType { get; set; }
 

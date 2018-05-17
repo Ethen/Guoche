@@ -79,6 +79,20 @@ namespace GuoChe.Controllers
             return Json(JsonHelper.ToJson(viewE));
         }
 
+        [HttpGet]
+        public ActionResult Detail(string ID)
+        {
+            if (!string.IsNullOrEmpty(ID))
+            {
+                ViewBag.News = NewsService.GetNewsByID(ID.ToInt(0));
+            }
+            else
+            {
+                ViewBag.News = new NewsEntity();
+            }
+            return View();
+        }
+
         /// <summary>
         /// 注册用户
         /// </summary>
@@ -193,6 +207,17 @@ namespace GuoChe.Controllers
                 jsonstr = JsonHelper.ToJson(newe);
             }
             return Json(jsonstr);
+        }
+
+        /// <summary>
+        /// 获取所有有汽车、有充电桩的城市
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetAllHasCity()
+        {
+            List<City> lstCity = new List<City>();
+            lstCity = BaseDataService.GetAllHasCity();
+            return Json(JsonHelper.ToJson<List<City>>(lstCity));
         }
     }
 }

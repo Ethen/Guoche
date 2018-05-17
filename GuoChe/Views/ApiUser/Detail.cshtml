@@ -1,0 +1,12 @@
+﻿@using Entity.ViewModel;
+@{
+    NewsEntity newsEntity = (NewsEntity)ViewBag.News;
+}
+
+@if(newsEntity!=null)
+{
+<h2>Detail</h2>
+<p>@newsEntity.Title</p>
+    <p>@newsEntity.zhaiyao</p>
+    <p>@newsEntity.Content</p>
+}

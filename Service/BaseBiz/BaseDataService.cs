@@ -216,6 +216,27 @@ namespace Service.BaseBiz
             return result;
         }
 
+        public static List<City> GetAllHasCity()
+        {
+            List<City> result = Cache.Get<List<City>>("GetAllHasCity") ?? new List<City>();            
+            if (result.IsEmpty())
+            {
+                BaseDataRepository mr = new BaseDataRepository();
+                List<CityInfo> cInfo = mr.GetAllHasCity();
+                foreach (var item in cInfo)
+                {
+                    City c = new City();
+                    c.CityID = item.CityID;
+                    c.CityName = item.CityName;
+                    c.ProvinceID = item.ProvinceID;                    
+                    result.Add(c);
+                }
+                Cache.Add("GetAllHasCity", result);
+            }
+
+            return result;
+        }
+
         public static BaseDataEntity GetBaseDataById(int id)
         {
             BaseDataEntity result = new BaseDataEntity();

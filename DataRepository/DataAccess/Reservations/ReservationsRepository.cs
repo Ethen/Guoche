@@ -17,7 +17,7 @@ namespace DataRepository.DataAccess.Reservations
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(ReservationsStatement.InsertSql, "Text"));
             command.AddInputParameter("@CustomerID", DbType.Int64, info.CustomerID);
             command.AddInputParameter("@CustomerName", DbType.String, info.CustomerName);
-            command.AddInputParameter("@RType", DbType.Int32, info.RType);
+            command.AddInputParameter("@RType", DbType.String, info.RType);
             command.AddInputParameter("@PayType", DbType.Int32, info.PayType);
             command.AddInputParameter("@CarID", DbType.Int32, info.CarID);
             command.AddInputParameter("@LeaseTime", DbType.Int32, info.LeaseTime);

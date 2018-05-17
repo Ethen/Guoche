@@ -47,7 +47,7 @@ namespace Entity.ViewModel
         public string CarLicNumber { get; set; }
         public DateTime ModifyDate { get; set; }
         public long Operator { get; set; }
-
+        public decimal CuidePrice { get; set; }
         public List<AttachmentEntity> AttachmentsInfo { get; set; }
 
         public UserEntity OperatorInfo { get; set; }

@@ -10,6 +10,8 @@ namespace DataRepository.DataAccess.BaseData
     {
         public static string GetAllCity = @"SELECT * FROM City(NOLOCK)";
 
+        public static string GetAllHasCity = @"SELECT * FROM City(NOLOCK) WHERE HasCar=1 and HasBattery=1";
+
         public static string GetAllProvince = @"SELECT ProvinceID,ProvinceName FROM Province(NOLOCK)";
 
         public static string GetAllBaseData = @"SELECT * FROM BaseData(NOLOCK) ORDER BY TypeCode";
