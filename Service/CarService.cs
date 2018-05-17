@@ -153,11 +153,21 @@ namespace Service
         {
             List<CarEntity> all = new List<CarEntity>();
             CarRepository mr = new CarRepository();
-            List<CarInfo> miList = Cache.Get<List<CarInfo>>("CarALL" + carid + supplierid);
+            string KEY = "CarALL";
+            if (!string.IsNullOrEmpty(carid))
+            {
+                KEY += "CARID" + carid;
+            }
+
+            if (!string.IsNullOrEmpty(supplierid))
+            {
+                KEY += "SUPPLIERID" + supplierid;
+            }
+            List<CarInfo> miList = Cache.Get<List<CarInfo>>(KEY);
             if (miList.IsEmpty())
             {
                 miList = mr.GetAllCarInfo(carid, supplierid);
-                Cache.Add("CarALL" + carid + supplierid, miList);
+                Cache.Add(KEY, miList);
             }
             if (!miList.IsEmpty())
             {
