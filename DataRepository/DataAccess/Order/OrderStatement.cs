@@ -15,6 +15,8 @@ namespace DataRepository.DataAccess.Order
 
         public static string GetOrderByInnerID = @"SELECT * FROM [OrderInfo](NOLOCK) WHERE OrderInnerID=@OrderInnerID ";
 
+        public static string EditOrderStatus = @"UPDATE OrderInfo SET [Status]=@Status WHERE [OrderInnerID]=@OrderInnerID";
+
         public static string GetOrderPagerHeader = @"DECLARE @UP INT
         
 	                                                  ---------分页区间计算-------------最大页数
@@ -30,11 +32,11 @@ namespace DataRepository.DataAccess.Order
 	                                                  BEGIN
 		                                                  SET @UP=@PageSize*(@PageIndex-1);
 		                                                  ---------分页查询-----------
-		                                                  WITH order AS
+		                                                  WITH o AS
 		                                                  (SELECT *,ROW_NUMBER() OVER (ORDER BY Status) AS RowNumber FROM (SELECT * FROM OrderInfo WHERE 1=1";
 
         public static string GetOrderPagerFooter = @")as T ) 
-		                                                  SELECT *  FROM order 
+		                                                  SELECT *  FROM o
 		                                                  WHERE RowNumber BETWEEN @UP+1 AND @UP+@PageSize
 	                                                  END";
     }

@@ -57,6 +57,8 @@ namespace Entity.ViewModel
 
         public BaseDataEntity PayTypeInfo { get; set; }
 
+        public BaseDataEntity UseTypeDesc { get; set; }
+
 
 
     }

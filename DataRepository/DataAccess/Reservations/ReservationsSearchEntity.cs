@@ -14,9 +14,11 @@ namespace DataRepository.DataAccess.Reservations
         public long CustomerID { get; set; }
 
         /// <summary>
-        /// 预定类型 1--预定车 2--预定充电桩
+        /// 预定类型 DZ--预约充电桩
+                    //SJ--预约试驾  
+                    //ZL--预约购买汽车
         /// </summary>
-        public int RType { get; set; }
+        public string RType { get; set; }
 
         /// <summary>
         /// 支付方式

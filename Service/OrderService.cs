@@ -90,27 +90,30 @@ namespace Service
                 StoreEntity store = StoreService.GetStoreById(info.SupplierID);
                 orderEntity.Store = store;
 
+                BaseDataEntity use = BaseDataService.GetBaseDataByPCode("U00").FirstOrDefault(t => t.TypeCode == info.UseType) ?? new BaseDataEntity();
+                orderEntity.UseTypeDesc = use;//使用方式信息
+
 
             }
 
             return orderEntity;
         }
 
-        public OrderEntity GetOrderByInnerID(long rid)
+        public static OrderEntity GetOrderByInnerID(long rid)
         {
             OrderRepository rr = new OrderRepository();
             OrderInfo info = rr.GetOrderInfoByID(rid);
             return TranslateOrderEntity(info);
         }
 
-        public OrderEntity GetOrderByID(string orderId)
+        public static OrderEntity GetOrderByID(string orderId)
         {
             OrderRepository rr = new OrderRepository();
             OrderInfo info = rr.GetOrderInfoByID(orderId);
             return TranslateOrderEntity(info);
         }
 
-        public List<OrderEntity> GetOrderByRule(OrderSearchEntity search, PagerInfo pager)
+        public static List<OrderEntity> GetOrderByRule(OrderSearchEntity search, PagerInfo pager)
         {
             List<OrderEntity> all = new List<OrderEntity>();
             OrderRepository mr = new OrderRepository();
@@ -127,6 +130,11 @@ namespace Service
         {
             return new OrderRepository().GetOrderCount(search);
 
+        }
+
+        public static int EditOrderStatus(long innerid, int status)
+        {
+            return new OrderRepository().EditOrderStatus(innerid, status);
         }
 
 

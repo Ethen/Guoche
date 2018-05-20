@@ -42,5 +42,38 @@ namespace Entity.ViewModel
 
         public BaseDataEntity PayTypeInfo { get; set; }
 
+        public string StatusDesc {
+            get {
+
+                string result = string.Empty;
+                switch (Status)
+                {
+                    case 1: result = "已成交"; break;
+                    case 0: result = "待处理"; break;
+                    case -1: result = "已取消"; break;
+                    default: result = "待处理"; break;
+                }
+
+                return result;
+            }
+        }
+
+
+        public string RTypeDesc {
+
+            get {
+                string result = string.Empty;
+                switch (RType)
+                {
+                    case "SJ": result = "汽车试驾"; break;
+                    case "ZL": result = "汽车租赁"; break;
+                    case "DZ": result = "电桩预约"; break;
+                    default: result = "未知类型"; break;
+                }
+
+                return result;
+            }
+        }
+
     }
 }

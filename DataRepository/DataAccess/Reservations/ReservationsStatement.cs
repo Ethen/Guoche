@@ -16,6 +16,8 @@ namespace DataRepository.DataAccess.Reservations
 
         public static string GetReservationByID = @"SELECT * FROM Reservations(NOLOCK) WHERE ID=@ID ";
 
+        public static string EditReservationStatus = @"  UPDATE [Reservations] SET [Status]=@Status WHERE [ID]=@ID";
+
         public static string GetReservationPagerHeader = @"DECLARE @UP INT
         
 	                                                  ---------分页区间计算-------------最大页数

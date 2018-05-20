@@ -32,10 +32,6 @@ namespace DataRepository.DataModel
         [DataMapping("Mobile", DbType.String)]
         public string Mobile { get; set; }
 
-        //[DataMapping("CreateDate", DbType.DateTime)]
-        //public long CreateDate { get; set; }
 
-        //[DataMapping("LastLoginDate", DbType.DateTime)]
-        //public long LastLoginDate { get; set; }
     }
 }

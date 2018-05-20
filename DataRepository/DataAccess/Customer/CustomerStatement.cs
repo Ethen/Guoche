@@ -21,6 +21,8 @@ namespace DataRepository.DataAccess.Customer
 
         public static string GetCustomerExtendByID = @"SELECT * FROM CustomerExtend(NOLOCK) WHERE ID=@ID ";
 
+        public static string GetCutomerAll = @"SELECT * FROM Customer(NOLOCK) ";
+
         public static string GetCustomerAllCount = @"SELECT * FROM CustomerExtend(NOLOCK) WHERE 1=1 ";
 
         public static string GetCustomerAllPagerHeader = @"DECLARE @UP INT

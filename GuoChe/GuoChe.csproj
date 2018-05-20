@@ -190,6 +190,8 @@
     <Compile Include="Controllers\ChargeController.cs" />
     <Compile Include="Controllers\AdviseController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
+    <Compile Include="Controllers\RevController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\CarController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
@@ -770,6 +772,8 @@
     <Content Include="Views\Advise\Index.cshtml" />
     <Content Include="Views\Pager.cshtml" />
     <Content Include="Views\ApiUser\Detail.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\Rev\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -781,6 +785,10 @@
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{5ed0a578-fe0e-4e6e-a1cb-f69761278183}</Project>
       <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataRepository\DataRepository.csproj">
+      <Project>{2c07ff57-595d-4717-8c90-3da248898d6d}</Project>
+      <Name>DataRepository</Name>
     </ProjectReference>
     <ProjectReference Include="..\Entity\Entity.csproj">
       <Project>{5c08f63a-7418-45de-bf1d-0c5337927b37}</Project>

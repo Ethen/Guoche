@@ -80,14 +80,14 @@ namespace Service
             return reservationsEntity;
         }
 
-        public ReservationsEntity GetReservationsByID(long rid)
+        public static ReservationsEntity GetReservationsByID(long rid)
         {
             ReservationsRepository rr = new ReservationsRepository();
             ReservationsInfo info=rr.GetReservationsInfoByID(rid);
             return TranslateReservationsEntity(info);
         }
 
-        public List<ReservationsEntity> GetReservationsByRule(ReservationsSearchEntity search,PagerInfo pager)
+        public static List<ReservationsEntity> GetReservationsByRule(ReservationsSearchEntity search, PagerInfo pager)
         {
             List<ReservationsEntity> all = new List<ReservationsEntity>();
             ReservationsRepository mr = new ReservationsRepository();
@@ -127,6 +127,11 @@ namespace Service
                result = rR.CreateNew(info);
             }
             return result > 0;
+        }
+
+        public static int EditReservationsStatus(long rid, int status)
+        {
+            return new ReservationsRepository().EditReservationsStatus(rid, status);
         }
     }
 }

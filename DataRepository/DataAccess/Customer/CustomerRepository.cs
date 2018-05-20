@@ -88,6 +88,12 @@ namespace DataRepository.DataAccess.Customer
         }
 
 
+        public List<CustomerInfo> GetCustomerAll()
+        {
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(CustomerStatement.GetCutomerAll, "Text"));
+            return command.ExecuteEntityList<CustomerInfo>();
+        }
+
         public List<CustomerExtendInfo> GetCustomerExtend(string name, string code,int status,PagerInfo pager)
         {
             List<CustomerExtendInfo> result = new List<CustomerExtendInfo>();
@@ -176,6 +182,8 @@ namespace DataRepository.DataAccess.Customer
             command.AddInputParameter("@ID", DbType.Int64, cid);
             return command.ExecuteEntity<CustomerExtendInfo>();
         }
+
+
 
 
     }

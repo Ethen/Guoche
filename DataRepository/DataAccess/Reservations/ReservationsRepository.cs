@@ -50,13 +50,17 @@ namespace DataRepository.DataAccess.Reservations
             {
                 builder.Append(" AND CustomerID=@CustomerID ");
             }
-            if (serach.RType>0)
+            if (!string.IsNullOrEmpty(serach.RType))
             {
                 builder.Append(" AND RType =@RType ");
             }
             if (!string.IsNullOrEmpty(serach.PayType))
             {
                 builder.Append(" AND PayType=@PayType ");
+            }
+            if (serach.Status>-2)
+            {
+                builder.Append(" AND Status=@Status ");
             }
 
             string sql = ReservationsStatement.GetReservationPagerHeader + builder.ToString() + ReservationsStatement.GetReservationPagerFooter;
@@ -67,13 +71,17 @@ namespace DataRepository.DataAccess.Reservations
             {
                 command.AddInputParameter("@CustomerID", DbType.Int64, serach.CustomerID);
             }
-            if (serach.RType > 0)
+            if (!string.IsNullOrEmpty(serach.RType))
             {
                 command.AddInputParameter("@RType", DbType.Int32, serach.RType);
             }
             if (!string.IsNullOrEmpty(serach.PayType))
             {
                 command.AddInputParameter("@PayType", DbType.String, serach.PayType);
+            }
+            if (serach.Status > -2)
+            {
+                command.AddInputParameter("@Status", DbType.Int32, serach.Status);
             }
             command.AddInputParameter("@PageIndex", DbType.Int32, pager.PageIndex);
             command.AddInputParameter("@PageSize", DbType.Int32, pager.PageSize);
@@ -94,7 +102,7 @@ namespace DataRepository.DataAccess.Reservations
             {
                 builder.Append(" AND CustomerID=@CustomerID ");
             }
-            if (serach.RType > 0)
+            if (!string.IsNullOrEmpty(serach.RType))
             {
                 builder.Append(" AND RType =@RType ");
             }
@@ -109,9 +117,9 @@ namespace DataRepository.DataAccess.Reservations
             {
                 command.AddInputParameter("@CustomerID", DbType.Int64, serach.CustomerID);
             }
-            if (serach.RType > 0)
+            if (!string.IsNullOrEmpty(serach.RType))
             {
-                command.AddInputParameter("@RType", DbType.Int32, serach.RType);
+                command.AddInputParameter("@RType", DbType.String, serach.RType);
             }
             if (!string.IsNullOrEmpty(serach.PayType))
             {
@@ -121,6 +129,15 @@ namespace DataRepository.DataAccess.Reservations
 
             var o = command.ExecuteScalar<object>();
             return Convert.ToInt32(o);
+        }
+
+
+        public int EditReservationsStatus(long rid, int status)
+        {
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(ReservationsStatement.EditReservationStatus, "Text"));
+            command.AddInputParameter("@ID", DbType.Int64, rid);
+            command.AddInputParameter("@Status", DbType.Int32, status);
+            return command.ExecuteNonQuery();
         }
     }
 }

@@ -126,5 +126,13 @@ namespace DataRepository.DataAccess.Order
             var o = command.ExecuteScalar<object>();
             return Convert.ToInt32(o);
         }
+
+        public int EditOrderStatus(long oid,int status)
+        {
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(OrderStatement.EditOrderStatus, "Text"));
+            command.AddInputParameter("@OrderInnerID", DbType.Int64, oid);
+            command.AddInputParameter("@Status", DbType.Int32, status);
+            return command.ExecuteNonQuery();
+        }
     }
 }

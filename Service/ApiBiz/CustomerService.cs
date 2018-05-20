@@ -193,7 +193,7 @@ namespace Service.ApiBiz
         }
 
 
-        public CustomerExtendEntity GetCustomerExtendInfoByID(long id)
+        public static CustomerExtendEntity GetCustomerExtendInfoByID(long id)
         {
 
             CustomerRepository mr = new CustomerRepository();
@@ -221,5 +221,29 @@ namespace Service.ApiBiz
         {
             return new CustomerRepository().GetCustomerExtendCount(name, code, status);
         }
+
+
+        public static List<CustomerEntity> GetCustomerList()
+        {
+            List<CustomerEntity> all = new List<CustomerEntity>();
+            CustomerRepository mr = new CustomerRepository();
+            List<CustomerInfo> miList = mr.GetCustomerAll();
+            foreach (CustomerInfo mInfo in miList)
+            {
+                CustomerEntity customerEntity = new CustomerEntity();
+                if (mInfo != null)
+                {
+                    customerEntity.Channel = mInfo.Channel;
+                    customerEntity.CustomerCode = mInfo.CustomerCode;
+                    customerEntity.CustomerID = mInfo.CustomerID;
+                    customerEntity.CustomerName = mInfo.CustomerName;
+                    customerEntity.Mobile = mInfo.Mobile;
+                    customerEntity.Name = mInfo.Name;
+                }
+                all.Add(customerEntity);
+            }
+            return all;
+        }
+
     }
 }
