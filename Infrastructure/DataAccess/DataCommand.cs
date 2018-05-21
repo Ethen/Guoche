@@ -85,6 +85,11 @@ namespace Infrastructure.DataAccess
             ActualDatabase.AddInParameter(e_DbCommand, name, dbType, value);
         }
 
+        public void AddOutParameter(string name, DbType dbType,int size)
+        {
+            ActualDatabase.AddOutParameter(e_DbCommand, name, dbType, size);
+        }
+
         /// <summary>
         /// 追加参数
         /// </summary>

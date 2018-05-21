@@ -25,6 +25,16 @@ namespace DataRepository.DataAccess.Customer
 
         public static string GetCustomerAllCount = @"SELECT * FROM CustomerExtend(NOLOCK) WHERE 1=1 ";
 
+
+        public static string CreateCustomer = @"INSERT INTO Customer(CustomerName,CustomerCode,Password,Channel,Name,Mobile,CreateDate, LastLoginDate)VALUES(@CustomerName,@CustomerCode, @Password,@Channel,@Name, @Mobile, @CreateDate, @LastLoginDate);SELECT @@IDENTITY AS ID";
+
+        public static string CreateCustomerExtend = @"INSERT INTO [CustomerExtend] ([CustomerID],[CustomerCode],[AttachmentIDs],[CustomerName],[Mobile],[Email],[CardType],[CardNo],[Channel],[RegisterTime],[Status],[AuditTime],[Auditor],[CreateDate],[ModifyDate],[Operator])
+                                                        VALUES (@CustomerID,@CustomerCode,@AttachmentIDs,@CustomerName,@Mobile,@Email,@CardType,@CardNo,@Channel,@RegisterTime,@Status,@AuditTime,@Auditor,@CreateDate,@ModifyDate,@Operator)";
+
+        public static string ModifyCustomerExtend = @"UPDATE [CustomerExtend] SET AttachmentIDs=@AttachmentIDs,CustomerName=@CustomerName,Mobile=@Mobile,Email=@Email,CardType=@CardType,CardNo=@CardNo,Channel=@Channel,Status=@Status,ModifyDate=@ModifyDate,Operator=@Operator WHERE ID=@ID";
+
+        public static string ModifyCustomer = @"  UPDATE [Customer] SET [CustomerName]=@CustomerName,[Name]=@Name,[Mobile]=@Mobile WHERE CustomerID=@CustomerID";
+
         public static string GetCustomerAllPagerHeader = @"DECLARE @UP INT
         
 	                                                  ---------分页区间计算-------------最大页数
@@ -41,7 +51,7 @@ namespace DataRepository.DataAccess.Customer
 		                                                  SET @UP=@PageSize*(@PageIndex-1);
 		                                                  ---------分页查询-----------
 		                                                  WITH ce AS
-		                                                  (SELECT *,ROW_NUMBER() OVER (ORDER BY DealStatus) AS RowNumber FROM (SELECT * FROM CustomerExtend WHERE 1=1 ";
+		                                                  (SELECT *,ROW_NUMBER() OVER (ORDER BY [Status]) AS RowNumber FROM (SELECT * FROM CustomerExtend WHERE 1=1 ";
 
         public static string GetCustomerAllPagerFooter = @")as T ) 
 		                                                  SELECT *  FROM ce 

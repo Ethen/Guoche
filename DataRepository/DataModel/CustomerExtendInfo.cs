@@ -32,8 +32,8 @@ namespace DataRepository.DataModel
         [DataMapping("Email", DbType.String)]
         public string Email { get; set; }
 
-        [DataMapping("CardType", DbType.Int32)]
-        public int CardType { get; set; }
+        [DataMapping("CardType", DbType.String)]
+        public string CardType { get; set; }
 
         [DataMapping("CardNo", DbType.String)]
         public string CardNo { get; set; }

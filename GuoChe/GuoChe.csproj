@@ -190,6 +190,7 @@
     <Compile Include="Controllers\ChargeController.cs" />
     <Compile Include="Controllers\AdviseController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\RevController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
@@ -774,6 +775,7 @@
     <Content Include="Views\ApiUser\Detail.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Rev\Index.cshtml" />
+    <Content Include="Views\Customer\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

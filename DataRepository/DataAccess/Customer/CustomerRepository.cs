@@ -124,7 +124,7 @@ namespace DataRepository.DataAccess.Customer
             }
             if (!string.IsNullOrEmpty(code))
             {
-                command.AddInputParameter("@AdviseTitle", DbType.String, code);
+                command.AddInputParameter("@CustomerCode", DbType.String, code);
             }
             if (status > -1)
             {
@@ -164,7 +164,7 @@ namespace DataRepository.DataAccess.Customer
             }
             if (!string.IsNullOrEmpty(code))
             {
-                command.AddInputParameter("@AdviseTitle", DbType.String, code);
+                command.AddInputParameter("@CustomerCode", DbType.String, code);
             }
             if (status > -1)
             {
@@ -182,6 +182,76 @@ namespace DataRepository.DataAccess.Customer
             command.AddInputParameter("@ID", DbType.Int64, cid);
             return command.ExecuteEntity<CustomerExtendInfo>();
         }
+
+
+        public int CreateNewCustomerExtend(CustomerExtendInfo customerExtendInfo)
+        {
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(CustomerStatement.CreateCustomerExtend, "Text"));
+            command.AddInputParameter("CustomerID", DbType.Int64, customerExtendInfo.CustomerID);
+            command.AddInputParameter("CustomerCode", DbType.String, customerExtendInfo.CustomerCode);
+            command.AddInputParameter("AttachmentIDs", DbType.String, customerExtendInfo.AttachmentIDs);
+            command.AddInputParameter("CustomerName", DbType.String, customerExtendInfo.CustomerName);
+            command.AddInputParameter("Mobile", DbType.String, customerExtendInfo.Mobile);
+            command.AddInputParameter("Email", DbType.String, customerExtendInfo.Email);
+            command.AddInputParameter("CardType", DbType.String, customerExtendInfo.CardType);
+            command.AddInputParameter("CardNo", DbType.String, customerExtendInfo.CardNo);
+            command.AddInputParameter("Channel", DbType.Int32, customerExtendInfo.Channel);
+            command.AddInputParameter("RegisterTime", DbType.DateTime, customerExtendInfo.RegisterTime);
+            command.AddInputParameter("Status", DbType.Int32, customerExtendInfo.Status);
+            command.AddInputParameter("AuditTime", DbType.DateTime, customerExtendInfo.AuditTime);
+            command.AddInputParameter("Auditor", DbType.Int64, customerExtendInfo.Auditor);
+            command.AddInputParameter("CreateDate", DbType.DateTime, DateTime.Now);
+            command.AddInputParameter("ModifyDate", DbType.DateTime, DateTime.Now);
+            command.AddInputParameter("Operator", DbType.Int64, customerExtendInfo.Operator);
+            return command.ExecuteNonQuery();
+        }
+
+        public long CreateNewCustomer(CustomerInfo customerInfo)
+        {
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(CustomerStatement.RegisterSql, "Text"));
+            command.AddOutParameter("@ID", DbType.Int64,0);
+            command.AddInputParameter("@CustomerName", DbType.String, customerInfo.CustomerName);
+            command.AddInputParameter("@CustomerCode", DbType.String, customerInfo.CustomerCode);
+            command.AddInputParameter("@Password", DbType.String, customerInfo.Password);
+            command.AddInputParameter("@Channel", DbType.Int32, 1);
+            command.AddInputParameter("@Name", DbType.String, customerInfo.Name);
+            command.AddInputParameter("@Mobile", DbType.String, customerInfo.Mobile);
+            command.AddInputParameter("@CreateDate", DbType.DateTime, DateTime.Now);
+            command.AddInputParameter("@LastLoginDate", DbType.DateTime, DateTime.Now);
+            return Convert.ToInt64(command.GetParameterValue("@ID"));
+        }
+
+        public int ModifyCustomer(CustomerExtendInfo customerExtendInfo)
+        {
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(CustomerStatement.ModifyCustomerExtend, "Text"));
+            command.AddInputParameter("@ID", DbType.Int64, customerExtendInfo.ID);
+            command.AddInputParameter("@AttachmentIDs", DbType.String, customerExtendInfo.AttachmentIDs);
+            command.AddInputParameter("@CustomerName", DbType.String, customerExtendInfo.CustomerName);
+            command.AddInputParameter("@Mobile", DbType.String, customerExtendInfo.Mobile);
+            command.AddInputParameter("@Email", DbType.String, customerExtendInfo.Email);
+            command.AddInputParameter("@Channel", DbType.Int32, customerExtendInfo.Channel);
+            command.AddInputParameter("@CardType", DbType.String, customerExtendInfo.CardType);
+            command.AddInputParameter("@CardNo", DbType.String, customerExtendInfo.CardNo);
+            command.AddInputParameter("@Status", DbType.Int32, customerExtendInfo.Status);
+            command.AddInputParameter("@ModifyDate", DbType.DateTime, DateTime.Now);
+            command.AddInputParameter("@Operator", DbType.Int64, customerExtendInfo.Operator);
+            return command.ExecuteNonQuery();
+        }
+
+        public int ModifyCustomer(CustomerInfo customerInfo)
+        {
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(CustomerStatement.ModifyCustomer, "Text"));
+            command.AddInputParameter("@CustomerID", DbType.Int64, customerInfo.CustomerID);
+            command.AddInputParameter("@CustomerName", DbType.String, customerInfo.CustomerName);
+            command.AddInputParameter("@Name", DbType.String, customerInfo.Name);
+            command.AddInputParameter("@Mobile", DbType.String, customerInfo.Mobile);
+            return command.ExecuteNonQuery();
+        }
+
+
+
+
+        
 
 
 

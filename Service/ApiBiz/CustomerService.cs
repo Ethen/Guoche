@@ -160,6 +160,12 @@ namespace Service.ApiBiz
                 entity.Auditor = info.Auditor;
                 entity.ModifyDate = info.ModifyDate;
                 entity.Operator = info.Operator;
+
+                if (!string.IsNullOrEmpty(entity.CardType))
+                {
+                    BaseDataEntity cardType = BaseDataService.GetBaseDataAll().First(t => t.TypeCode == entity.CardType) ?? new BaseDataEntity();
+                    entity.CardTypeInfo = cardType;
+                }
             }
 
             return entity;
@@ -190,6 +196,48 @@ namespace Service.ApiBiz
             }
 
             return info;
+        }
+
+        private static CustomerInfo TranslateCustomerEntity(CustomerEntity entity)
+        {
+            CustomerInfo info = new CustomerInfo();
+
+            if (entity != null)
+            {
+                info.CustomerID = entity.CustomerID;
+                info.CustomerCode = entity.CustomerCode;
+                info.Password = entity.Password;
+                info.CustomerName = entity.CustomerName;
+                info.Mobile = entity.Mobile;
+                info.Name = entity.Name;
+                info.Channel = entity.Channel;
+            }
+
+            return info;
+        }
+
+        private static CustomerEntity TranslateCustomerInfo(CustomerInfo info)
+        {
+            CustomerEntity entity = new CustomerEntity();
+
+            if (info != null)
+            {
+                entity.CustomerID = info.CustomerID;
+                entity.CustomerCode = info.CustomerCode;
+                entity.Password = info.Password;
+                entity.CustomerName = info.CustomerName;
+                entity.Mobile = info.Mobile;
+                entity.Name = info.Name;
+                entity.Channel = info.Channel;
+
+               CustomerExtendEntity detail= GetCustomerExtendInfoByID(entity.CustomerID);
+               if (detail != null && detail.ID > 0)
+               {
+                   entity.Detail = detail;
+               }
+            }
+
+            return entity;
         }
 
 
@@ -243,6 +291,52 @@ namespace Service.ApiBiz
                 all.Add(customerEntity);
             }
             return all;
+        }
+
+        public static int CreateNewCustomer(CustomerEntity customerEntity, CustomerExtendEntity extendEntity)
+        {
+            CustomerRepository cr = new CustomerRepository();
+            int result = 0;
+            if (customerEntity != null && extendEntity != null)
+            {
+                CustomerInfo info = TranslateCustomerEntity(customerEntity);
+                CustomerExtendInfo extendInfo = TranslateCustomerExtendEntity(extendEntity);
+                long customerid = cr.CreateNewCustomer(info);
+                extendInfo.CustomerID = customerid;
+                result = cr.CreateNewCustomerExtend(extendInfo);
+            }
+
+            return result;
+        }
+
+
+        public static int ModifyCustomer(CustomerEntity customerEntity, CustomerExtendEntity extendEntity)
+        {
+
+
+            CustomerRepository cr = new CustomerRepository();
+            int result = 0;
+            if (customerEntity != null && extendEntity != null)
+            {
+                CustomerInfo info = TranslateCustomerEntity(customerEntity);
+                CustomerExtendInfo extendInfo = TranslateCustomerExtendEntity(extendEntity);
+
+                if (customerEntity.CustomerID > 0)
+                {
+                    cr.ModifyCustomer(info);
+                    result = cr.ModifyCustomer(extendInfo);
+                }
+                else
+                {
+                    long customerid = cr.CreateNewCustomer(info);
+                    extendInfo.CustomerID = customerid;
+                    result = cr.CreateNewCustomerExtend(extendInfo);
+                }
+
+
+            }
+
+            return result;
         }
 
     }
