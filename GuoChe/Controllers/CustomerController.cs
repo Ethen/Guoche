@@ -42,7 +42,7 @@ namespace GuoChe.Controllers
         }
 
 
-        public ActionResult Edit(long cid)
+        public ActionResult Edit(long cid=-1)
         {
 
             List<BaseDataEntity> cardTypes = BaseDataService.GetBaseDataAll().Where(t => t.PCode == "CD00").ToList();
@@ -51,6 +51,25 @@ namespace GuoChe.Controllers
             if (cid > 0)
             {
                 entity = CustomerService.GetCustomerExtendInfoByID(cid);
+                if (entity == null || entity.ID < 1)
+                {
+                    CustomerEntity ce = CustomerService.GetCustomerByID(cid);
+                    if (ce != null && ce.CustomerID > 0)
+                    {
+                        entity.CustomerID = ce.CustomerID;
+                        entity.CustomerName = ce.CustomerName;
+                        entity.CustomerCode = ce.CustomerCode;
+                        entity.Channel = ce.Channel;
+                        entity.Mobile = ce.Mobile;
+                    }
+                }
+            }
+            else
+            {
+                entity.CustomerCode = DateTime.Now.ToString("yyyyMMddHHmmss");
+                entity.RegisterTime = DateTime.Now;
+                entity.AuditTime = DateTime.Parse("1753-01-01");
+                entity.Channel = 3;
             }
 
             ViewBag.Extend = entity;
@@ -59,6 +78,7 @@ namespace GuoChe.Controllers
             return View();
         }
 
+        [HttpPost]
         public void Modify(CustomerExtendEntity extendEntity)
         {
 
@@ -68,10 +88,13 @@ namespace GuoChe.Controllers
                 customer.CustomerID = extendEntity.CustomerID;
                 customer.CustomerName = extendEntity.CustomerName;
                 customer.CustomerCode = extendEntity.CustomerCode;
-                customer.Channel = 3;
+                customer.Channel = extendEntity.Channel;
                 customer.Mobile = extendEntity.Mobile;
                 customer.Name = "";
-
+                if (customer.CustomerID < 1)
+                {
+                    customer.Password = EncryptHelper.MD5Encrypt("123456");
+                }
                 CustomerService.ModifyCustomer(customer, extendEntity);
             }
 

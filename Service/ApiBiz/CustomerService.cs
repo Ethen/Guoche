@@ -72,8 +72,22 @@ namespace Service.ApiBiz
         {
             CustomerEntity entity = null;
             CustomerRepository CR = new CustomerRepository();
-            if (CR.Register(telephone, password, vcode) > 0)
+            long cid = CR.Register(telephone, password, vcode);
+            if ( cid > 0)
             {
+                CustomerExtendInfo extend = new CustomerExtendInfo();
+                extend.CustomerID = 0;
+                extend.CustomerName = "";
+                extend.Mobile = telephone;
+                extend.AttachmentIDs = "";
+                extend.Email = "";
+                extend.Channel = 1;
+                extend.RegisterTime = DateTime.Now;
+                extend.AuditTime = DateTime.MinValue;
+                extend.Auditor = 0;
+                extend.ModifyDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                extend.Operator = 0;
+                CR.CreateNewCustomerExtend(extend);
                 CustomerInfo info = CR.GetCustomerByTelephone(telephone);
                 if (info != null)
                 {
@@ -166,6 +180,13 @@ namespace Service.ApiBiz
                     BaseDataEntity cardType = BaseDataService.GetBaseDataAll().First(t => t.TypeCode == entity.CardType) ?? new BaseDataEntity();
                     entity.CardTypeInfo = cardType;
                 }
+
+                List<AttachmentEntity> attachments = new List<AttachmentEntity>();
+                if (!string.IsNullOrEmpty(entity.AttachmentIDs))
+                {
+                    attachments = BaseDataService.GetAttachmentInfoByKyes(entity.AttachmentIDs);
+                }
+                entity.AttachmentInfos = attachments;
             }
 
             return entity;

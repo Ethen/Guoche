@@ -13,7 +13,7 @@ namespace DataRepository.DataAccess.Customer
         //验证手机号是否已经注册
         public static string GetCustomerByTelephoneSql = "SELECT CustomerID,CustomerName,CustomerCode,Password,Channel,Name,Mobile  FROM Customer (NOLOCK) where Mobile=@Mobile ";
         //注册用户
-        public static string RegisterSql = "INSERT INTO Customer(CustomerName,CustomerCode,Password,Channel,Name,Mobile,CreateDate, LastLoginDate)VALUES(@CustomerName,@CustomerCode, @Password,@Channel,@Name, @Mobile, @CreateDate, @LastLoginDate)";
+        public static string RegisterSql = "INSERT INTO Customer(CustomerName,CustomerCode,Password,Channel,Name,Mobile,CreateDate, LastLoginDate)VALUES(@CustomerName,@CustomerCode, @Password,@Channel,@Name, @Mobile, @CreateDate, @LastLoginDate)SELECT @CustomerID=@@IDENTITY ";
 
         public static string UpdatePassword = "Update Customer set Password=@Password,CustomerCode=@CustomerCode where Mobile=@Mobile";
 
@@ -26,7 +26,7 @@ namespace DataRepository.DataAccess.Customer
         public static string GetCustomerAllCount = @"SELECT * FROM CustomerExtend(NOLOCK) WHERE 1=1 ";
 
 
-        public static string CreateCustomer = @"INSERT INTO Customer(CustomerName,CustomerCode,Password,Channel,Name,Mobile,CreateDate, LastLoginDate)VALUES(@CustomerName,@CustomerCode, @Password,@Channel,@Name, @Mobile, @CreateDate, @LastLoginDate);SELECT @@IDENTITY AS ID";
+        public static string CreateCustomer = @"INSERT INTO Customer(CustomerName,CustomerCode,Password,Channel,Name,Mobile,CreateDate, LastLoginDate)VALUES(@CustomerName,@CustomerCode, @Password,@Channel,@Name, @Mobile, @CreateDate, @LastLoginDate);SELECT @CustomerID=@@IDENTITY ";
 
         public static string CreateCustomerExtend = @"INSERT INTO [CustomerExtend] ([CustomerID],[CustomerCode],[AttachmentIDs],[CustomerName],[Mobile],[Email],[CardType],[CardNo],[Channel],[RegisterTime],[Status],[AuditTime],[Auditor],[CreateDate],[ModifyDate],[Operator])
                                                         VALUES (@CustomerID,@CustomerCode,@AttachmentIDs,@CustomerName,@Mobile,@Email,@CardType,@CardNo,@Channel,@RegisterTime,@Status,@AuditTime,@Auditor,@CreateDate,@ModifyDate,@Operator)";

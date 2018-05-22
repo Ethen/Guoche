@@ -19,5 +19,7 @@ namespace Entity.ViewModel
 
         public CustomerExtendEntity Detail { get; set; }
 
+
+
     }
 }

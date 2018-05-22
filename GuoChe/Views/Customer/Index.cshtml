@@ -20,7 +20,7 @@
         <div class="widget-body" style="margin-bottom:50px">
             <div id="menus_wrapper" class="dataTables_wrapper form-inline" role="grid">
                 <div class="row-fluid">
-                    <div class="span6">
+                    <div class="span12">
                         <form action="/Customer/Index" method="get">
                             <div class="dataTables_length" id="menus_filter">
                                 <label>客户名称: <input type="text" aria-controls="menus" id="name" name="name" value="@ViewBag.Name"></label>
@@ -71,7 +71,11 @@
                                         @if (!string.IsNullOrEmpty(customers[i].CardType) && customers[i].CardTypeInfo!=null)
                                         {
                                             <span class="label label-info" >@customers[i].CardTypeInfo.Description</span>
-                                            @("("+customers[i].CardNo+")")
+                                            if (!string.IsNullOrEmpty(customers[i].CardNo))
+                                            {
+                                                  @("("+customers[i].CardNo+")")
+                                            }
+                                           
                                         }
                                     </td>
                                     <td class=" ">
@@ -90,7 +94,7 @@
                                                 <span class="caret"></span>
                                             </a>
                                             <ul class="dropdown-menu pull-right">
-                                                <li><a href="/Customer/Edit?customerid=@customers[i].CustomerID"><i class="icon-edit"></i> 编辑</a></li>
+                                                <li><a href="/Customer/Edit?cid=@customers[i].CustomerID"><i class="icon-edit"></i> 编辑</a></li>
                                             </ul>
                                         </div>
                                     </td>

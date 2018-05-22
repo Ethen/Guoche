@@ -30,6 +30,8 @@ namespace Entity.ViewModel
 
         public BaseDataEntity CardTypeInfo { get; set; }
 
+        public List<AttachmentEntity> AttachmentInfos { get; set; }
+
         public string ChannelName {
             get {
                 string result = string.Empty;
@@ -37,7 +39,7 @@ namespace Entity.ViewModel
                 {
                     case 1: result = "APP注册"; break;
                     case 2: result = "ONLINE注册"; break;
-                    case 3: result = "创建"; break;
+                    case 3: result = "后台创建"; break;
                 }
 
                 return result;
@@ -52,7 +54,8 @@ namespace Entity.ViewModel
                 switch (Status)
                 {
                     case 0: result = "初始化"; break;
-                    case 1: result = "待验证"; break;
+                    case 1: result = "待审核"; break;
+                    case 2: result = "已审核"; break;
                     case 9: result = "注销"; break;
                 }
 
