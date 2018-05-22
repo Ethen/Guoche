@@ -38,7 +38,7 @@ namespace GuoChe.Controllers
         /// <returns></returns>
         public JsonResult SupplierInfo(string cityid)
         {
-            List<StoreEntity> lstStore = StoreService.GetStoreAll(cityid);
+            List<StoreEntity> lstStore =string.IsNullOrEmpty(cityid)? StoreService.GetStoreAll(): StoreService.GetStoreAll(cityid);
             return Json(JsonHelper.ToJson<List<StoreEntity>>(lstStore));
         }
 
