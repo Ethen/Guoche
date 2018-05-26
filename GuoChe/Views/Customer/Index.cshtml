@@ -28,8 +28,10 @@
                                 <label>
                                     客户状态: <select class="span3" style="width:80px" id="status" name="status">
                                         <option value="-1" @(ViewBag.Status == -1 ? "selected" : "")>全部</option>
-                                        <option value="1" @(ViewBag.Status == 1 ? "selected" : "")>可用</option>
-                                        <option value="0" @(ViewBag.Status == 0 ? "selected" : "")>不可用</option>
+                                        <option value="0" @(ViewBag.Status == 0 ? "selected" : "")>初始化</option>
+                                        <option value="1" @(ViewBag.Status == 1 ? "selected" : "")>待审核</option>
+                                        <option value="2" @(ViewBag.Status == 2 ? "selected" : "")>已审核</option>
+                                        <option value="9" @(ViewBag.Status == 9 ? "selected" : "")>注销</option>
                                     </select>
                                 </label>
                                 <button class="btn btn-info" type="submit">搜索</button>

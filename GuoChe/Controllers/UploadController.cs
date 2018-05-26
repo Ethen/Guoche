@@ -52,7 +52,6 @@ namespace GuoChe.Controllers
                     filePath = uploadPath + Path.GetFileName(fileName);
                 }
                 // 把文件的存储路径保存起来
-                //SaveUploadFileInfo(fileName, filePath);  // todo：SaveUploadFileInfo方法请自己实现
                 // 保存文件到服务器
                 file.SaveAs(filePath);
 
@@ -68,7 +67,7 @@ namespace GuoChe.Controllers
                 attachment.UploadDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                 attachment.Operator = CurrentUser == null ? 0 : CurrentUser.UserID;
 
-                attachment .AttachmentID= BaseDataService.CreateAttachment(attachment);
+                attachment.AttachmentID = BaseDataService.CreateAttachment(attachment);
 
                 result.Add(attachment);
 

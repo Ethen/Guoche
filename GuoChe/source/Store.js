@@ -94,6 +94,7 @@ var FileInput = function () {
                 $("#picContainer").append('<img src="' + fpath + '" alt="' + fName + '" style="width: 150px; height: 150px; margin-top: 15px">');
                 storeInfo.clearUpload();
                 storeInfo.initPicInfo();
+                setTimeout('$(".fileinput-remove").click()', 1000);
             }
             
         }).on('fileerror', function (event, data, msg) {
@@ -174,6 +175,7 @@ var storeInfo = {
 
         if (ids.length > (maxPicCount-1))
         {
+            $("#AttachmentIDs").val(ids.slice(0, 5).join(","));//只保留前五个   
             $("#uploadC").hide();
         }
     },

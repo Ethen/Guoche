@@ -56,8 +56,10 @@ var FileInput = function () {
                 $("#AttachmentIDs").val(aids);
                 $("#picContainer").append('<span class="picRemove"  val="' + aid + '" style="height:0px"></span>');
                 $("#picContainer").append('<img src="' + fpath + '" alt="' + fName + '" style="width: 150px; height: 150px; margin-top: 15px">');
-                //customerInfo.clearUpload();
-                //customerInfo.initPicInfo();
+                customerInfo.clearUpload();
+                customerInfo.initPicInfo();
+                setTimeout('$(".fileinput-remove").click()', 1000);
+                
             }
             
         }).on('fileerror', function (event, data, msg) {
@@ -108,6 +110,7 @@ var customerInfo = {
 
         if (ids.length > (maxPicCount-1))
         {
+            $("#AttachmentIDs").val(ids.slice(0, 5).join(","));//只保留前五个   
             $("#uploadC").hide();
         }
     },
