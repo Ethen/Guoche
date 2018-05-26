@@ -24,7 +24,7 @@ var FileInput = function () {
         control.fileinput({
             language: 'zh', //设置语言
             uploadUrl: uploadUrl, //上传的地址
-            allowedFileExtensions: ['jpg', 'jpeg'],//接收的文件后缀
+            allowedFileExtensions: ['jpg', 'jpeg','png'],//接收的文件后缀
             showUpload: true, //是否显示上传按钮
             showCaption: false,//是否显示标题
             browseClass: "btn btn-primary", //按钮样式
@@ -56,8 +56,8 @@ var FileInput = function () {
                 $("#AttachmentIDs").val(aids);
                 $("#picContainer").append('<span class="picRemove"  val="' + aid + '" style="height:0px"></span>');
                 $("#picContainer").append('<img src="' + fpath + '" alt="' + fName + '" style="width: 150px; height: 150px; margin-top: 15px">');
-                customerInfo.clearUpload();
-                customerInfo.initPicInfo();
+                //customerInfo.clearUpload();
+                //customerInfo.initPicInfo();
             }
             
         }).on('fileerror', function (event, data, msg) {
@@ -76,6 +76,19 @@ var customerInfo = {
     },
 
     regEvent: function () {
+
+        $("#picContainer>img").click(function () {
+            var item = this;
+            var html = '<img src="' + item.src + '" alt="' + item.alt + '">';
+            $("#imgshow").html(html);
+            makeDivCenter("imgContainer");
+            $("#imgContainer,.window-mask").show();
+        });
+
+        $("#closeDeal").on("click", function () {
+            $("#imgContainer,.window-mask").hide();
+            $("#imgshow").html("");
+        });
 
         $("#save").click(function () {
             if (valid.validate()) {

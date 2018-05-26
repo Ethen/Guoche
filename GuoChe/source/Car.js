@@ -32,7 +32,7 @@ var FileInput = function () {
         control.fileinput({
             language: 'zh', //设置语言
             uploadUrl: uploadUrl, //上传的地址
-            allowedFileExtensions: ['jpg', 'jpeg'],//接收的文件后缀
+            allowedFileExtensions: ['jpg', 'jpeg', 'png'],//接收的文件后缀
             showUpload: true, //是否显示上传按钮
             showCaption: false,//是否显示标题
             browseClass: "btn btn-primary", //按钮样式
@@ -94,7 +94,20 @@ var carInfo = {
                 $("#trackContainer").hide();
             }
 
-        })
+        });
+
+        $("#picContainer>img").click(function () {
+            var item = this;
+            var html = '<img src="' + item.src + '" alt="' + item.alt + '">';
+            $("#imgshow").html(html);
+            makeDivCenter("imgContainer");
+            $("#imgContainer,.window-mask").show();
+        });
+
+        $("#closeDeal").on("click", function () {
+            $("#imgContainer,.window-mask").hide();
+            $("#imgshow").html("");
+        });
 
         $("#save").click(function () {
             if (valid.validate()) {

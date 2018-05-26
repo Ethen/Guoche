@@ -50,13 +50,14 @@ var WebHelper = {
 
 }
 
-function makeDivCenter(divid) {
+function makeDivCenter(divid,le) {
     var target = jQuery("#" + divid),
     win = jQuery(window),
-    docheight = jQuery(document).scrollTop();
+    docheight = jQuery(document).scrollTop(),
+    left=((win.width() - target.outerWidth())) / 2;
     target.css({
         "width":"800px",
-        "left": ((win.width() - target.outerWidth())-200) / 2 + "px",
+        "left": (!!le? left+le:left)+ "px",
         "position": "absolute",
         "top": (win.height() - target.outerHeight()) / 2 + docheight + "px"
     })
