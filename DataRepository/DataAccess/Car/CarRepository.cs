@@ -234,5 +234,19 @@ namespace DataRepository.DataAccess.Car
             result = command.ExecuteEntityList<CarInfo>();
             return result;
         }
+
+        /// <summary>
+        /// 获取我的租赁/试驾信息
+        /// </summary>
+        /// <param name="userid">用户ID</param>
+        /// <param name="RType">ZL：汽车租赁 SJ:汽车试驾</param>
+        /// <returns></returns>
+        public DataSet MyReservation(string userid, string RType)
+        {
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(CarStatement.MyReservation, "Text"));
+            command.AddInputParameter("@CustomerID", DbType.String, userid);
+            command.AddInputParameter("@RType", DbType.String, RType);
+            return command.ExecuteDataSet();
+        }
     }
 }

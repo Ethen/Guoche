@@ -83,5 +83,13 @@ namespace DataRepository.DataAccess.Car
         public static string GetAllCarInfoByRule = @"SELECT * FROM [CarInfo](NOLOCK) WHERE 1=1 ";
 
 
+        #region 关联表
+        public static string MyReservation = @"select a.CustomerID, b.CustomerName,b.Mobile,c.CarName,c.Renewal,c.CarLicNumber,c.CarModel,case a.Status when 0 then '未处理' else '已处理' end as Status,a.CreateDate from dbo.Reservations a 
+                                    left join dbo.Customer b on a.CustomerID=b.CustomerID
+                                    left join dbo.CarInfo c on a.CarID=c.CarID
+                                    where a.CustomerID=@CustomerID and a.RType=@RType";
+        #endregion
+
+
     }
 }

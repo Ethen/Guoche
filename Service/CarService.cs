@@ -22,6 +22,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Infrastructure.Helper;
 using Common;
+using System.Data;
 
 namespace Service
 {
@@ -280,6 +281,24 @@ namespace Service
             mr.RemoveCarInfo(cid);
             List<CarInfo> miList = mr.GetAllCarInfo();
             Cache.Add("CarALL", miList);
+        }
+
+            /// <summary>
+        /// 获取我的租赁/试驾信息
+        /// </summary>
+        /// <param name="userid">用户ID</param>
+        /// <param name="RType">ZL：汽车租赁 SJ:汽车试驾</param>
+        /// <returns></returns>
+        public static DataTable MyReservation(string userid, string RType,string keyType)
+        {
+            CarRepository mr = new CarRepository();
+            DataTable miList = Cache.Get<DataTable>(keyType + userid + RType);
+            if (miList == null)
+            {
+                miList = mr.MyReservation(userid, RType).Tables[0];
+                Cache.Add<DataTable>(keyType + userid + RType, miList);
+            }
+            return miList;
         }
 
     }

@@ -8,6 +8,7 @@ using Common;
 using Service.ApiBiz;
 using Service.BaseBiz;
 using Service;
+using System.Data;
 
 namespace GuoChe.Controllers
 {
@@ -219,5 +220,27 @@ namespace GuoChe.Controllers
             lstCity = BaseDataService.GetAllHasCity();
             return Json(JsonHelper.ToJson<List<City>>(lstCity));
         }
+
+        /// <summary>
+        /// 我的预约信息
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult MyReservationOrder(string userid)
+        {
+            DataTable dt = CarService.MyReservation(userid, "SJ", "MyReservationOrder");
+            return Json(JsonHelper.ToJson<DataTable>(dt));
+        }
+
+        /// <summary>
+        /// 我的租赁信息
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult MyLeaseOrder(string userid)
+        {
+            DataTable dt = CarService.MyReservation(userid, "ZL", "MyLeaseOrder");
+            return Json(JsonHelper.ToJson<DataTable>(dt));
+        }
+
+        
     }
 }
