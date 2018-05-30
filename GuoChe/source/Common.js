@@ -43,25 +43,25 @@ $(document).ready(function () {
         }
     })
 
-    //$('.widget-header').mousedown(
-    //         function (event) {
-    //             var isMove = true;
-    //             $(this).css("cursor", "move");
-    //             var abs_x = event.pageX - $('.widget-header').offset().left;
-    //             var abs_y = event.pageY - $('.widget-header').offset().top;
-    //             $(document).mousemove(function (event) {
-    //                 if (isMove) {
-    //                     var obj = $('.widget-header');
-    //                     obj.css({ 'left': (event.pageX - abs_x) + "px", 'top': (event.pageY - abs_y) + "px" });
-    //                 }
-    //             }
-    //             ).mouseup(
-    //                     function () {
-    //                         $(this).css("cursor", "default");
-    //                         isMove = false;
-    //                     }
-    //             );
-    //         });
+    $('#imgContainer').mousedown(
+        function (event) {
+            var isMove = true;
+            $(this).css("cursor", "move");
+            var abs_x = event.pageX - $('#imgContainer').offset().left;
+            var abs_y = event.pageY - $('#imgContainer').offset().top;
+            $(document).mousemove(function (event) {
+                if (isMove) {
+                    var obj = $('#imgContainer');
+                    obj.css({ 'left': (event.pageX - abs_x - 50) + "px", 'top': (event.pageY - abs_y - 50) + "px" });
+                }
+            }
+            ).mouseup(
+                    function () {
+                        $(this).css("cursor", "default");
+                        isMove = false;
+                    }
+            );
+        });
 
 })
 
