@@ -33,6 +33,36 @@ $(document).ready(function () {
         }
         
     })
+
+    $(document).keyup(function (event) {
+        if (event.keyCode == "27") {
+            if ($("#closeDeal").length) {
+                $("#closeDeal").trigger("click");
+                return false;
+            }
+        }
+    })
+
+    //$('.widget-header').mousedown(
+    //         function (event) {
+    //             var isMove = true;
+    //             $(this).css("cursor", "move");
+    //             var abs_x = event.pageX - $('.widget-header').offset().left;
+    //             var abs_y = event.pageY - $('.widget-header').offset().top;
+    //             $(document).mousemove(function (event) {
+    //                 if (isMove) {
+    //                     var obj = $('.widget-header');
+    //                     obj.css({ 'left': (event.pageX - abs_x) + "px", 'top': (event.pageY - abs_y) + "px" });
+    //                 }
+    //             }
+    //             ).mouseup(
+    //                     function () {
+    //                         $(this).css("cursor", "default");
+    //                         isMove = false;
+    //                     }
+    //             );
+    //         });
+
 })
 
 var WebHelper = {
