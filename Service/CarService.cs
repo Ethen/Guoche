@@ -301,6 +301,20 @@ namespace Service
             return miList;
         }
 
+        public static DataTable MyCarInfoByCityID(string cityid)
+        {
+            CarRepository mr = new CarRepository();
+            DataTable miList = Cache.Get<DataTable>("MyCarInfoByCityID" + cityid);
+            if (miList == null)
+            {
+                miList = mr.MyCarInfoByCityID(cityid).Tables[0];
+                Cache.Add<DataTable>("MyCarInfoByCityID" + cityid, miList);
+            }
+            return miList;
+        }
+
+        
+
     }
 
 

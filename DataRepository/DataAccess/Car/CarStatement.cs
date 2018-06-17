@@ -88,6 +88,8 @@ namespace DataRepository.DataAccess.Car
                                     left join dbo.Customer b on a.CustomerID=b.CustomerID
                                     left join dbo.CarInfo c on a.CarID=c.CarID
                                     where a.CustomerID=@CustomerID and a.RType=@RType";
+
+        public static string MyCarInfoByCityID = @"select * from CarInfo where SupplierID in(select SupplierID from StoreInfo where CityID=@CityID)";
         #endregion
 
 

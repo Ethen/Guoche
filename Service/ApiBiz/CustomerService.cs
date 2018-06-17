@@ -5,6 +5,7 @@ using Entity.ViewModel;
 using Service.BaseBiz;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -358,6 +359,60 @@ namespace Service.ApiBiz
             }
 
             return result;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <param name="fileName"></param>
+        /// <param name="fileType">身份证：CD01/驾驶证：CD02/用户头像:CD05</param>
+        /// <returns></returns>
+        public static CustomerExtendEntity AddFile(long userid, string fileName, string fileType)
+        {
+            CustomerExtendEntity cEntity = new CustomerExtendEntity();
+            CustomerRepository customerRes = new CustomerRepository();
+            CustomerExtendInfo customerInfo= customerRes.GetCustomerExtendByID(userid);
+            if (customerInfo != null)//已经存在
+            {
+
+            }
+            else
+            {
+                //图片保存
+                string urlSufix = DateTime.Now.ToString("yyyyMMdd");
+                string reuploadPath = "~/UploadFiles/" + urlSufix + "/";
+                // 获取文件扩展名
+                string fileExtension = Path.GetExtension(fileName).ToLower();
+                AttachmentEntity attachment = new AttachmentEntity();
+                attachment.FileName = fileName.Substring(0, fileName.IndexOf("."));
+                attachment.FileExtendName = fileExtension;
+                attachment.FilePath = reuploadPath + fileName;
+                attachment.FileType = fileType;
+                attachment.BusinessType = fileType;
+                attachment.Remark = "";
+                attachment.FileSize = "";
+                attachment.Channel = "Offline";
+                attachment.UploadDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                attachment.Operator = userid;
+                attachment.AttachmentID = BaseDataService.CreateAttachment(attachment);
+
+                //用户扩展信息插入
+                CustomerExtendInfo cInfo = new CustomerExtendInfo();
+                cInfo.AttachmentIDs = attachment.AttachmentID.ToString();
+                cInfo.CustomerID = userid;
+                cInfo.CardType = fileType;
+                customerRes.CreateNewCustomerExtend(cInfo);
+                //返回用户扩展信息
+                customerInfo = customerRes.GetCustomerExtendByID(userid);
+            }
+
+            if (customerInfo != null)
+            {
+               cEntity= TranslateCustomerExtendEntity(customerInfo);
+            }
+
+            return cEntity;
+
         }
 
     }

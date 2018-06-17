@@ -241,6 +241,56 @@ namespace GuoChe.Controllers
             return Json(JsonHelper.ToJson<DataTable>(dt));
         }
 
-        
+        /// <summary>
+        /// 首页图片显示
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult ListImage()
+        {
+            List<string> lst = new List<string>();
+            lst.Add("http://118.31.13.37/Images/app/image1.png");
+            lst.Add("http://118.31.13.37/Images/app/image2.png");
+            lst.Add("http://118.31.13.37/Images/app/image3.png");
+            return Json(JsonHelper.ToJson<List<string>>(lst));
+        }
+
+
+        /// <summary>
+        /// 实名认证接口  证件照
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <returns></returns>
+        public JsonResult CheckCardID(string userid)
+        {
+            CustomerExtendEntity customer = CustomerService.AddFile(long.Parse(userid), "", "CD02");//用户证件照
+            return Json(JsonHelper.ToJson(customer));
+        }
+
+        /// <summary>
+        /// 上传头像
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <returns></returns>
+        public JsonResult HeadImage(string userid)
+        {
+            CustomerExtendEntity customer = CustomerService.AddFile(long.Parse(userid), "", "CD05");//用户头像
+            return Json(JsonHelper.ToJson(customer));
+        }
+
+        /// <summary>
+        /// 意见反馈
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <param name="remark"></param>
+        /// <returns></returns>
+        public JsonResult Feedback(string userid,string remark)
+        {
+            AdviseEntity aentity=new AdviseEntity();
+            aentity.CustomerID=long.Parse(userid);
+            aentity.Summary = remark;
+            aentity.AdviseTitle = "用户意见反馈";
+            AdviseService.CreateNewAdvise(aentity);
+            return Json(JsonHelper.ToJson("意见反馈成功！"));
+        }
     }
 }

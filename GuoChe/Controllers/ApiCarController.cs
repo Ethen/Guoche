@@ -4,6 +4,7 @@ using Service;
 using Service.BaseBiz;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -27,8 +28,18 @@ namespace GuoChe.Controllers
         /// <returns></returns>
         public JsonResult CarInfo(string carid, string supplierid, string cityid)
         {
-            List<CarEntity> lstCar = CarService.GetAllCar(carid, supplierid, true);
-            return Json(JsonHelper.ToJson<List<CarEntity>>(lstCar));
+            if (string.IsNullOrEmpty(cityid))
+            {
+                List<CarEntity> lstCar = CarService.GetAllCar(carid, supplierid, true);
+                return Json(JsonHelper.ToJson<List<CarEntity>>(lstCar));
+            }
+            else
+            {
+                DataTable dt=CarService.MyCarInfoByCityID(cityid);
+                return Json(JsonHelper.ToJson<DataTable>(dt));
+            }
+            return null;
+            
         }
 
         /// <summary>

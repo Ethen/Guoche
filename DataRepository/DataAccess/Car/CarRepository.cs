@@ -248,5 +248,14 @@ namespace DataRepository.DataAccess.Car
             command.AddInputParameter("@RType", DbType.String, RType);
             return command.ExecuteDataSet();
         }
+
+        public DataSet MyCarInfoByCityID(string cityid)
+        {
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(CarStatement.MyCarInfoByCityID, "Text"));
+            command.AddInputParameter("@CityID", DbType.String, cityid);
+            return command.ExecuteDataSet();
+        }
+
+        
     }
 }
