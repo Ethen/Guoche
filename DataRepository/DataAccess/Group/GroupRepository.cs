@@ -35,10 +35,14 @@ namespace DataRepository.DataAccess.Group
         public List<GroupInfo> GetGroupByKeys(string keys)
         {
             List<GroupInfo> result = new List<GroupInfo>();
-            string sqlText = GroupStatement.GetGroupByKeys;
-            sqlText = sqlText.Replace("#ids#", keys);
-            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sqlText, "Text"));
-            result = command.ExecuteEntityList<GroupInfo>();
+            if (!string.IsNullOrEmpty(keys))
+            {
+                string sqlText = GroupStatement.GetGroupByKeys;
+                sqlText = sqlText.Replace("#ids#", keys);
+                DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sqlText, "Text"));
+                result = command.ExecuteEntityList<GroupInfo>();
+            }
+
             return result;
         }
 

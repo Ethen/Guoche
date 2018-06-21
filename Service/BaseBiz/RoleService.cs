@@ -116,17 +116,21 @@ namespace Service.BaseBiz
         public static List<RoleEntity> GetRoleByKeys(string ids)
         {
             List<RoleEntity> all = new List<RoleEntity>();
-            RoleRepository mr = new RoleRepository();
-            List<RoleInfo> miList = mr.GetRoleByKeys(ids);
-
-            if (!miList.IsEmpty())
+            if (!string.IsNullOrEmpty(ids))
             {
-                foreach (RoleInfo mInfo in miList)
+                RoleRepository mr = new RoleRepository();
+                List<RoleInfo> miList = mr.GetRoleByKeys(ids);
+
+                if (!miList.IsEmpty())
                 {
-                    RoleEntity RoleEntity = TranslateRoleEntity(mInfo);
-                    all.Add(RoleEntity);
+                    foreach (RoleInfo mInfo in miList)
+                    {
+                        RoleEntity RoleEntity = TranslateRoleEntity(mInfo);
+                        all.Add(RoleEntity);
+                    }
                 }
             }
+
 
             return all;
 

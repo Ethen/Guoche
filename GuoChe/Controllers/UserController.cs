@@ -166,9 +166,9 @@ namespace GuoChe.Controllers
 
                     builder.Append("<span class=\"btn btn-box span3\" data-bubble=\"2\" style=\"margin-bottom:5px\">");
                     string checkedFlag = "";
-                    if (user != null && !user.Groups.IsEmpty())
+                    if (user != null && !user.Roles.IsEmpty())
                     {
-                        checkedFlag = user.Groups.Exists(t => t.GroupID == allRole[i].RoleID) ? "checked" : "";
+                        checkedFlag = user.Roles.Exists(t => t.RoleID == allRole[i].RoleID) ? "checked" : "";
                     }
                     builder.AppendFormat("<input type=\"checkbox\" style=\"margin-bottom:5px\" name=\"RoleIDs\" value=\"{0}\" {1}/>{2}", allRole[i].RoleID, checkedFlag, allRole[i].RoleName);
                     builder.Append("</span>");
