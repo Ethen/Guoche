@@ -58,6 +58,8 @@
                                 <th role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width: 150px;">整车质量</th>
                                 <th role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width: 300px;">座位数</th>
                                 <th role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width: 300px;">经销商</th>
+                                <th role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width: 300px;">售价</th>
+                                <th role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width: 300px;">租赁价</th>
                                 <th role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width: 40px;">状态</th>
                                 <th role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width: 40px;">操作</th>
                             </tr>
@@ -74,6 +76,8 @@
                                     <td class=" ">@cars[i].Quality</td>
                                     <td class=" ">@cars[i].SiteNum</td>
                                     <td class=" ">@((cars[i].Store??new StoreEntity()).SupplierName)</td>
+                                    <td class=" ">&yen;@cars[i].SalePrice.ToString("f2")</td>
+                                    <td class=" ">&yen;@cars[i].LeasePrice.ToString("f2")</td>
                                     <td class=" ">
                                         @if (cars[i].Status == 0)
                                         {

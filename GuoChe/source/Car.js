@@ -1,5 +1,5 @@
 ﻿var elemnets = {
-    ids: ["CarName", "ModelCode", "ContractCode", "SupplierID"],
+    ids: ["CarName", "ModelCode", "ContractCode", "SupplierID","SalePrice","LeasePrice"],
     methods: [
         {
             required: true,
@@ -16,6 +16,16 @@
         {
             required: true,
             messages: ["请选择经销商", "", "", ""]
+        },
+        {
+            required: false,
+            rule: /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/,
+            messages: ["", "", "", "请输入正确的金额(XX.XX)"]
+        },
+        {
+            required: false,
+            rule: /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/,
+            messages: ["", "", "", "请输入正确的金额(XX.XX)"]
         }
     ]
 };

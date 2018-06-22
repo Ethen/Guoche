@@ -160,6 +160,18 @@
                             </div>
                         </div>
                         <div class="control-group">
+                            <label class="control-label">出售价</label>
+                            <div class="controls">
+                                <span style="margin-left:-12px;margin-right:5px">&yen;</span><input class="span5" type="text" placeholder="出售价" id="SalePrice" name="SalePrice" value="@(carEntity.SalePrice == 0 ? "" : carEntity.SalePrice.ToString("f2"))" maxlength="50">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">租赁价</label>
+                            <div class="controls">
+                                <span style="margin-left:-12px;margin-right:5px">&yen;</span><input class="span5" type="text" placeholder="租赁价" id="LeasePrice" name="LeasePrice" value="@(carEntity.LeasePrice == 0 ? "" : carEntity.LeasePrice.ToString("f2"))" maxlength="50">
+                            </div>
+                        </div>
+                        <div class="control-group">
                             <label class="control-label">经销商</label>
                             <div class="controls">
                                 <select tabindex="1" class="span5" id="SupplierID" name="SupplierID">

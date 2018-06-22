@@ -48,6 +48,9 @@ namespace Entity.ViewModel
         public DateTime ModifyDate { get; set; }
         public long Operator { get; set; }
         public decimal CuidePrice { get; set; }
+
+        public decimal SalePrice { get; set; }
+        public decimal LeasePrice { get; set; }
         public List<AttachmentEntity> AttachmentsInfo { get; set; }
 
         public UserEntity OperatorInfo { get; set; }

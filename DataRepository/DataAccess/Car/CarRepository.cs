@@ -179,6 +179,9 @@ namespace DataRepository.DataAccess.Car
             command.AddInputParameter("@CreateDate", DbType.DateTime, car.CreateDate);
             command.AddInputParameter("@ModifyDate", DbType.DateTime, car.ModifyDate);
             command.AddInputParameter("@Operator", DbType.Int64, car.Operator);
+            command.AddInputParameter("@SalePrice", DbType.Decimal, car.SalePrice);
+            command.AddInputParameter("@LeasePrice", DbType.Decimal, car.LeasePrice);
+
 
             return command.ExecuteNonQuery();
         }
@@ -212,6 +215,8 @@ namespace DataRepository.DataAccess.Car
             command.AddInputParameter("@CarLicNumber", DbType.String, car.CarLicNumber);
             command.AddInputParameter("@ModifyDate", DbType.DateTime, car.ModifyDate);
             command.AddInputParameter("@Operator", DbType.Int64, car.Operator);
+            command.AddInputParameter("@SalePrice", DbType.Decimal, car.SalePrice);
+            command.AddInputParameter("@LeasePrice", DbType.Decimal, car.LeasePrice);
 
             return command.ExecuteNonQuery();
         }

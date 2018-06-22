@@ -59,6 +59,8 @@ namespace Service
                 carInfo.CarLicNumber = carEntity.CarLicNumber ?? "";
                 carInfo.ModifyDate = carEntity.ModifyDate;
                 carInfo.Operator = carEntity.Operator;
+                carInfo.SalePrice = carEntity.SalePrice;
+                carInfo.LeasePrice = carEntity.LeasePrice;
             }
 
             return carInfo;
@@ -95,6 +97,8 @@ namespace Service
                 carEntity.CarLicNumber =carInfo.CarLicNumber;
                 carEntity.ModifyDate =carInfo.ModifyDate;
                 carEntity.Operator =carInfo.Operator;
+                carEntity.SalePrice = carInfo.SalePrice;
+                carEntity.LeasePrice = carInfo.LeasePrice;
 
                 if (isAPI)
                 {

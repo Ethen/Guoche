@@ -107,5 +107,12 @@ namespace DataRepository.DataModel
 
         [DataMapping("Operator", DbType.Int64)]
         public long Operator { get; set; }
+
+
+        [DataMapping("SalePrice", DbType.Decimal)]
+        public decimal SalePrice { get; set; }
+
+        [DataMapping("LeasePrice", DbType.Decimal)]
+        public decimal LeasePrice { get; set; }
     }
 }
