@@ -82,6 +82,8 @@ namespace DataRepository.DataAccess.Car
 
         public static string GetAllCarInfoByRule = @"SELECT * FROM [CarInfo](NOLOCK) WHERE 1=1 ";
 
+        //随机显示两条
+        public static string GetHotCarInfo = @"select top 2 * from CarInfo  order by NEWID()";
 
         #region 关联表
         public static string MyReservation = @"select a.CustomerID, b.CustomerName,b.Mobile,c.CarName,c.Renewal,c.CarLicNumber,c.CarModel,case a.Status when 0 then '未处理' else '已处理' end as Status,a.CreateDate from dbo.Reservations a 

@@ -52,6 +52,21 @@ namespace DataRepository.DataAccess.Car
             return result;
         }
 
+
+        /// <summary>
+        /// 查询随机热门汽车车型
+        /// </summary>
+        /// <param name="supilerType"></param>
+        /// <returns></returns>
+        public List<CarInfo> GetHotCarInfo(string SupplierType)
+        {            
+            List<CarInfo> result = new List<CarInfo>();
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(CarStatement.GetHotCarInfo, "Text"));
+            //command.AddInputParameter("@SupplierID", DbType.Int64, supplierID);
+            result = command.ExecuteEntityList<CarInfo>();
+            return result;
+        }
+
         public List<CarInfo> GetCarInfoBySupplierID(long supplierID)
         {
             List<CarInfo> result = new List<CarInfo>();

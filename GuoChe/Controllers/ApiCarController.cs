@@ -43,6 +43,17 @@ namespace GuoChe.Controllers
         }
 
         /// <summary>
+        /// supplierType:1 销售 2：租赁 3：租售一体
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public JsonResult GetHotCarInfo(string supplierType)
+        {
+            List<CarEntity> lstCar = CarService.GetHotCarInfo(supplierType, true);
+            return Json(JsonHelper.ToJson<List<CarEntity>>(lstCar));
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="cityid"></param>

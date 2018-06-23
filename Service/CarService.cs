@@ -153,6 +153,33 @@ namespace Service
             return all;
         }
 
+        /// <summary>
+        /// 热门销售/租赁汽车
+        /// </summary>
+        /// <param name="SupplierType"></param>
+        /// <param name="isAPI"></param>
+        /// <returns></returns>
+        public static List<CarEntity> GetHotCarInfo(string SupplierType, bool isAPI)
+        {
+            List<CarEntity> all = new List<CarEntity>();
+            CarRepository mr = new CarRepository();
+            List<CarInfo> miList = Cache.Get<List<CarInfo>>("GetHotCarInfo" + SupplierType);
+            if (miList.IsEmpty())
+            {
+                miList = mr.GetHotCarInfo(SupplierType);
+                Cache.Add("GetHotCarInfo" + SupplierType, miList);
+            }
+            if (!miList.IsEmpty())
+            {
+                foreach (CarInfo mInfo in miList)
+                {
+                    CarEntity carEntity = TranslateCarEntity(mInfo, isAPI);
+                    all.Add(carEntity);
+                }
+            }
+
+            return all;
+        }
 
         public static List<CarEntity> GetAllCar(string carid, string supplierid,bool isAPI)
         {
