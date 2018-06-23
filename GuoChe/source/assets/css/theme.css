@@ -8,10 +8,11 @@
 html, body{
   height: 100%;
 }
+
 body{
   padding-top: 45px;
   font-family: 'Open Sans', sans-serif;
-  background-image: url("../img/index.jpg");
+  background-image: url("../img/dotted.png");
   overflow-x: hidden;
 }
 h2{

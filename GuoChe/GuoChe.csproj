@@ -275,6 +275,7 @@
     <Content Include="Global.asax" />
     <None Include="Properties\PublishProfiles\web.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Images\index.jpg" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -608,6 +609,7 @@
     <Content Include="source\assets\img\glyphicons-halflings-white.png" />
     <Content Include="source\assets\img\glyphicons-halflings.png" />
     <Content Include="source\assets\img\hue.png" />
+    <Content Include="source\assets\img\index.jpg" />
     <Content Include="source\assets\img\logo.png" />
     <Content Include="source\assets\img\odinn.jpg" />
     <Content Include="source\assets\img\saturation.png" />
