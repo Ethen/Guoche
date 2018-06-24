@@ -175,7 +175,7 @@ var storeInfo = {
 
         if (ids.length > (maxPicCount-1))
         {
-            $("#AttachmentIDs").val(ids.slice(0, 5).join(","));//只保留前五个   
+            $("#AttachmentIDs").val(ids.slice(0, 10).join(","));//只保留前10个   
             $("#uploadC").hide();
         }
     },
