@@ -48,6 +48,7 @@
     <Compile Include="BaseBiz\GroupService.cs" />
     <Compile Include="BaseBiz\MenuService.cs" />
     <Compile Include="BaseBiz\RoleService.cs" />
+    <Compile Include="BrandService.cs" />
     <Compile Include="CarService.cs" />
     <Compile Include="ChargeService.cs" />
     <Compile Include="NewsService.cs" />

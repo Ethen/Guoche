@@ -53,6 +53,8 @@ namespace Entity.ViewModel
         public decimal LeasePrice { get; set; }
         public List<AttachmentEntity> AttachmentsInfo { get; set; }
 
+        public BrandEntity CarBrand { get; set; }
+
         public UserEntity OperatorInfo { get; set; }
 
 
