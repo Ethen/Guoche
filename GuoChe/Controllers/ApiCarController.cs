@@ -65,6 +65,16 @@ namespace GuoChe.Controllers
         }
 
         /// <summary>
+        /// 获取所有车型
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetCarType()
+        {
+            List<BaseDataEntity> lstBaseData = BaseDataService.GetBaseDataAll().Where(t => t.PCode == "C00" && t.Status == 1).ToList();
+            return Json(JsonHelper.ToJson<List<BaseDataEntity>>(lstBaseData));
+        }
+
+        /// <summary>
         ///  用户预约车辆试驾信息
         /// </summary>
         /// <param name="userid"></param>
