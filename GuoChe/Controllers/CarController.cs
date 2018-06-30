@@ -49,6 +49,7 @@ namespace GuoChe.Controllers
 
         public ActionResult Edit(string cid)
         {
+            ViewBag.Brands = BrandService.GetBrandAll().Where(t => t.IsUse == 1).ToList();
             ViewBag.Store = StoreService.GetStoreAll().Where(t => t.Status == 1).ToList();
             ViewBag.CarModel = BaseDataService.GetBaseDataAll().Where(t => t.PCode == "C00" && t.Status == 1).ToList();
             ViewBag.MaxPicCount = ConfigurationManager.AppSettings["MaxPicCount"].ToString();
@@ -75,7 +76,15 @@ namespace GuoChe.Controllers
         {
             CarService.RemoveCar(cid.ToLong(0));
             Response.Redirect("/Car/");
-        } 
+        }
+
+        public JsonResult GetBrand(string bid)
+        {
+            long brandid = bid.ToLong(0);
+            BrandEntity result = BrandService.GetBrandById(brandid) ?? new BrandEntity();
+
+            return Json(result);
+        }
 
 
 

@@ -29,13 +29,17 @@ namespace DataRepository.DataAccess.Brand
             return result;
         }
 
-        public List<BrandInfo> GetBrandByRule(string name)
+        public List<BrandInfo> GetBrandByRule(string name,int isuse)
         {
             List<BrandInfo> result = new List<BrandInfo>();
             string sql = BrandStatement.GetAllBrandsByRule;
             if (!string.IsNullOrEmpty(name))
             {
                 sql += " AND BrandName LIKE '%" + name + "%'";
+            }
+            if (isuse>-1)
+            {
+                sql += " AND IsUse=" + isuse;
             }
 
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sql, "Text"));

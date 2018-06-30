@@ -11,7 +11,7 @@ namespace DataRepository.DataModel
     [Serializable]
     public class BrandInfo
     {
-        [DataMapping("ID", DbType.Int64)]
+        [DataMapping("BrandID", DbType.Int64)]
         public long BrandID { get; set; }
         [DataMapping("BrandName", DbType.AnsiString)]
         public string BrandName { get; set; }

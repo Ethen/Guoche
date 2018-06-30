@@ -71,11 +71,11 @@ namespace DataRepository.DataAccess.Car
 
         public static string GetCarInfoBySupplierID = @"SELECT * FROM [CarInfo](NOLOCK) WHERE SupplierID=@SupplierID";
 
-        public static string CreateNewCarInfo = @"INSERT INTO [CarInfo]([CarName],[ModelCode],[CarModel],[AttachmentIDs],[ContractCode],[AppearanceSize],[PlateSize],[Capacity],[Slope],[MaxWeight],[Wheelbase],[BatteryCapacity],[Quality],[Braking],[MaxSpeed],[SiteNum],[BatteryType],[SafeConfigure],[OuterConfigure],[Renewal],[SupplierID],[Status],[CarLicNumber],[SalePrice],[LeasePrice],[CreateDate],[ModifyDate],[Operator]) 
-                                                     VALUES (@CarName,@ModelCode,@CarModel,@AttachmentIDs,@ContractCode,@AppearanceSize,@PlateSize,@Capacity,@Slope,@MaxWeight,@Wheelbase,@BatteryCapacity,@Quality,@Braking,@MaxSpeed,@SiteNum,@BatteryType,@SafeConfigure,@OuterConfigure,@Renewal,@SupplierID,@Status,@CarLicNumber,@SalePrice,@LeasePrice,@CreateDate,@ModifyDate,@Operator)";
+        public static string CreateNewCarInfo = @"INSERT INTO [CarInfo]([CarName],[ModelCode],[CarModel],[AttachmentIDs],[ContractCode],[AppearanceSize],[PlateSize],[Capacity],[Slope],[MaxWeight],[Wheelbase],[BatteryCapacity],[Quality],[Braking],[MaxSpeed],[SiteNum],[BatteryType],[SafeConfigure],[OuterConfigure],[Renewal],[SupplierID],[Status],[CarLicNumber],[SalePrice],[LeasePrice],[CreateDate],[ModifyDate],[Operator],[BrandID]) 
+                                                     VALUES (@CarName,@ModelCode,@CarModel,@AttachmentIDs,@ContractCode,@AppearanceSize,@PlateSize,@Capacity,@Slope,@MaxWeight,@Wheelbase,@BatteryCapacity,@Quality,@Braking,@MaxSpeed,@SiteNum,@BatteryType,@SafeConfigure,@OuterConfigure,@Renewal,@SupplierID,@Status,@CarLicNumber,@SalePrice,@LeasePrice,@CreateDate,@ModifyDate,@Operator,@BrandID)";
 
         public static string ModifyCarInfo = @"UPDATE [CarInfo] SET CarName=@CarName,ModelCode=@ModelCode,CarModel=@CarModel,AttachmentIDs=@AttachmentIDs,ContractCode=@ContractCode,AppearanceSize=@AppearanceSize,PlateSize=@PlateSize,Capacity=@Capacity,Slope=@Slope,
-                                                  MaxWeight=@MaxWeight,Wheelbase=@Wheelbase,BatteryCapacity=@BatteryCapacity,Quality=@Quality,Braking=@Braking,MaxSpeed=@MaxSpeed,SiteNum=@SiteNum,BatteryType=@BatteryType,SafeConfigure=@SafeConfigure,OuterConfigure=@OuterConfigure,Renewal=@Renewal,SupplierID=@SupplierID,Status=@Status,CarLicNumber=@CarLicNumber,SalePrice=@SalePrice,LeasePrice=@LeasePrice,ModifyDate=@ModifyDate,Operator=@Operator
+                                                  MaxWeight=@MaxWeight,Wheelbase=@Wheelbase,BatteryCapacity=@BatteryCapacity,Quality=@Quality,Braking=@Braking,MaxSpeed=@MaxSpeed,SiteNum=@SiteNum,BatteryType=@BatteryType,SafeConfigure=@SafeConfigure,OuterConfigure=@OuterConfigure,Renewal=@Renewal,SupplierID=@SupplierID,Status=@Status,CarLicNumber=@CarLicNumber,SalePrice=@SalePrice,LeasePrice=@LeasePrice,ModifyDate=@ModifyDate,Operator=@Operator,BrandID=@BrandID
                                                    WHERE CarID=@CarID";
 
         public static string RemoveCarInfo = @"UPDATE [CarInfo] SET Status=0 WHERE CarID=@CarID";
@@ -84,6 +84,8 @@ namespace DataRepository.DataAccess.Car
 
         //随机显示两条
         public static string GetHotCarInfo = @"select top 2 * from CarInfo  order by NEWID()";
+
+        public static string GetCarInfoByBrandID = @"SELECT * FROM [CarInfo](NOLOCK) WHERE BrandID=@BrandID";
 
         #region 关联表
         public static string MyReservation = @"select a.CustomerID, b.CustomerName,b.Mobile,c.CarName,c.Renewal,c.CarLicNumber,c.CarModel,case a.Status when 0 then '未处理' else '已处理' end as Status,a.CreateDate from dbo.Reservations a 

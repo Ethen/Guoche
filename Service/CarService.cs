@@ -61,6 +61,7 @@ namespace Service
                 carInfo.Operator = carEntity.Operator;
                 carInfo.SalePrice = carEntity.SalePrice;
                 carInfo.LeasePrice = carEntity.LeasePrice;
+                carInfo.BrandID = carEntity.BrandID;
             }
 
             return carInfo;
@@ -99,6 +100,7 @@ namespace Service
                 carEntity.Operator =carInfo.Operator;
                 carEntity.SalePrice = carInfo.SalePrice;
                 carEntity.LeasePrice = carInfo.LeasePrice;
+                carEntity.BrandID = carInfo.BrandID;
 
                 if (isAPI)
                 {
@@ -123,12 +125,29 @@ namespace Service
 
                     UserEntity user = UserService.GetUserById(carEntity.Operator) ?? new UserEntity();
                     carEntity.OperatorInfo = user;
+
+                    BrandEntity brand = BrandService.GetBrandById(carEntity.BrandID) ?? new BrandEntity();
+                    carEntity.CarBrand = brand;
                 }
 
 
             }
 
             return carEntity;
+        }
+
+        public static List<CarEntity> GetCarInfoByBrandID(long brandID)
+        {
+            List<CarEntity> all = new List<CarEntity>();
+            CarRepository mr = new CarRepository();
+            List<CarInfo> miList = mr.GetCarInfoByBrandID(brandID);
+            foreach (CarInfo mInfo in miList)
+            {
+                CarEntity carEntity = TranslateCarEntity(mInfo);
+                all.Add(carEntity);
+            }
+
+            return all;
         }
 
         public static List<CarEntity> GetAllCar()

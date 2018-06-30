@@ -99,11 +99,11 @@ namespace Service
 
         }
 
-        public static List<BrandEntity> GetBrandByRule(string name)
+        public static List<BrandEntity> GetBrandByRule(string name,int isuse)
         {
             List<BrandEntity> all = new List<BrandEntity>();
             BrandRepository mr = new BrandRepository();
-            List<BrandInfo> miList = mr.GetBrandByRule(name);
+            List<BrandInfo> miList = mr.GetBrandByRule(name, isuse);
             foreach (BrandInfo mInfo in miList)
             {
                 BrandEntity brand = TranslateBrandEntity(mInfo);

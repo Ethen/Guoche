@@ -114,5 +114,8 @@ namespace DataRepository.DataModel
 
         [DataMapping("LeasePrice", DbType.Decimal)]
         public decimal LeasePrice { get; set; }
+
+        [DataMapping("BrandID", DbType.Int64)]
+        public long BrandID { get; set; }
     }
 }

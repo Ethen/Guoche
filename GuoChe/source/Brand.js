@@ -1,35 +1,19 @@
 ﻿var elemnets = {
-    ids: ["CarName", "ModelCode", "ContractCode", "SupplierID","SalePrice","LeasePrice"],
+    ids: ["BrandName", "BrandNameEN"],
     methods: [
         {
             required: true,
-            messages: ["请输入车辆名称", "", "", ""]
+            //maxlength: 100,
+            //minlength: 0,
+            //rule: "",
+            messages: ["请输入品牌名称", "", "", ""]
         },
         {
             required: true,
-            messages: ["请选择车型代码", "", "", ""]
-        },
-        {
-            required: true,
-            messages: ["请输入合同编号", "", "", ""]
-        },
-        {
-            required: true,
-            messages: ["请选择经销商", "", "", ""]
-        },
-        {
-            required: false,
-            rule: /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/,
-            messages: ["", "", "", "请输入正确的金额(XX.XX)"]
-        },
-        {
-            required: false,
-            rule: /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/,
-            messages: ["", "", "", "请输入正确的金额(XX.XX)"]
+            messages: ["请输入品牌英文名", "", "", ""]
         }
     ]
 };
-
 
 var FileInput = function () {
     var oFile = new Object();
@@ -49,14 +33,14 @@ var FileInput = function () {
             dropZoneEnabled: false,//是否显示拖拽区域
             maxFileSize: 20000,//单位为kb，如果为0表示不限制文件大小
             minFileCount: 0,//限制上传的文件数量
-            maxFileCount: 5,
+            maxFileCount: 1,
             enctype: 'multipart/form-data',
             validateInitialCount: true,
             previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
             msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
             layoutTemplates: {
                 actionUpload: "",
-                actionDelete:""
+                actionDelete: ""
             }
         });
 
@@ -64,21 +48,21 @@ var FileInput = function () {
         $("#file").on("fileuploaded", function (event, data, previewId, index) {
             if (!!data) {
                 var aid = data.response[0].AttachmentID;
-                var aids = $("#AttachmentIDs").val(), fpath = data.response[0].FilePath.replace("~", ""), fName = data.response[0].FileName + data.response[0].FileExtendName;
+                var aids = $("#ImageURL").val(), fpath = data.response[0].FilePath.replace("~", ""), fName = data.response[0].FileName + data.response[0].FileExtendName;
                 if (aids.length > 0) {
                     aids = aids + "," + aid;
                 }
                 else {
                     aids = aid;
                 }
-                $("#AttachmentIDs").val(aids);
+                $("#ImageURL").val(aids);
                 $("#picContainer").append('<span class="picRemove"  val="' + aid + '" style="height:0px"></span>');
                 $("#picContainer").append('<img src="' + fpath + '" alt="' + fName + '" style="width: 150px; height: 150px; margin-top: 15px">');
-                carInfo.clearUpload();
-                carInfo.initPicInfo();
+                brandInfo.clearUpload();
+                brandInfo.initPicInfo();
                 setTimeout('$(".fileinput-remove").click()', 1000);
             }
-            
+
         }).on('fileerror', function (event, data, msg) {
             alert("上传失败，失败原因" + msg);
         });
@@ -87,25 +71,14 @@ var FileInput = function () {
     return oFile;
 };
 
-var carInfo = {
+var brandInfo = {
     init: function () {
         valid.init(elemnets);
-        carInfo.regEvent();
-        carInfo.initPicInfo();
-        $("#ModelCode").trigger("change");
+        brandInfo.regEvent();
+        brandInfo.initPicInfo();
     },
 
     regEvent: function () {
-
-        $("#ModelCode").change(function () {
-            if ($(this).val() == "C02" || $(this).text() == "货车") {
-                $("#trackContainer").show();
-            }
-            else {
-                $("#trackContainer").hide();
-            }
-
-        });
 
         $("#picContainer>img").click(function () {
             var item = this;
@@ -122,42 +95,23 @@ var carInfo = {
 
         $("#save").click(function () {
             if (valid.validate()) {
-                $("#carForm").submit();
+                $("#brandForm").submit();
             }
         });
 
-        $("#BrandID").change(function () {
-            $.ajax({
-                url: "/Car/GetBrand",
-                type: 'POST',
-                data: { bid:$(this).val() },
-                success: function (data) {
-                    if (data)
-                    {
-                        $("#brandContainer").find("img").remove();
-
-                        var html = '<img src="' + data.Attachment.FilePath.replace("~", "") + '" alt="' + data.Attachment.FileName + data.Attachment.FileExtendName + '" style="width: 150px; height: 150px; margin-top: 15px;margin-left:20px">';
-                        $("#brandContainer").append(html);
-
-                    }
-                }
-            });
-        })
-
 
     },
+
 
     clearUpload: function () {
         $(".close").trigger("click");
         $(".fileinput-cancel-button").attr("disabled", "disabled").hide();
         $(".btn-primary").removeAttr("disabled");
         $("#file").removeAttr("disabled");
-        var ids=$("#AttachmentIDs").val().split(",");
+        var ids = $("#AttachmentIDs").val().split(",");
 
-        if (ids.length > (maxPicCount-1))
-        {
-            $("#AttachmentIDs").val(ids.slice(0, 10).join(","));//只保留前10个          
-
+        if (ids.length > (maxPicCount - 1)) {
+            $("#AttachmentIDs").val(ids.slice(0, 1).join(","));//只保留1个  
             $("#uploadC").hide();
         }
     },

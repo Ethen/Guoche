@@ -4,6 +4,7 @@
     ViewBag.Title = "编辑车辆信息";
     List<StoreEntity> plist = (List<StoreEntity>)ViewBag.Store;
     List<BaseDataEntity> carType = (List<BaseDataEntity>)ViewBag.CarModel;
+    List<BrandEntity> brands = (List<BrandEntity>)ViewBag.Brands;
     CarEntity carEntity = (CarEntity)ViewBag.Car;
 }
 @section Header{
@@ -35,6 +36,22 @@
                             <label class="control-label">车辆名称</label>
                             <div class="controls">
                                 <input class="span5" type="text" placeholder="车辆名称" id="CarName" name="CarName" value="@carEntity.CarName" maxlength="100">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">车辆品牌</label>
+                            <div class="controls" id="brandContainer">
+                                <select tabindex="1" class="span5" id="BrandID" name="BrandID">
+                                    <option value="">--请选择车辆品牌--</option>
+                                    @foreach (var item in brands)
+                                    {
+                                        <option value="@item.BrandID" @(item.BrandID == carEntity.BrandID ? "selected" : "")>@item.BrandName</option>
+                                    }
+                                </select><br/>
+                                @if (carEntity.CarBrand != null && carEntity.CarBrand.BrandID > 0)
+                                {
+                                    <img src="@carEntity.CarBrand.Attachment.FilePath.Replace("~", "")" alt="@(carEntity.CarBrand.Attachment.FileName + carEntity.CarBrand.Attachment.FileExtendName)" style="width: 150px; height: 150px; margin-top: 15px;margin-left:20px">
+                                }
                             </div>
                         </div>
                         <div class="control-group">

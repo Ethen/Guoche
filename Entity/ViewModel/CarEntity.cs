@@ -44,6 +44,9 @@ namespace Entity.ViewModel
         public string Renewal { get; set; }
         public int SupplierID { get; set; }
         public int Status { get; set; }
+
+        public long BrandID { get; set; }
+
         public string CarLicNumber { get; set; }
         public DateTime ModifyDate { get; set; }
         public long Operator { get; set; }

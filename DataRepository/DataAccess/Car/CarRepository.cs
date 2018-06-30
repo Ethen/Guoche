@@ -52,6 +52,20 @@ namespace DataRepository.DataAccess.Car
             return result;
         }
 
+        /// <summary>
+        /// 查询指定品牌下的车
+        /// </summary>
+        /// <param name="supilerType"></param>
+        /// <returns></returns>
+        public List<CarInfo> GetCarInfoByBrandID(long brandID)
+        {
+            List<CarInfo> result = new List<CarInfo>();
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(CarStatement.GetCarInfoByBrandID, "Text"));
+            command.AddInputParameter("@BrandID", DbType.Int64, brandID);
+            result = command.ExecuteEntityList<CarInfo>();
+            return result;
+        }
+
 
         /// <summary>
         /// 查询随机热门汽车车型
@@ -196,7 +210,7 @@ namespace DataRepository.DataAccess.Car
             command.AddInputParameter("@Operator", DbType.Int64, car.Operator);
             command.AddInputParameter("@SalePrice", DbType.Decimal, car.SalePrice);
             command.AddInputParameter("@LeasePrice", DbType.Decimal, car.LeasePrice);
-
+            command.AddInputParameter("@BrandID", DbType.Int64, car.BrandID);
 
             return command.ExecuteNonQuery();
         }
@@ -232,6 +246,7 @@ namespace DataRepository.DataAccess.Car
             command.AddInputParameter("@Operator", DbType.Int64, car.Operator);
             command.AddInputParameter("@SalePrice", DbType.Decimal, car.SalePrice);
             command.AddInputParameter("@LeasePrice", DbType.Decimal, car.LeasePrice);
+            command.AddInputParameter("@BrandID", DbType.Int64, car.BrandID);
 
             return command.ExecuteNonQuery();
         }
