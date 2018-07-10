@@ -26,11 +26,18 @@ namespace GuoChe.Controllers
 
         /// </summary>
         /// <returns></returns>
-        public JsonResult CarInfo(string carid, string supplierid, string cityid)
+        public JsonResult CarInfo(string carid, string supplierid, string cityid,string modelcode)
         {
             if (string.IsNullOrEmpty(cityid))
             {
                 List<CarEntity> lstCar = CarService.GetAllCar(carid, supplierid, true);
+                if (lstCar != null && lstCar.Count > 0)
+                {
+                    if (!string.IsNullOrEmpty(modelcode))
+                    {
+                        lstCar = lstCar.FindAll(p => p.ModelCode.Equals(modelcode));
+                    }
+                }
                 return Json(JsonHelper.ToJson<List<CarEntity>>(lstCar));
             }
             else

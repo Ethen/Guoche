@@ -9,6 +9,9 @@ using Service.ApiBiz;
 using Service.BaseBiz;
 using Service;
 using System.Data;
+using System.IO;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace GuoChe.Controllers
 {
@@ -262,7 +265,37 @@ namespace GuoChe.Controllers
         /// <returns></returns>
         public JsonResult CheckCardID(string userid)
         {
-            CustomerExtendEntity customer = CustomerService.AddFile(long.Parse(userid), "", "CD02");//用户证件照
+            CustomerExtendEntity entity = new CustomerExtendEntity();
+            if (Request["ext"] == null || Request["data"] == null)
+            {
+                //return Content("Error");
+                entity = CustomerService.GetCustomerExtendInfoByID(long.Parse(userid));
+                return Json(JsonHelper.ToJson(entity));
+            }
+
+            string exts = ".jpg";
+
+            string ext =  Request["ext"].ToString().Trim();
+
+            
+
+            var btsdata = Convert.FromBase64String(Request["data"]);
+
+            string filename = Guid.NewGuid().ToString("D") + ext;
+
+            string uploadDir = Server.MapPath("/Images/" + Guid.NewGuid().ToString("D") + ext);
+
+            string filepath = "/Images/" + Guid.NewGuid().ToString("D") + ext;
+            //if (!Directory.Exists(uploadDir))
+            //{
+            //    Directory.CreateDirectory(uploadDir);
+            //}
+
+            using (Image img = Image.FromStream(new MemoryStream(btsdata)))
+            {
+                img.Save(uploadDir, ImageFormat.Jpeg);
+            }
+            CustomerExtendEntity customer = CustomerService.AddFile(long.Parse(userid), filename, "CD02", filepath, ext);//用户证件照
             return Json(JsonHelper.ToJson(customer));
         }
 
@@ -272,8 +305,34 @@ namespace GuoChe.Controllers
         /// <param name="userid"></param>
         /// <returns></returns>
         public JsonResult HeadImage(string userid)
-        {
-            CustomerExtendEntity customer = CustomerService.AddFile(long.Parse(userid), "", "CD05");//用户头像
+        {           
+
+            CustomerExtendEntity entity = new CustomerExtendEntity();
+            if (Request["ext"] == null || Request["data"] == null)
+            {
+                //return Content("Error");
+                entity = CustomerService.GetCustomerExtendInfoByID(long.Parse(userid));
+                return Json(JsonHelper.ToJson(entity));
+            }
+            string ext = Request["ext"].ToString().Trim();           
+
+            var btsdata = Convert.FromBase64String(Request["data"]);
+
+            string filename = Guid.NewGuid().ToString("D") + ext;
+
+            string uploadDir = Server.MapPath("/Images/" + Guid.NewGuid().ToString("D") + ext);
+
+            string filepath = "/Images/" + Guid.NewGuid().ToString("D") + ext;
+            //if (!Directory.Exists(uploadDir))
+            //{
+            //    Directory.CreateDirectory(uploadDir);
+            //}
+
+            using (Image img = Image.FromStream(new MemoryStream(btsdata)))
+            {
+                img.Save(uploadDir, ImageFormat.Jpeg);
+            }
+            CustomerExtendEntity customer = CustomerService.AddFile(long.Parse(userid), filename, "CD05", filepath, ext);//用户头像
             return Json(JsonHelper.ToJson(customer));
         }
 
