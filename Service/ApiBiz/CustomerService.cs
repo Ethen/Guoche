@@ -153,7 +153,7 @@ namespace Service.ApiBiz
         }
 
 
-        private static CustomerExtendEntity TranslateCustomerExtendEntity(CustomerExtendInfo info)
+        private static CustomerExtendEntity TranslateCustomerExtendEntity(CustomerExtendInfo info, bool isAPI = false)
         {
             CustomerExtendEntity entity = new CustomerExtendEntity();
 
@@ -185,7 +185,7 @@ namespace Service.ApiBiz
                 List<AttachmentEntity> attachments = new List<AttachmentEntity>();
                 if (!string.IsNullOrEmpty(entity.AttachmentIDs))
                 {
-                    attachments = BaseDataService.GetAttachmentInfoByKyes(entity.AttachmentIDs);
+                    attachments = BaseDataService.GetAttachmentInfoByKyes(entity.AttachmentIDs,isAPI);
                 }
                 entity.AttachmentInfos = attachments;
             }
@@ -263,24 +263,24 @@ namespace Service.ApiBiz
         }
 
 
-        public static CustomerExtendEntity GetCustomerExtendInfoByID(long id)
+        public static CustomerExtendEntity GetCustomerExtendInfoByID(long id,bool isAPI=false)
         {
 
             CustomerRepository mr = new CustomerRepository();
             CustomerExtendInfo info = mr.GetCustomerExtendByID(id);
-            CustomerExtendEntity entity = TranslateCustomerExtendEntity(info);
+            CustomerExtendEntity entity = TranslateCustomerExtendEntity(info,isAPI);
 
             return entity;
         }
 
-        public static List<CustomerExtendEntity> GetCustomerList(string name, string code, int status, PagerInfo pager)
+        public static List<CustomerExtendEntity> GetCustomerList(string name, string code, int status, PagerInfo pager,bool isAPI=false)
         {
             List<CustomerExtendEntity> all = new List<CustomerExtendEntity>();
             CustomerRepository mr = new CustomerRepository();
             List<CustomerExtendInfo> miList = mr.GetCustomerExtend(name, code, status, pager);
             foreach (CustomerExtendInfo mInfo in miList)
             {
-                CustomerExtendEntity customerExtendEntity = TranslateCustomerExtendEntity(mInfo);
+                CustomerExtendEntity customerExtendEntity = TranslateCustomerExtendEntity(mInfo,isAPI);
                 all.Add(customerExtendEntity);
             }
             return all;
@@ -373,7 +373,7 @@ namespace Service.ApiBiz
             AttachmentEntity attachment = new AttachmentEntity();
             attachment.FileName = fileName.Substring(0, fileName.IndexOf("."));
             attachment.FileExtendName = fileExtension;
-            attachment.FilePath = FilePath;
+            attachment.FilePath ="~"+ FilePath;
             attachment.FileType = fileType;
             attachment.BusinessType = fileType;
             attachment.Remark = "";
@@ -404,7 +404,7 @@ namespace Service.ApiBiz
                 cInfo.CardType = fileType;
                 customerRes.CreateNewCustomerExtend(cInfo);
             }
-            CustomerExtendEntity detail = GetCustomerExtendInfoByID(userid);
+            CustomerExtendEntity detail = GetCustomerExtendInfoByID(userid,true);
             return detail;
         }
 
