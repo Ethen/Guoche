@@ -186,6 +186,15 @@ namespace DataRepository.DataAccess.Customer
             return command.ExecuteEntity<CustomerExtendInfo>();
         }
 
+        public CustomerExtendInfo GetCustomerExtendByCustomerID(long cid)
+        {
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(CustomerStatement.GetCustomerExtendByCustomerID, "Text"));
+            command.AddInputParameter("@CustomerID", DbType.Int64, cid);
+            return command.ExecuteEntity<CustomerExtendInfo>();
+        }
+
+
+        
 
         public int CreateNewCustomerExtend(CustomerExtendInfo customerExtendInfo)
         {
@@ -199,12 +208,13 @@ namespace DataRepository.DataAccess.Customer
             command.AddInputParameter("@CardType", DbType.String, customerExtendInfo.CardType);
             command.AddInputParameter("@CardNo", DbType.String, customerExtendInfo.CardNo);
             command.AddInputParameter("@Channel", DbType.Int32, customerExtendInfo.Channel);
-            command.AddInputParameter("@RegisterTime", DbType.DateTime, customerExtendInfo.RegisterTime);
+            command.AddInputParameter("@RegisterTime", DbType.DateTime, DateTime.Now);
             command.AddInputParameter("@Status", DbType.Int32, customerExtendInfo.Status);
-            command.AddInputParameter("@AuditTime", DbType.DateTime, customerExtendInfo.AuditTime);
+            command.AddInputParameter("@AuditTime", DbType.DateTime, DateTime.Now);
             command.AddInputParameter("@Auditor", DbType.Int64, customerExtendInfo.Auditor);
             command.AddInputParameter("@CreateDate", DbType.DateTime, DateTime.Now);
             command.AddInputParameter("@ModifyDate", DbType.DateTime, DateTime.Now);
+            command.AddInputParameter("@Base64", DbType.String, customerExtendInfo.Base64);
             command.AddInputParameter("@Operator", DbType.Int64, customerExtendInfo.Operator);
             return command.ExecuteNonQuery();
         }
@@ -238,6 +248,7 @@ namespace DataRepository.DataAccess.Customer
             command.AddInputParameter("@CardNo", DbType.String, customerExtendInfo.CardNo);
             command.AddInputParameter("@Status", DbType.Int32, customerExtendInfo.Status);
             command.AddInputParameter("@ModifyDate", DbType.DateTime, DateTime.Now);
+            command.AddInputParameter("@Base64", DbType.String, customerExtendInfo.Base64);
             command.AddInputParameter("@Operator", DbType.Int64, customerExtendInfo.Operator);
             return command.ExecuteNonQuery();
         }

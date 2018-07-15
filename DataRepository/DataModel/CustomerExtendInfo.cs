@@ -61,5 +61,10 @@ namespace DataRepository.DataModel
 
         [DataMapping("Operator", DbType.Int64)]
         public long Operator { get; set; }
+
+        [DataMapping("Base64", DbType.String)]
+        public string Base64 { get; set; }
+
+
     }
 }

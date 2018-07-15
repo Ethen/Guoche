@@ -21,6 +21,8 @@ namespace DataRepository.DataAccess.Customer
 
         public static string GetCustomerExtendByID = @"SELECT * FROM CustomerExtend(NOLOCK) WHERE ID=@ID ";
 
+        public static string GetCustomerExtendByCustomerID = @"SELECT * FROM CustomerExtend(NOLOCK) WHERE CustomerID=@CustomerID ";
+
         public static string GetCutomerAll = @"SELECT * FROM Customer(NOLOCK) ";
 
         public static string GetCustomerAllCount = @"SELECT * FROM CustomerExtend(NOLOCK) WHERE 1=1 ";
@@ -28,10 +30,10 @@ namespace DataRepository.DataAccess.Customer
 
         public static string CreateCustomer = @"INSERT INTO Customer(CustomerName,CustomerCode,Password,Channel,Name,Mobile,CreateDate, LastLoginDate)VALUES(@CustomerName,@CustomerCode, @Password,@Channel,@Name, @Mobile, @CreateDate, @LastLoginDate);SELECT @CustomerID=@@IDENTITY ";
 
-        public static string CreateCustomerExtend = @"INSERT INTO [CustomerExtend] ([CustomerID],[CustomerCode],[AttachmentIDs],[CustomerName],[Mobile],[Email],[CardType],[CardNo],[Channel],[RegisterTime],[Status],[AuditTime],[Auditor],[CreateDate],[ModifyDate],[Operator])
-                                                        VALUES (@CustomerID,@CustomerCode,@AttachmentIDs,@CustomerName,@Mobile,@Email,@CardType,@CardNo,@Channel,@RegisterTime,@Status,@AuditTime,@Auditor,@CreateDate,@ModifyDate,@Operator)";
+        public static string CreateCustomerExtend = @"INSERT INTO [CustomerExtend] ([CustomerID],[CustomerCode],[AttachmentIDs],[CustomerName],[Mobile],[Email],[CardType],[CardNo],[Channel],[RegisterTime],[Status],[AuditTime],[Auditor],[CreateDate],[ModifyDate],[Operator],[Base64])
+                                                        VALUES (@CustomerID,@CustomerCode,@AttachmentIDs,@CustomerName,@Mobile,@Email,@CardType,@CardNo,@Channel,@RegisterTime,@Status,@AuditTime,@Auditor,@CreateDate,@ModifyDate,@Operator,@Base64)";
 
-        public static string ModifyCustomerExtend = @"UPDATE [CustomerExtend] SET AttachmentIDs=@AttachmentIDs,CustomerName=@CustomerName,Mobile=@Mobile,Email=@Email,CardType=@CardType,CardNo=@CardNo,Channel=@Channel,Status=@Status,ModifyDate=@ModifyDate,Operator=@Operator WHERE ID=@ID";
+        public static string ModifyCustomerExtend = @"UPDATE [CustomerExtend] SET AttachmentIDs=@AttachmentIDs,Base64=@Base64,CustomerName=@CustomerName,Mobile=@Mobile,Email=@Email,CardType=@CardType,CardNo=@CardNo,Channel=@Channel,Status=@Status,ModifyDate=@ModifyDate,Operator=@Operator WHERE ID=@ID";
 
         public static string ModifyCustomer = @"  UPDATE [Customer] SET [CustomerName]=@CustomerName,[Name]=@Name,[Mobile]=@Mobile WHERE CustomerID=@CustomerID";
 

@@ -32,6 +32,8 @@ namespace Entity.ViewModel
 
         public List<AttachmentEntity> AttachmentInfos { get; set; }
 
+        public string Base64 { get; set; }
+
         public string ChannelName {
             get {
                 string result = string.Empty;

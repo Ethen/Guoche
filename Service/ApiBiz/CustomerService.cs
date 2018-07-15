@@ -175,7 +175,7 @@ namespace Service.ApiBiz
                 entity.Auditor = info.Auditor;
                 entity.ModifyDate = info.ModifyDate;
                 entity.Operator = info.Operator;
-
+                entity.Base64 = info.Base64;
                 if (!string.IsNullOrEmpty(entity.CardType))
                 {
                     BaseDataEntity cardType = BaseDataService.GetBaseDataAll().First(t => t.TypeCode == entity.CardType) ?? new BaseDataEntity();
@@ -273,6 +273,17 @@ namespace Service.ApiBiz
             return entity;
         }
 
+
+        public static CustomerExtendEntity GetCustomerExtendByCustomerID(long id, bool isAPI = false)
+        {
+
+            CustomerRepository mr = new CustomerRepository();
+            CustomerExtendInfo info = mr.GetCustomerExtendByCustomerID(id);
+            CustomerExtendEntity entity = TranslateCustomerExtendEntity(info, isAPI);
+
+            return entity;
+        }
+
         public static List<CustomerExtendEntity> GetCustomerList(string name, string code, int status, PagerInfo pager,bool isAPI=false)
         {
             List<CustomerExtendEntity> all = new List<CustomerExtendEntity>();
@@ -360,6 +371,35 @@ namespace Service.ApiBiz
 
             return result;
         }
+
+
+        public static CustomerExtendEntity AddFile(long userid, string base64, string fileType)
+        {
+            CustomerRepository customerRes = new CustomerRepository();
+            CustomerExtendEntity cEntity = new CustomerExtendEntity();
+            CustomerExtendInfo customerInfo = customerRes.GetCustomerExtendByCustomerID(userid);
+            if (customerInfo != null)//已经存在
+            {
+                CustomerExtendInfo cInfo = new CustomerExtendInfo();                
+                cInfo.CustomerID = userid;
+                cInfo.CardType = fileType;
+                cInfo.ID = customerInfo.ID;
+                cInfo.Base64 = base64;
+                customerRes.ModifyCustomer(cInfo);
+
+            }
+            else
+            {
+                CustomerExtendInfo cInfo = new CustomerExtendInfo();                
+                cInfo.CustomerID = userid;
+                cInfo.CardType = fileType;
+                cInfo.Base64 = base64;
+                customerRes.CreateNewCustomerExtend(cInfo);
+            }
+            CustomerExtendEntity detail = GetCustomerExtendByCustomerID(userid, true);
+            return detail;
+        }
+
         /// <summary>
         /// 
         /// </summary>
