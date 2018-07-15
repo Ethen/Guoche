@@ -54,6 +54,7 @@
     <Compile Include="NewsService.cs" />
     <Compile Include="OrderService.cs" />
     <Compile Include="ReservationsService.cs" />
+    <Compile Include="SalerService.cs" />
     <Compile Include="StoreService.cs" />
     <Compile Include="BaseBiz\UserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

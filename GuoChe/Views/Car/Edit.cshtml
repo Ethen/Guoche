@@ -48,7 +48,7 @@
                                         <option value="@item.BrandID" @(item.BrandID == carEntity.BrandID ? "selected" : "")>@item.BrandName</option>
                                     }
                                 </select><br/>
-                                @if (carEntity.CarBrand != null && carEntity.CarBrand.BrandID > 0)
+                                @if (carEntity.CarBrand != null && carEntity.CarBrand.BrandID > 0 && !string.IsNullOrEmpty(carEntity.CarBrand.Attachment.FilePath))
                                 {
                                     <img src="@carEntity.CarBrand.Attachment.FilePath.Replace("~", "")" alt="@(carEntity.CarBrand.Attachment.FileName + carEntity.CarBrand.Attachment.FileExtendName)" style="width: 150px; height: 150px; margin-top: 15px;margin-left:20px">
                                 }

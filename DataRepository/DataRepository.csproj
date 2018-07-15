@@ -66,6 +66,8 @@
     <Compile Include="DataAccess\Reservations\ReservationsRepository.cs" />
     <Compile Include="DataAccess\Reservations\ReservationsSearchEntity.cs" />
     <Compile Include="DataAccess\Reservations\ReservationsStatement.cs" />
+    <Compile Include="DataAccess\Saler\SalerRepository.cs" />
+    <Compile Include="DataAccess\Saler\SalerStatement.cs" />
     <Compile Include="DataModel\AdviseInfo.cs" />
     <Compile Include="DataModel\BrandInfo.cs" />
     <Compile Include="DataModel\CarInfo.cs" />
@@ -96,6 +98,7 @@
     <Compile Include="DataModel\ProvinceInfo.cs" />
     <Compile Include="DataModel\ReservationsInfo.cs" />
     <Compile Include="DataModel\RoleInfo.cs" />
+    <Compile Include="DataModel\SalerInfo.cs" />
     <Compile Include="DataModel\StoreInfo.cs" />
     <Compile Include="DataModel\UserInfo.cs" />
     <Compile Include="DataModel\VerificationCodeInfo.cs" />

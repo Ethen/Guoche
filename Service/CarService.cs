@@ -123,9 +123,6 @@ namespace Service
                     StoreEntity store = StoreService.GetStoreById(carEntity.SupplierID) ?? new StoreEntity();
                     carEntity.Store = store;
 
-                    UserEntity user = UserService.GetUserById(carEntity.Operator) ?? new UserEntity();
-                    carEntity.OperatorInfo = user;
-
                     BrandEntity brand = BrandService.GetBrandById(carEntity.BrandID) ?? new BrandEntity();
                     carEntity.CarBrand = brand;
                 }
