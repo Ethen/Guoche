@@ -53,10 +53,13 @@ namespace DataRepository.DataAccess.BaseData
         public List<AttachmentInfo> GetAttachments(string keys)
         {
             List<AttachmentInfo> result = new List<AttachmentInfo>();
-            string sqlText = BaseDataStatement.GetAttachmentByKey;
-            sqlText = sqlText.Replace("#ids#", keys);
-            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sqlText, "Text"));
-            result = command.ExecuteEntityList<AttachmentInfo>();
+            if (!string.IsNullOrEmpty(keys))
+            {
+                string sqlText = BaseDataStatement.GetAttachmentByKey;
+                sqlText = sqlText.Replace("#ids#", keys);
+                DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sqlText, "Text"));
+                result = command.ExecuteEntityList<AttachmentInfo>();
+            }
             return result;
         }
 

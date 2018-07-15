@@ -108,10 +108,10 @@ var brandInfo = {
         $(".fileinput-cancel-button").attr("disabled", "disabled").hide();
         $(".btn-primary").removeAttr("disabled");
         $("#file").removeAttr("disabled");
-        var ids = $("#AttachmentIDs").val().split(",");
+        var ids = $("#ImageURL").val().split(",");
 
         if (ids.length > (maxPicCount - 1)) {
-            $("#AttachmentIDs").val(ids.slice(0, 1).join(","));//只保留1个  
+            $("#ImageURL").val(ids.slice(0, 1).join(","));//只保留1个  
             $("#uploadC").hide();
         }
     },
@@ -124,7 +124,7 @@ var brandInfo = {
         });
         $(".picRemove")
           .on("click", function () {
-              var aids = $("#AttachmentIDs").val(), aid = $(this).attr("val");
+              var aids = $("#ImageURL").val(), aid = $(this).attr("val");
               if (aids.indexOf(aid + ",") > -1) {
                   aids = aids.replace(aid + ",", "");
               }
@@ -133,7 +133,7 @@ var brandInfo = {
               }
               $(this).next("img").remove();
               $(this).remove();
-              $("#AttachmentIDs").val(aids);
+              $("#ImageURL").val(aids);
 
               $("#uploadC").show();
           }).on("mouseenter", function () {

@@ -60,15 +60,16 @@
                             <div class="controls" id="picContainer">
                                 
                                 @if (brandEntity.Attachment != null && brandEntity.Attachment.AttachmentID>0)
-                                {
+                                {                                    
                                          <span class="picRemove"  val="@brandEntity.Attachment.AttachmentID" style="height:0px"></span>
                                          <img src="@brandEntity.Attachment.FilePath.Replace("~", "")" alt="@(brandEntity.Attachment.FileName + brandEntity.Attachment.FileExtendName)" style="width: 150px; height: 150px; margin-top: 15px">
                                 }
                             </div>
                         </div>
-                        <input type="hidden" id="ImageURL" name="ImageURL" value="@brandEntity.ImageURL">
+                        <input type="hidden" id="ImageURL" name="ImageURL" value="@brandEntity.ImageURL">                        
                         @if (brandEntity.Attachment == null || brandEntity.Attachment.AttachmentID==0)
                         {
+                            
                             <div class="control-group" id="uploadC">                      
                                 <label class="control-label">上传图片</label>
                                 <div class="controls">
