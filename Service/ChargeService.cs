@@ -291,18 +291,18 @@ namespace Service
         public static int RemoveChargingBase(int id)
         {
             ChargeRepository mr=new ChargeRepository();
+            int r = mr.RemoveChargeBase(id);
             List<ChargingBaseInfo> miList = mr.GetAllChargingBaseInfo();//刷新缓存
-            Cache.Add("ChargingBaseALL", miList);
-            int r=mr.RemoveChargeBase(id);
+            Cache.Add("ChargingBaseALL", miList);      
             return r;
         }
 
         public static int RemoveChargingPiple(long id)
         {
             ChargeRepository mr = new ChargeRepository();
-            List<ChargingPileInfo> miList = mr.GetAllChargingPileInfo();//刷新缓存
-            Cache.Add("ChargingPileALL", miList);
             int r = mr.RemoveChargePile(id);
+            List<ChargingPileInfo> miList = mr.GetAllChargingPileInfo();//刷新缓存
+            Cache.Add("ChargingPileALL", miList);     
             return r;
         }
 

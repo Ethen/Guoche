@@ -13,11 +13,11 @@ namespace DataRepository.DataAccess.Saler
     public class SalerRepository:DataAccessBase
     {
 
-        public CustomerInfo GetSalerByID(long sid)
+        public SalerInfo GetSalerByID(long sid)
         {
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(SalerStatement.GetSalersByKey, "Text"));
             command.AddInputParameter("@SID", DbType.Int64, sid);
-            return command.ExecuteEntity<CustomerInfo>();
+            return command.ExecuteEntity<SalerInfo>();
         }
 
         public List<SalerInfo> GetSalerAll()
@@ -130,12 +130,25 @@ namespace DataRepository.DataAccess.Saler
             return command.ExecuteNonQuery();
         }
 
-        public int RemoveSaler(int sid)
+        public int RemoveSaler(long sid)
         {
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(SalerStatement.Remove, "Text"));
             command.AddInputParameter("@SID", DbType.Int64, sid);
             int result = command.ExecuteNonQuery();
             return result;
         }
+
+
+        public int CreateSalerRelation(SalerRelation salerRelation)
+        {
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(SalerStatement.CreateRelation, "Text"));
+            command.AddInputParameter("@SalerCode", DbType.String, salerRelation.SalerCode);
+            command.AddInputParameter("@CustomerCode", DbType.String, salerRelation.CustomerCode);
+            command.AddInputParameter("@CustomerID", DbType.Int64, salerRelation.CustomerID);
+            command.AddInputParameter("@SalerID", DbType.Int64, salerRelation.SalerID);
+            command.AddInputParameter("@Status", DbType.Int32, salerRelation.Status);
+            return command.ExecuteNonQuery();
+        }
+
     }
 }

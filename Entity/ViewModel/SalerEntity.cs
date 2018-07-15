@@ -9,14 +9,15 @@ namespace Entity.ViewModel
     public class SalerEntity
     {
         public long SID { get; set; }
-        public String SCode { get; set; }
-        public String Name { get; set; }
+        public string SCode { get; set; }
+        public string Name { get; set; }
         public int Sex { get; set; }
         public DateTime Birthday { get; set; }
-        public String CertificateType { get; set; }
-        public String CertificateNo { get; set; }
-        public String WXCode { get; set; }
-        public String Mobile { get; set; }
+        public string CertificateType { get; set; }
+        public string CertificateTypeDesc { get; set; }
+        public string CertificateNo { get; set; }
+        public string WXCode { get; set; }
+        public string Mobile { get; set; }
         public int Status { get; set; }
         public DateTime CreateDate { get; set; }
 

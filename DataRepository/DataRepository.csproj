@@ -99,6 +99,7 @@
     <Compile Include="DataModel\ReservationsInfo.cs" />
     <Compile Include="DataModel\RoleInfo.cs" />
     <Compile Include="DataModel\SalerInfo.cs" />
+    <Compile Include="DataModel\SalerRelation.cs" />
     <Compile Include="DataModel\StoreInfo.cs" />
     <Compile Include="DataModel\UserInfo.cs" />
     <Compile Include="DataModel\VerificationCodeInfo.cs" />

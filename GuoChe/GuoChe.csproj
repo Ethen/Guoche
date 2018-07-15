@@ -196,6 +196,7 @@
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\CarController.cs" />
     <Compile Include="Controllers\BrandController.cs" />
+    <Compile Include="Controllers\SalerController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
