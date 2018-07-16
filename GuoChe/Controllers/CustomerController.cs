@@ -61,6 +61,7 @@ namespace GuoChe.Controllers
                         entity.CustomerCode = ce.CustomerCode;
                         entity.Channel = ce.Channel;
                         entity.Mobile = ce.Mobile;
+                        entity.WXCode = ce.WXCode;
                     }
                 }
             }
@@ -90,6 +91,7 @@ namespace GuoChe.Controllers
                 customer.CustomerCode = extendEntity.CustomerCode;
                 customer.Channel = extendEntity.Channel;
                 customer.Mobile = extendEntity.Mobile;
+                customer.WXCode = extendEntity.WXCode;
                 customer.Name = "";
                 if (customer.CustomerID < 1)
                 {

@@ -102,12 +102,13 @@ namespace DataRepository.DataAccess.Saler
             command.AddInputParameter("@SCode", DbType.String, saler.SCode);
             command.AddInputParameter("@Name", DbType.String, saler.Name);
             command.AddInputParameter("@Sex", DbType.Int32, saler.Sex);
-            command.AddInputParameter("@Birthday", DbType.DateTime, saler.Birthday);
+            command.AddInputParameter("@Birthday", DbType.DateTime, (saler.Birthday == DateTime.MinValue || saler.Birthday == null) ? DateTime.Parse("1753-01-01") : saler.Birthday);
             command.AddInputParameter("@CertificateType", DbType.String, saler.CertificateType);
             command.AddInputParameter("@CertificateNo", DbType.String, saler.CertificateNo);
             command.AddInputParameter("@WXCode", DbType.String, saler.WXCode);
             command.AddInputParameter("@Mobile", DbType.String, saler.Mobile);
             command.AddInputParameter("@Status", DbType.Int32, saler.Status);
+            command.AddInputParameter("@AttachmentIDs", DbType.String, saler.ImageURL);
             command.AddInputParameter("@CreateDate", DbType.DateTime, saler.CreateDate);
             return command.ExecuteNonQuery();
         }
@@ -120,13 +121,13 @@ namespace DataRepository.DataAccess.Saler
             command.AddInputParameter("@SCode", DbType.String, saler.SCode);
             command.AddInputParameter("@Name", DbType.String, saler.Name);
             command.AddInputParameter("@Sex", DbType.Int32, saler.Sex);
-            command.AddInputParameter("@Birthday", DbType.DateTime, saler.Birthday);
+            command.AddInputParameter("@Birthday", DbType.DateTime, (saler.Birthday == DateTime.MinValue || saler.Birthday == null) ? DateTime.Parse("1753-01-01") : saler.Birthday);
             command.AddInputParameter("@CertificateType", DbType.String, saler.CertificateType);
             command.AddInputParameter("@CertificateNo", DbType.String, saler.CertificateNo);
             command.AddInputParameter("@WXCode", DbType.String, saler.WXCode);
             command.AddInputParameter("@Mobile", DbType.String, saler.Mobile);
             command.AddInputParameter("@Status", DbType.Int32, saler.Status);
-
+            command.AddInputParameter("@AttachmentIDs", DbType.String, saler.ImageURL);
             return command.ExecuteNonQuery();
         }
 

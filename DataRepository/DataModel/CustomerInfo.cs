@@ -32,6 +32,9 @@ namespace DataRepository.DataModel
         [DataMapping("Mobile", DbType.String)]
         public string Mobile { get; set; }
 
+        [DataMapping("WXCode", DbType.String)]
+        public string WXCode { get; set; }
+
 
     }
 }

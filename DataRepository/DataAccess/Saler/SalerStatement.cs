@@ -19,9 +19,9 @@ namespace DataRepository.DataAccess.Saler
         public static string GetSalersAllCount = @"SELECT * FROM [Salesman](NOLOCK) WHERE 1=1 ";
 
 
-        public static string CreateSaler = @"INSERT INTO [Salesman] ([SCode],[Name],[Sex],[Birthday],[CertificateType],[CertificateNo],[WXCode],[Mobile],[Status],[CreateDate]) VALUES (@SCode,@Name,@Sex,@Birthday,@CertificateType,@CertificateNo,@WXCode,@Mobile,@Status,@CreateDate) ";
+        public static string CreateSaler = @" INSERT INTO [Salesman] ([SCode],[Name],[Sex],[Birthday],[CertificateType],[CertificateNo],[WXCode],[Mobile],[Status],[AttachmentIDs],[CreateDate]) VALUES (@SCode,@Name,@Sex,@Birthday,@CertificateType,@CertificateNo,@WXCode,@Mobile,@Status,@AttachmentIDs,@CreateDate) ";
 
-        public static string ModifySaler = @"  UPDATE [Salesman] SET SCode=@SCode,Name=@Name,Sex=@Sex,Birthday=@Birthday,CertificateType=@CertificateType,CertificateNo=@CertificateNo,WXCode=@WXCode,Mobile=@Mobile,Status=@Status WHERE SID=@SID";
+        public static string ModifySaler = @"  UPDATE [Salesman] SET SCode=@SCode,Name=@Name,Sex=@Sex,Birthday=@Birthday,CertificateType=@CertificateType,CertificateNo=@CertificateNo,WXCode=@WXCode,Mobile=@Mobile,Status=@Status,AttachmentIDs=@AttachmentIDs WHERE SID=@SID";
 
         public static string GetSalerAllPagerHeader = @"DECLARE @UP INT
         

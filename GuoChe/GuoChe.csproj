@@ -690,6 +690,7 @@
     <Content Include="source\Common.js" />
     <Content Include="source\News.js" />
     <Content Include="source\Car.js" />
+    <Content Include="source\Saler.js" />
     <Content Include="source\Store.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -787,6 +788,8 @@
     <Content Include="Views\Customer\Edit.cshtml" />
     <Content Include="Views\Brand\Index.cshtml" />
     <Content Include="Views\Brand\Edit.cshtml" />
+    <Content Include="Views\Saler\Index.cshtml" />
+    <Content Include="Views\Saler\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

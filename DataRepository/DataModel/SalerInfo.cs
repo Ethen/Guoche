@@ -33,5 +33,7 @@ namespace DataRepository.DataModel
         public int Status { get; set; }
          [DataMapping("CreateDate", DbType.DateTime)]
         public DateTime CreateDate { get; set; }
+         [DataMapping("AttachmentIDs", DbType.AnsiString)]
+         public string ImageURL { get; set; }
     }
 }

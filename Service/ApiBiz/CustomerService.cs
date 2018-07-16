@@ -176,6 +176,7 @@ namespace Service.ApiBiz
                 entity.ModifyDate = info.ModifyDate;
                 entity.Operator = info.Operator;
                 entity.Base64 = info.Base64;
+                entity.WXCode = info.WXCode;
                 if (!string.IsNullOrEmpty(entity.CardType))
                 {
                     BaseDataEntity cardType = BaseDataService.GetBaseDataAll().First(t => t.TypeCode == entity.CardType) ?? new BaseDataEntity();
@@ -215,6 +216,7 @@ namespace Service.ApiBiz
                 info.Auditor = entity.Auditor;
                 info.ModifyDate = entity.ModifyDate;
                 info.Operator = entity.Operator;
+                info.WXCode = entity.WXCode;
             }
 
             return info;
@@ -233,6 +235,7 @@ namespace Service.ApiBiz
                 info.Mobile = entity.Mobile;
                 info.Name = entity.Name;
                 info.Channel = entity.Channel;
+                info.WXCode = entity.WXCode;
             }
 
             return info;
@@ -251,6 +254,7 @@ namespace Service.ApiBiz
                 entity.Mobile = info.Mobile;
                 entity.Name = info.Name;
                 entity.Channel = info.Channel;
+                entity.WXCode = info.WXCode;
 
                CustomerExtendEntity detail= GetCustomerExtendInfoByID(entity.CustomerID);
                if (detail != null && detail.ID > 0)
@@ -320,26 +324,34 @@ namespace Service.ApiBiz
                     customerEntity.CustomerName = mInfo.CustomerName;
                     customerEntity.Mobile = mInfo.Mobile;
                     customerEntity.Name = mInfo.Name;
+                    customerEntity.WXCode = mInfo.WXCode;
                 }
                 all.Add(customerEntity);
             }
             return all;
         }
 
-        public static int CreateNewCustomer(CustomerEntity customerEntity, CustomerExtendEntity extendEntity)
+        public static long CreateNewCustomer(CustomerEntity customerEntity, CustomerExtendEntity extendEntity)
         {
+            long result = 0;
             CustomerRepository cr = new CustomerRepository();
-            int result = 0;
             if (customerEntity != null && extendEntity != null)
             {
                 CustomerInfo info = TranslateCustomerEntity(customerEntity);
                 CustomerExtendInfo extendInfo = TranslateCustomerExtendEntity(extendEntity);
-                long customerid = cr.CreateNewCustomer(info);
-                extendInfo.CustomerID = customerid;
+                result = cr.CreateNewCustomer(info);
+                extendInfo.CustomerID = result;
                 result = cr.CreateNewCustomerExtend(extendInfo);
             }
 
             return result;
+        }
+
+        public static CustomerEntity GetCustomerByWXCode(string wxcode)
+        {
+            CustomerInfo customer=new CustomerRepository().GetCustomerByWXCode(wxcode);
+
+            return TranslateCustomerInfo(customer);
         }
 
 

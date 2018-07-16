@@ -36,6 +36,10 @@ namespace Entity.ViewModel
             }
         }
 
+        public string ImageURL { get; set; }
+
+        public AttachmentEntity Attachment { get; set; }
+
         public List<CustomerExtendEntity> Customers { get; set; }
     }
 }

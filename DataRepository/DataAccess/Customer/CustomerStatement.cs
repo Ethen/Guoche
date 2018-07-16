@@ -13,13 +13,13 @@ namespace DataRepository.DataAccess.Customer
         //验证手机号是否已经注册
         public static string GetCustomerByTelephoneSql = "SELECT CustomerID,CustomerName,CustomerCode,Password,Channel,Name,Mobile  FROM Customer (NOLOCK) where Mobile=@Mobile ";
         //注册用户
-        public static string RegisterSql = "INSERT INTO Customer(CustomerName,CustomerCode,Password,Channel,Name,Mobile,CreateDate, LastLoginDate)VALUES(@CustomerName,@CustomerCode, @Password,@Channel,@Name, @Mobile, @CreateDate, @LastLoginDate)SELECT @CustomerID=@@IDENTITY ";
+        public static string RegisterSql = "INSERT INTO Customer(CustomerName,CustomerCode,Password,Channel,Name,Mobile,WXCode,CreateDate, LastLoginDate)VALUES(@CustomerName,@CustomerCode, @Password,@Channel,@Name, @Mobile, @WXCode,@CreateDate, @LastLoginDate)SELECT @CustomerID=@@IDENTITY ";
 
         public static string UpdatePassword = "Update Customer set Password=@Password,CustomerCode=@CustomerCode where Mobile=@Mobile";
 
         public static string GetCustomerByID = @"SELECT * FROM Customer(NOLOCK) WHERE CustomerID=@CustomerID ";
 
-        public static string GetCustomerExtendByID = @"SELECT * FROM CustomerExtend(NOLOCK) WHERE ID=@ID ";
+        public static string GetCustomerExtendByID = @"SELECT * FROM CustomerExtend(NOLOCK) WHERE CustomerID=@CustomerID ";
 
         public static string GetCustomerExtendByCustomerID = @"SELECT * FROM CustomerExtend(NOLOCK) WHERE CustomerID=@CustomerID ";
 
@@ -27,15 +27,17 @@ namespace DataRepository.DataAccess.Customer
 
         public static string GetCustomerAllCount = @"SELECT * FROM CustomerExtend(NOLOCK) WHERE 1=1 ";
 
+        public static string GetCustomerByWXCode = @"SELECT * FROM Customer(NOLOCK) WHERE WXCode=@WXCode ";
 
-        public static string CreateCustomer = @"INSERT INTO Customer(CustomerName,CustomerCode,Password,Channel,Name,Mobile,CreateDate, LastLoginDate)VALUES(@CustomerName,@CustomerCode, @Password,@Channel,@Name, @Mobile, @CreateDate, @LastLoginDate);SELECT @CustomerID=@@IDENTITY ";
 
-        public static string CreateCustomerExtend = @"INSERT INTO [CustomerExtend] ([CustomerID],[CustomerCode],[AttachmentIDs],[CustomerName],[Mobile],[Email],[CardType],[CardNo],[Channel],[RegisterTime],[Status],[AuditTime],[Auditor],[CreateDate],[ModifyDate],[Operator],[Base64])
-                                                        VALUES (@CustomerID,@CustomerCode,@AttachmentIDs,@CustomerName,@Mobile,@Email,@CardType,@CardNo,@Channel,@RegisterTime,@Status,@AuditTime,@Auditor,@CreateDate,@ModifyDate,@Operator,@Base64)";
+        public static string CreateCustomer = @"INSERT INTO Customer(CustomerName,CustomerCode,Password,Channel,Name,Mobile,WXCode,CreateDate, LastLoginDate)VALUES(@CustomerName,@CustomerCode, @Password,@Channel,@Name, @Mobile,@WXCode,@CreateDate, @LastLoginDate);SELECT @CustomerID=@@IDENTITY ";
 
-        public static string ModifyCustomerExtend = @"UPDATE [CustomerExtend] SET AttachmentIDs=@AttachmentIDs,Base64=@Base64,CustomerName=@CustomerName,Mobile=@Mobile,Email=@Email,CardType=@CardType,CardNo=@CardNo,Channel=@Channel,Status=@Status,ModifyDate=@ModifyDate,Operator=@Operator WHERE ID=@ID";
+        public static string CreateCustomerExtend = @"INSERT INTO [CustomerExtend] ([CustomerID],[CustomerCode],[AttachmentIDs],[CustomerName],[Mobile],[Email],[CardType],[CardNo],[Channel],[RegisterTime],[Status],[AuditTime],[Auditor],[CreateDate],[ModifyDate],[Operator],[Base64],[WXCode])
+                                                        VALUES (@CustomerID,@CustomerCode,@AttachmentIDs,@CustomerName,@Mobile,@Email,@CardType,@CardNo,@Channel,@RegisterTime,@Status,@AuditTime,@Auditor,@CreateDate,@ModifyDate,@Operator,@Base64,@WXCode)";
 
-        public static string ModifyCustomer = @"  UPDATE [Customer] SET [CustomerName]=@CustomerName,[Name]=@Name,[Mobile]=@Mobile WHERE CustomerID=@CustomerID";
+        public static string ModifyCustomerExtend = @"UPDATE [CustomerExtend] SET AttachmentIDs=@AttachmentIDs,Base64=@Base64,CustomerName=@CustomerName,Mobile=@Mobile,Email=@Email,CardType=@CardType,CardNo=@CardNo,Channel=@Channel,Status=@Status,WXCode=@WXCode,ModifyDate=@ModifyDate,Operator=@Operator WHERE ID=@ID";
+
+        public static string ModifyCustomer = @"  UPDATE [Customer] SET [CustomerName]=@CustomerName,[Name]=@Name,[Mobile]=@Mobile,[WXCode]=@WXCode WHERE CustomerID=@CustomerID";
 
         public static string GetCustomerAllPagerHeader = @"DECLARE @UP INT
         

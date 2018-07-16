@@ -28,6 +28,8 @@ namespace Entity.ViewModel
         public string ModifyDate { get; set; }
         public long Operator { get; set; }
 
+        public string WXCode { get; set; }
+
         public BaseDataEntity CardTypeInfo { get; set; }
 
         public List<AttachmentEntity> AttachmentInfos { get; set; }
@@ -42,6 +44,7 @@ namespace Entity.ViewModel
                     case 1: result = "APP注册"; break;
                     case 2: result = "ONLINE注册"; break;
                     case 3: result = "后台创建"; break;
+                    case 4: result = "扫码注册"; break;
                 }
 
                 return result;

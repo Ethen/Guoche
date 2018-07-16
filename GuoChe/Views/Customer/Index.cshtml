@@ -46,8 +46,9 @@
                             <tr role="row">
                                <th role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width: 120px;">客户编码</th>
                                <th role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width: 120px;">客户名称</th>
-                                <th role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width:120px;">手机号</th>
-                                <th role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width:200px;">邮箱</th>
+                               <th role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width:120px;">手机号</th>
+                               <th role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width:120px;">微信号</th>
+                               <th role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width:200px;">邮箱</th>
                                <th role="columnheader" tabindex="0" rowspan="1" colspan="1">证件</th>
                                <th role="columnheader" tabindex="0" rowspan="1" colspan="1">渠道</th>
                                <th role="columnheader" tabindex="0" rowspan="1" colspan="1">审核时间</th>
@@ -65,6 +66,9 @@
                                     <td class=" sorting_1">@customers[i].CustomerName</td>
                                     <td class=" ">
                                         @(string.IsNullOrEmpty(customers[i].Mobile) ? "缺失" : customers[i].Mobile)
+                                    </td>
+                                    <td class=" ">
+                                        @(string.IsNullOrEmpty(customers[i].WXCode) ? "缺失" : customers[i].WXCode)
                                     </td>
                                     <td class=" ">
                                         @(string.IsNullOrEmpty(customers[i].Email) ? "缺失" : customers[i].Email)                                      

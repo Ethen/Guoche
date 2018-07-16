@@ -1,6 +1,7 @@
 ﻿using Common;
 using Entity.ViewModel;
 using Service;
+using Service.BaseBiz;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,13 +29,15 @@ namespace GuoChe.Controllers
 
             ViewBag.Name = name ?? "";
             ViewBag.Status = status;
-            ViewBag.Cars = mList;
+            ViewBag.Salers = mList;
             ViewBag.Pager = pager;
             return View();
         }
 
         public ActionResult Edit(string sid)
         {
+            ViewBag.MaxPicCount = 1;
+            List<BaseDataEntity> cardTypes = BaseDataService.GetBaseDataAll().Where(t => t.PCode == "CD00").ToList();
             if (!string.IsNullOrEmpty(sid))
             {
                 ViewBag.Saler = SalerService.GetSalerById(sid.ToLong(0));
@@ -43,7 +46,7 @@ namespace GuoChe.Controllers
             {
                 ViewBag.Saler = new SalerEntity();
             }
-
+            ViewBag.CardTypes = cardTypes;
             return View();
         }
 

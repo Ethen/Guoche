@@ -17,6 +17,8 @@ namespace Entity.ViewModel
         public string Name { get; set; }
         public string Mobile { get; set; }
 
+        public string WXCode { get; set; }
+
         public CustomerExtendEntity Detail { get; set; }
 
 

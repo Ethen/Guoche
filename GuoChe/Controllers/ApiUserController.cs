@@ -353,5 +353,50 @@ namespace GuoChe.Controllers
             AdviseService.CreateNewAdvise(aentity);
             return Json(JsonHelper.ToJson("意见反馈成功！"));
         }
+
+        public void CreateRelation(long sid, string code, string wxcode)
+        {
+            if (sid > 0 && !string.IsNullOrEmpty(code) && !string.IsNullOrEmpty(wxcode))
+            {
+                CustomerEntity exist=CustomerService.GetCustomerByWXCode(wxcode);
+                if (exist == null || exist.CustomerID==0)//微信号不存在
+                {
+
+                    //注册成为新的用户
+                    CustomerExtendEntity extendEntity = new CustomerExtendEntity();
+                    extendEntity.CustomerCode = DateTime.Now.ToString("yyyyMMddHHmmss");
+                    extendEntity.RegisterTime = DateTime.Now;
+                    extendEntity.AuditTime = DateTime.Parse("1753-01-01");
+                    extendEntity.WXCode = wxcode;
+                    extendEntity.Channel = 4;
+
+                    CustomerEntity customer = new CustomerEntity();
+                    customer.CustomerID = extendEntity.CustomerID;
+                    customer.CustomerName = "扫码注册客户";
+                    customer.CustomerCode = extendEntity.CustomerCode;
+                    customer.Channel = extendEntity.Channel;
+                    customer.Mobile = extendEntity.Mobile;
+                    customer.WXCode = extendEntity.WXCode;
+                    customer.Name = "";
+                    if (customer.CustomerID < 1)
+                    {
+                        customer.Password = EncryptHelper.MD5Encrypt("123456");
+                    }
+
+                    long customerID=CustomerService.CreateNewCustomer(customer, extendEntity);
+                    string customerCode = extendEntity.CustomerCode;
+
+
+                    //绑定和业务员之间的关系
+                    SalerRelationEntity sr = new SalerRelationEntity();
+                    sr.SalerCode = code;
+                    sr.SalerID = sid;
+                    sr.CustomerID = customerID;
+                    sr.CustomerCode = customerCode;
+                    SalerService.CreateRelation(sr);                  
+                }
+
+            }
+        }
     }
 }

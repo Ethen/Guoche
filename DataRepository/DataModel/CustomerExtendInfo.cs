@@ -65,6 +65,9 @@ namespace DataRepository.DataModel
         [DataMapping("Base64", DbType.String)]
         public string Base64 { get; set; }
 
+        [DataMapping("WXCode", DbType.String)]
+        public string WXCode { get; set; }
+
 
     }
 }

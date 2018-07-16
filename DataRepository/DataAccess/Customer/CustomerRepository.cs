@@ -76,6 +76,7 @@ namespace DataRepository.DataAccess.Customer
             command.AddInputParameter("@Channel", DbType.Int32, 1);
             command.AddInputParameter("@Name", DbType.String, "");
             command.AddInputParameter("@Mobile", DbType.String, telephone);
+            command.AddInputParameter("@WXCode", DbType.String, "");
             command.AddInputParameter("@CreateDate", DbType.DateTime, DateTime.Now);
             command.AddInputParameter("@LastLoginDate", DbType.DateTime, DateTime.Now);
             command.ExecuteNonQuery();
@@ -182,7 +183,7 @@ namespace DataRepository.DataAccess.Customer
         public CustomerExtendInfo GetCustomerExtendByID(long cid)
         {
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(CustomerStatement.GetCustomerExtendByID, "Text"));
-            command.AddInputParameter("@ID", DbType.Int64, cid);
+            command.AddInputParameter("@CustomerID", DbType.Int64, cid);
             return command.ExecuteEntity<CustomerExtendInfo>();
         }
 
@@ -214,6 +215,7 @@ namespace DataRepository.DataAccess.Customer
             command.AddInputParameter("@Auditor", DbType.Int64, customerExtendInfo.Auditor);
             command.AddInputParameter("@CreateDate", DbType.DateTime, DateTime.Now);
             command.AddInputParameter("@ModifyDate", DbType.DateTime, DateTime.Now);
+            command.AddInputParameter("@WXCode", DbType.String, customerExtendInfo.WXCode);
             command.AddInputParameter("@Base64", DbType.String, customerExtendInfo.Base64);
             command.AddInputParameter("@Operator", DbType.Int64, customerExtendInfo.Operator);
             return command.ExecuteNonQuery();
@@ -229,6 +231,7 @@ namespace DataRepository.DataAccess.Customer
             command.AddInputParameter("@Channel", DbType.Int32, 1);
             command.AddInputParameter("@Name", DbType.String, customerInfo.Name);
             command.AddInputParameter("@Mobile", DbType.String, customerInfo.Mobile);
+            command.AddInputParameter("@WXCode", DbType.String, customerInfo.WXCode);
             command.AddInputParameter("@CreateDate", DbType.DateTime, DateTime.Now);
             command.AddInputParameter("@LastLoginDate", DbType.DateTime, DateTime.Now);
             command.ExecuteNonQuery();
@@ -247,6 +250,7 @@ namespace DataRepository.DataAccess.Customer
             command.AddInputParameter("@CardType", DbType.String, customerExtendInfo.CardType);
             command.AddInputParameter("@CardNo", DbType.String, customerExtendInfo.CardNo);
             command.AddInputParameter("@Status", DbType.Int32, customerExtendInfo.Status);
+            command.AddInputParameter("@WXCode", DbType.String, customerExtendInfo.WXCode);
             command.AddInputParameter("@ModifyDate", DbType.DateTime, DateTime.Now);
             command.AddInputParameter("@Base64", DbType.String, customerExtendInfo.Base64);
             command.AddInputParameter("@Operator", DbType.Int64, customerExtendInfo.Operator);
@@ -260,7 +264,15 @@ namespace DataRepository.DataAccess.Customer
             command.AddInputParameter("@CustomerName", DbType.String, customerInfo.CustomerName);
             command.AddInputParameter("@Name", DbType.String, customerInfo.Name);
             command.AddInputParameter("@Mobile", DbType.String, customerInfo.Mobile);
+            command.AddInputParameter("@WXCode", DbType.String, customerInfo.WXCode);
             return command.ExecuteNonQuery();
+        }
+
+        public CustomerInfo GetCustomerByWXCode(string wxcode)
+        {
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(CustomerStatement.GetCustomerByWXCode, "Text"));
+            command.AddInputParameter("@WXcode", DbType.String, wxcode);
+            return command.ExecuteEntity<CustomerInfo>();
         }
 
 

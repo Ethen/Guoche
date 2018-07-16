@@ -29,6 +29,7 @@ namespace Service
                  salerInfo.WXCode =entity.WXCode;
                  salerInfo.Mobile =entity.Mobile;
                  salerInfo.Status =entity.Status;
+                 salerInfo.ImageURL = entity.ImageURL;
                  salerInfo.CreateDate = entity.CreateDate;
             }
 
@@ -50,13 +51,21 @@ namespace Service
                 entity.WXCode = salerInfo.WXCode;
                 entity.Mobile = salerInfo.Mobile;
                 entity.Status = salerInfo.Status;
-                entity.CreateDate = entity.CreateDate;
+                entity.CreateDate = salerInfo.CreateDate;
+                entity.ImageURL = salerInfo.ImageURL;
 
                 if (!string.IsNullOrEmpty(entity.CertificateType))//证件描述
                 {
                     BaseDataEntity cardType = BaseDataService.GetBaseDataAll().First(t => t.TypeCode == entity.CertificateType) ?? new BaseDataEntity();
                     entity.CertificateTypeDesc = cardType.Description ?? "";
                 }
+
+                AttachmentEntity attachment = new AttachmentEntity();
+                if (!string.IsNullOrEmpty(entity.ImageURL))
+                {
+                    attachment = BaseDataService.GetAttachmentInfoByKyes(entity.ImageURL).FirstOrDefault() ?? new AttachmentEntity();
+                }
+                entity.Attachment = attachment;
 
                 //todo: 处理关联的用户信息
 
@@ -161,6 +170,21 @@ namespace Service
             }
 
             return all;
+        }
+
+        public static void CreateRelation(SalerRelationEntity sr)
+        {
+            if (sr != null)
+            {
+                SalerRelation sRelation = new SalerRelation();
+                sRelation.CustomerCode = sr.CustomerCode;
+                sRelation.CustomerID = sr.CustomerID;
+                sRelation.SalerCode = sr.SalerCode;
+                sRelation.SalerID = sr.SalerID;
+                sRelation.Status = 1;
+                SalerRepository mr = new SalerRepository();
+                mr.CreateSalerRelation(sRelation);
+            }
         }
 
 
