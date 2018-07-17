@@ -98,11 +98,13 @@ var FileInput = function () {
 var salerInfo = {
     init: function () {
         valid.init(elemnets);
+         $('.datepicker-basic').datepicker();
         salerInfo.regEvent();
         salerInfo.initPicInfo();
     },
 
     regEvent: function () {
+        $('.datepicker-basic').datepicker();
 
         $("#picContainer>img").click(function () {
             var item = this;

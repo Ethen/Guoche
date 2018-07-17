@@ -60,6 +60,7 @@
     <Compile Include="ViewModel\ReservationsEntity.cs" />
     <Compile Include="ViewModel\RoleEntity.cs" />
     <Compile Include="ViewModel\SalerEntity.cs" />
+    <Compile Include="ViewModel\SalerRelationEntity.cs" />
     <Compile Include="ViewModel\SendSmsData.cs" />
     <Compile Include="ViewModel\StoreEntity.cs" />
     <Compile Include="ViewModel\UserEntity.cs" />
