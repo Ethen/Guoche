@@ -265,40 +265,19 @@ namespace GuoChe.Controllers
         /// <returns></returns>
         public JsonResult CheckCardID(string userid, string data)
         {
-            CustomerExtendEntity entity = new CustomerExtendEntity();
-            CustomerExtendEntity customer = CustomerService.AddFile(long.Parse(userid), data, "CD05");//用户头像
-            return Json(JsonHelper.ToJson(customer));
-            //if (Request["ext"] == null || Request["data"] == null)
-            //{
-            //    //return Content("Error");
-            //    entity = CustomerService.GetCustomerExtendInfoByID(long.Parse(userid));
-            //    return Json(JsonHelper.ToJson(entity));
-            //}
-
-            //string exts = ".jpg";
-
-            //string ext =  Request["ext"].ToString().Trim();
-
+            LogHelper.WriteTextLog("HeadImage", "userid:" + userid + "data:" + data, DateTime.Now);
+            try
+            {
+                CustomerExtendEntity entity = new CustomerExtendEntity();
+                CustomerExtendEntity customer = CustomerService.AddFile(long.Parse(userid), data, "CD02");//证件照
+                return Json(JsonHelper.ToJson(customer));
+            }
+            catch (Exception ex)
+            {
+                LogHelper.WriteTextLog("CheckCardID", ex.ToString(), DateTime.Now);    
+            }
+            return Json("");
             
-
-            //var btsdata = Convert.FromBase64String(Request["data"]);
-
-            //string filename = Guid.NewGuid().ToString("D") + ext;
-
-            //string uploadDir = Server.MapPath("/Images/" + Guid.NewGuid().ToString("D") + ext);
-
-            //string filepath = "/Images/" + Guid.NewGuid().ToString("D") + ext;
-            ////if (!Directory.Exists(uploadDir))
-            ////{
-            ////    Directory.CreateDirectory(uploadDir);
-            ////}
-
-            //using (Image img = Image.FromStream(new MemoryStream(btsdata)))
-            //{
-            //    img.Save(uploadDir, ImageFormat.Jpeg);
-            //}
-            //CustomerExtendEntity customer = CustomerService.AddFile(long.Parse(userid), filename, "CD02", filepath, ext);//用户证件照
-            //return Json(JsonHelper.ToJson(customer));
         }
 
         /// <summary>
@@ -306,36 +285,20 @@ namespace GuoChe.Controllers
         /// </summary>
         /// <param name="userid"></param>
         /// <returns></returns>
-        public JsonResult HeadImage(string userid,string data)
-        {           
-
-            CustomerExtendEntity entity = new CustomerExtendEntity();
-            //if (Request["ext"] == null || Request["data"] == null)
-            //{
-            //    //return Content("Error");
-            //    entity = CustomerService.GetCustomerExtendInfoByID(long.Parse(userid));
-            //    return Json(JsonHelper.ToJson(entity));
-            //}
-            //string ext = Request["ext"].ToString().Trim();           
-
-            //var btsdata = Convert.FromBase64String(Request["data"]);
-
-            //string filename = Guid.NewGuid().ToString("D") + ext;
-
-            //string uploadDir = Server.MapPath("/Images/" + Guid.NewGuid().ToString("D") + ext);
-
-            //string filepath = "/Images/" + Guid.NewGuid().ToString("D") + ext;
-            //if (!Directory.Exists(uploadDir))
-            //{
-            //    Directory.CreateDirectory(uploadDir);
-            //}
-
-            //using (Image img = Image.FromStream(new MemoryStream(btsdata)))
-            //{
-            //    img.Save(uploadDir, ImageFormat.Jpeg);
-            //}
-            CustomerExtendEntity customer = CustomerService.AddFile(long.Parse(userid), data, "CD05");//用户头像
-            return Json(JsonHelper.ToJson(customer));
+        public JsonResult HeadImage(string userid, string data)
+        {
+            LogHelper.WriteTextLog("HeadImage", "userid:" + userid + "data:" + data, DateTime.Now);
+            try
+            {
+                CustomerExtendEntity entity = new CustomerExtendEntity();
+                CustomerExtendEntity customer = CustomerService.AddFile(long.Parse(userid), data, "CD05");//用户头像
+                return Json(JsonHelper.ToJson(customer));
+            }
+            catch (Exception ex)
+            {
+                LogHelper.WriteTextLog("HeadImage", ex.ToString(), DateTime.Now);
+            }
+            return Json("");
         }
 
         /// <summary>
