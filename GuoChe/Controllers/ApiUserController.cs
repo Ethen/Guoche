@@ -287,7 +287,7 @@ namespace GuoChe.Controllers
         /// <returns></returns>
         public JsonResult HeadImage(string userid, string data)
         {
-            LogHelper.WriteTextLog("HeadImage", "userid:" + userid + "data:" + data, DateTime.Now);
+            //LogHelper.WriteTextLog("HeadImage", "userid:" + userid + "data:" + data, DateTime.Now);
             try
             {
                 CustomerExtendEntity entity = new CustomerExtendEntity();
