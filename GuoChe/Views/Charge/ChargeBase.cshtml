@@ -56,9 +56,9 @@
                                 
                                 <tr class=@(i%2==0?"odd":"even")>
                                     <td class=" sorting_1">@baseList[i].Name</td>
-                                    <td class=" ">&yen;@baseList[i].ChargeFee.ToString("f2")</td>
-                                    <td class=" ">&yen;@baseList[i].ServerFee.ToString("f2")</td>
-                                    <td class=" ">&yen;@baseList[i].ParkFee.ToString("f2")</td>
+                                    <td class=" ">@baseList[i].ChargeFee</td>
+                                    <td class=" ">@baseList[i].ServerFee</td>
+                                    <td class=" ">@baseList[i].ParkFee</td>
                                     <td class=" ">@baseList[i].ChargeNum 个</td>
                                     <td class=" ">
                                          @if (!string.IsNullOrEmpty(baseList[i].PayType))

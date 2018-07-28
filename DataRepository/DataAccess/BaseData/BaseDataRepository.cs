@@ -56,7 +56,7 @@ namespace DataRepository.DataAccess.BaseData
             if (!string.IsNullOrEmpty(keys))
             {
                 string sqlText = BaseDataStatement.GetAttachmentByKey;
-                sqlText = sqlText.Replace("#ids#", keys);
+                sqlText = sqlText.Replace("#ids#", keys.Replace(",,",","));
                 DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sqlText, "Text"));
                 result = command.ExecuteEntityList<AttachmentInfo>();
             }

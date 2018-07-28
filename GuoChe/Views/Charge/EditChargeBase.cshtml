@@ -63,19 +63,19 @@
                     <div class="control-group">
                         <label class="control-label">充电费（/小时）</label>
                         <div class="controls">
-                            <span style="margin-left:-12px;margin-right:5px">&yen;</span><input class="span7" type="text" placeholder="充电费（/小时）" id="ChargeFee" name="ChargeFee" value="@(chargeBase.ChargeFee == 0 ? "" : chargeBase.ChargeFee.ToString("f2"))"> 
+                            <span style="margin-left:-12px;margin-right:5px">&yen;</span><input class="span7" type="text" placeholder="充电费（/小时）" id="ChargeFee" name="ChargeFee" value="@chargeBase.ChargeFee"> 
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label">服务费（/次）</label>
                         <div class="controls">
-                           <span style="margin-left:-12px;margin-right:5px">&yen;</span><input class="span7" type="text" placeholder="服务费（/次）" id="ServerFee" name="ServerFee" value="@(chargeBase.ServerFee == 0 ? "" : chargeBase.ServerFee.ToString("f2"))">
+                           <span style="margin-left:-12px;margin-right:5px">&yen;</span><input class="span7" type="text" placeholder="服务费（/次）" id="ServerFee" name="ServerFee" value="@chargeBase.ServerFee">
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label">停车费（/小时）</label>
                         <div class="controls">
-                            <span style="margin-left:-12px;margin-right:5px">&yen;</span><input class="span7" type="text" placeholder="停车费（/小时）" id="ParkFee" name="ParkFee" value="@(chargeBase.ParkFee == 0 ? "" : chargeBase.ParkFee.ToString("f2"))">
+                            <span style="margin-left:-12px;margin-right:5px">&yen;</span><input class="span7" type="text" placeholder="停车费（/小时）" id="ParkFee" name="ParkFee" value="@chargeBase.ParkFee">
                         </div>
                     </div>
                     <div class="control-group">

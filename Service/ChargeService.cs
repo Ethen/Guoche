@@ -271,7 +271,7 @@ namespace Service
                 ChargingBaseInfo info = TranslateChargingBaseEntity(entity);
 
 
-                if (entity.ChargeBaseID > 0)
+                if (entity.ChargeBaseID>0)
                 {
                     result = mr.ModifyChargingBase(info);
                 }

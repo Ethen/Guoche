@@ -20,14 +20,14 @@ namespace DataRepository.DataModel
         [DataMapping("Code", DbType.String)]
         public string Code { get; set; }
 
-        [DataMapping("ChargeFee", DbType.Decimal)]
-        public decimal ChargeFee { get; set; }
+        [DataMapping("ChargeFee", DbType.String)]
+        public String ChargeFee { get; set; }
 
-        [DataMapping("ServerFee", DbType.Decimal)]
-        public decimal ServerFee { get; set; }
+        [DataMapping("ServerFee", DbType.String)]
+        public String ServerFee { get; set; }
 
-        [DataMapping("ParkFee", DbType.Decimal)]
-        public decimal ParkFee { get; set; }
+        [DataMapping("ParkFee", DbType.String)]
+        public String ParkFee { get; set; }
 
         [DataMapping("ChargeNum", DbType.Int32)]
         public int ChargeNum { get; set; }

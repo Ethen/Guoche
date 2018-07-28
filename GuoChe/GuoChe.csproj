@@ -184,6 +184,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApiCarController.cs" />
     <Compile Include="Controllers\ApiChargingController.cs" />
+    <Compile Include="Controllers\ApiChargingOutController.cs" />
     <Compile Include="Controllers\ApiUserController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BaseDataController.cs" />
@@ -790,6 +791,7 @@
     <Content Include="Views\Brand\Edit.cshtml" />
     <Content Include="Views\Saler\Index.cshtml" />
     <Content Include="Views\Saler\Edit.cshtml" />
+    <Content Include="Views\ApiChargingOut\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

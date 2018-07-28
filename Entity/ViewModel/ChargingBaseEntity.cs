@@ -11,9 +11,9 @@ namespace Entity.ViewModel
         public int ChargeBaseID { get; set; }
         public string Name { get; set; }
         public string Code { get; set; }
-        public decimal ChargeFee { get; set; }
-        public decimal ServerFee { get; set; }
-        public decimal ParkFee { get; set; }
+        public string ChargeFee { get; set; }
+        public string ServerFee { get; set; }
+        public string ParkFee { get; set; }
         public int ChargeNum { get; set; }
         public string PayType { get; set; }
         public string Address { get; set; }
