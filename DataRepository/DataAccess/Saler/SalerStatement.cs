@@ -48,6 +48,8 @@ namespace DataRepository.DataAccess.Saler
 
         public static string CreateRelation = @"INSERT INTO [SalerAndCustomer] ([CustomerID],[CustomerCode],[SalerID],[SalerCode],[Status]) VALUES ( @CustomerID,@CustomerCode,@SalerID,@SalerCode,@Status )";
 
+        public static string GetSalerCustomerBySalerCode = @"SELECT ID,CustomerID,CustomerCode,SalerID,SalerCode,Status,CreateDate  FROM SalerAndCustomer WHERE SalerCode=@SalerCode";
+
 
     }
 }

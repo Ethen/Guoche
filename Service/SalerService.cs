@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Common;
+using Service.ApiBiz;
 
 namespace Service
 {
@@ -187,6 +188,37 @@ namespace Service
             }
         }
 
+        /// <summary>
+        /// 查询业务员对应客户列表
+        /// </summary>
+        /// <param name="salerCode"></param>
+        /// <returns></returns>
+        public static List<SalerRelationEntity> GetSalerCustomerBySalerCode(string salerCode)
+        {
+            List<SalerRelationEntity> listSalerRelation = new List<SalerRelationEntity>();
+            SalerRepository mr = new SalerRepository();
+            List<SalerRelation> listSaler = mr.GetSalerCustomerBySalerCode(salerCode);
+            if (listSaler != null && listSaler.Count > 0)
+            {
+                foreach (SalerRelation info in listSaler)
+                {
+                    listSalerRelation.Add(TranslateSalerRelation(info));
+                }
+            }
+            return listSalerRelation;
+        }
 
+        public static SalerRelationEntity TranslateSalerRelation(SalerRelation info)
+        {
+            SalerRelationEntity sr = new SalerRelationEntity();
+            sr.SalerID = info.SalerID;
+            sr.SalerCode = info.SalerCode;
+            sr.Status = info.Status;
+            sr.CustomerID = info.CustomerID;
+            sr.CustomerCode = info.CustomerCode;
+            sr.CreateDate = info.CreateDate;
+            sr.customer = CustomerService.GetCustomerByID(info.CustomerID);
+            return sr;
+        }
     }
 }

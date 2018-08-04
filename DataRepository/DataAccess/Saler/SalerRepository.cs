@@ -151,5 +151,12 @@ namespace DataRepository.DataAccess.Saler
             return command.ExecuteNonQuery();
         }
 
+
+        public List<SalerRelation> GetSalerCustomerBySalerCode(string salerCode)
+        {
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(SalerStatement.GetSalerCustomerBySalerCode, "Text"));
+            command.AddInputParameter("@SalerCode", DbType.String, salerCode);
+            return command.ExecuteEntityList<SalerRelation>();
+        }
     }
 }

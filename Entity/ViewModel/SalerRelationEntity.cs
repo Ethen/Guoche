@@ -29,5 +29,11 @@ namespace Entity.ViewModel
         public string CustomerCode { get; set; }
 
         public string SalerCode { get; set; }
+
+        public int Status { get; set; }
+
+        public DateTime CreateDate { get; set; }
+
+        public CustomerEntity customer { get; set; }
     }
 }

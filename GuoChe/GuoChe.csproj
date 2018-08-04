@@ -184,7 +184,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApiCarController.cs" />
     <Compile Include="Controllers\ApiChargingController.cs" />
-    <Compile Include="Controllers\ApiChargingOutController.cs" />
     <Compile Include="Controllers\ApiUserController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BaseDataController.cs" />
@@ -192,6 +191,7 @@
     <Compile Include="Controllers\AdviseController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\OutWebController.cs" />
     <Compile Include="Controllers\RevController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
@@ -220,6 +220,8 @@
     <Compile Include="Scripts\ueditor\net\App_Code\UploadHandler.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\layer.css" />
+    <Content Include="Content\style.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -279,11 +281,14 @@
     <None Include="Properties\PublishProfiles\web.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\index.jpg" />
+    <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
+    <Content Include="Scripts\jquery.min.js" />
+    <Content Include="Scripts\jquery.qrcode.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -293,6 +298,7 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\qrcode.js" />
     <Content Include="Scripts\ueditor\dialogs\anchor\anchor.html" />
     <Content Include="Scripts\ueditor\dialogs\attachment\attachment.css" />
     <Content Include="Scripts\ueditor\dialogs\attachment\attachment.html" />
@@ -686,6 +692,7 @@
     <Content Include="source\bootstrap-fileinput\js\plugins\canvas-to-blob.js" />
     <Content Include="source\bootstrap-fileinput\js\plugins\canvas-to-blob.min.js" />
     <Content Include="source\Brand.js" />
+    <Content Include="source\layer.js" />
     <Content Include="source\Customer.js" />
     <Content Include="source\ChargeBase.js" />
     <Content Include="source\Common.js" />
@@ -792,9 +799,13 @@
     <Content Include="Views\Saler\Index.cshtml" />
     <Content Include="Views\Saler\Edit.cshtml" />
     <Content Include="Views\ApiChargingOut\Index.cshtml" />
+    <Content Include="Views\OutWeb\Register.cshtml" />
+    <Content Include="Views\OutWeb\Success.cshtml" />
+    <Content Include="Views\Saler\SalerCustomer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Images\QRCode\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -71,7 +71,7 @@ namespace Service.ApiBiz
         /// <param name="password"></param>
         /// <param name="vcode"></param>
         /// <returns></returns>
-        public static CustomerEntity Register(string telephone, string password, string vcode)
+        public static CustomerEntity Register(string telephone, string password, string vcode, int Channel = 1)
         {
             CustomerEntity entity = null;
             CustomerRepository CR = new CustomerRepository();
@@ -84,7 +84,8 @@ namespace Service.ApiBiz
                 extend.Mobile = telephone;
                 extend.AttachmentIDs = "";
                 extend.Email = "";
-                extend.Channel = 1;
+                extend.Channel = Channel;//"1--手机号注册 2--邮箱注册 3--验证码注册" 4用户扫码注册
+
                 extend.RegisterTime = DateTime.Now;
                 extend.AuditTime = DateTime.MinValue;
                 extend.Auditor = 0;

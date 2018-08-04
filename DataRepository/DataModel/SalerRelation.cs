@@ -28,5 +28,8 @@ namespace DataRepository.DataModel
 
         [DataMapping("Status", DbType.Int32)]
         public int Status { get; set; }
+
+        [DataMapping("CreateDate", DbType.DateTime)]
+        public DateTime CreateDate { get; set; }
     }
 }

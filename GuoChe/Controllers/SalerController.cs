@@ -44,7 +44,9 @@ namespace GuoChe.Controllers
             }
             else
             {
-                ViewBag.Saler = new SalerEntity();
+                SalerEntity saler = new SalerEntity();
+                saler.SCode = "GCEV_SALES" + string.Format("{0:yyyyMMddHHmmssffff}", DateTime.Now);
+                ViewBag.Saler = saler;
             }
             ViewBag.CardTypes = cardTypes;
             return View();
@@ -60,6 +62,13 @@ namespace GuoChe.Controllers
         {
             SalerService.RemoveSaler(sid.ToLong(0));
             Response.Redirect("/Saler/");
+        }
+
+        public ActionResult SalerCustomer(string salerCode)
+        {
+            List<SalerRelationEntity> listSalerCustomer= SalerService.GetSalerCustomerBySalerCode(salerCode);
+            ViewBag.SalerCustomer = listSalerCustomer;
+            return View();
         }
 
     }
