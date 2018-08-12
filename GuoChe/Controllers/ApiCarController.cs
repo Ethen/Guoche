@@ -136,5 +136,17 @@ namespace GuoChe.Controllers
             }
             return Json(JsonHelper.ToJson(apiE));
         }
+
+
+        /// <summary>
+        /// 根据用户编号获取改用户下发展的客户信息
+        /// </summary>
+        /// <param name="CustomerCode"></param>
+        /// <returns></returns>
+        public JsonResult GetCustomerByCustomerCode(string CustomerCode)
+        {
+            List<SalerRelationEntity> listSalerCustomer = SalerService.GetSalerCustomerBySalerCode(CustomerCode);
+            return Json(JsonHelper.ToJson<List<SalerRelationEntity>>(listSalerCustomer));
+        }
     }
 }

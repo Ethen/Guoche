@@ -23,6 +23,8 @@ namespace Entity.ViewModel
 
         public int IsUse { get; set; }
 
+        public string imageUrl { get; set; }
+
         public string UseStatus
         {
             get

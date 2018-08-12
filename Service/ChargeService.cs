@@ -340,76 +340,93 @@ namespace Service
         /// <summary>
         ///  1、 不传 返回所有2、 充电桩ID CPid  3、 供应点信息ID ChargeBaseID
         /// </summary>
-        /// <param name="CPid">充电桩ID</param>
         /// <param name="ChargeBaseID">供应点信息ID</param>
         /// <returns></returns>
-        public static List<ChargingPileEntity> GetChargingPileInfo(string CPid, string ChargeBaseID)
+        public static List<ChargingBaseEntity> GetChargingPileInfo(string ChargeBaseID)
         {
-            List<ChargingPileEntity> lstCP = null;
+            List<ChargingBaseEntity> listBase = new List<ChargingBaseEntity>();
 
-            List<ChargingPileInfo> lstCharging = Cache.Get<List<ChargingPileInfo>>("GetChargingPileInfo" + CPid + ChargeBaseID);
-            if (lstCharging.IsEmpty())
+            List<ChargingBaseInfo> listBaseInfo = ChargeRepository.GetChargingBaseInfo("", ChargeBaseID);
+            if (listBaseInfo != null && listBaseInfo.Count > 0)
             {
-                lstCharging = ChargeRepository.GetChargingPileInfo(CPid, ChargeBaseID); ;
-                Cache.Add("GetChargingPileInfo" + CPid + ChargeBaseID, lstCharging);
+                listBase.Add(TransChargeBase(listBaseInfo[0], true));
             }
-
-            if (lstCharging != null && lstCharging.Count > 0)
-            {
-                lstCP = new List<ChargingPileEntity>();
-                foreach (ChargingPileInfo info in lstCharging)
-                {
-                    ChargingPileEntity entity = new ChargingPileEntity();
-                    entity.ID = info.ID;
-                    entity.Code = info.Code;
-                    entity.ChargingBaseID = info.ChargingBaseID;
-                    entity.Standard = info.Standard;
-                    entity.SOC = info.SOC;
-                    entity.Power = info.Power;
-                    entity.Electric = info.Electric;
-                    entity.CElectric = info.CElectric;
-                    entity.Voltage = info.Voltage;
-                    entity.CVoltage = info.CVoltage;
-                    lstCP.Add(entity);
-                }
-            }
-            return lstCP;
+            return listBase;
             
         }
 
-        public static List<ChargingBaseEntity> GetChargingBaseInfo(string CPid, string ChargeBaseID)
+        public static List<ChargingBaseEntity> GetChargingBaseInfo(string cityid, string ChargeBaseID)
         {
             List<ChargingBaseEntity> lstCP = null;
 
-            List<ChargingBaseInfo> lstCharging = Cache.Get<List<ChargingBaseInfo>>("GetChargingBaseInfo" + CPid + ChargeBaseID);
+            List<ChargingBaseInfo> lstCharging = Cache.Get<List<ChargingBaseInfo>>("GetChargingBaseInfo" + cityid + ChargeBaseID);
             if (lstCharging.IsEmpty())
             {
-                lstCharging = ChargeRepository.GetChargingBaseInfo(CPid, ChargeBaseID);
-                Cache.Add("GetChargingBaseInfo" + CPid + ChargeBaseID, lstCharging);
+                lstCharging = ChargeRepository.GetChargingBaseInfo(cityid, ChargeBaseID);
+                Cache.Add("GetChargingBaseInfo" + cityid + ChargeBaseID, lstCharging);
             }
 
             if (lstCharging != null && lstCharging.Count > 0)
             {
                 lstCP = new List<ChargingBaseEntity>();
                 foreach (ChargingBaseInfo info in lstCharging)
-                {
-                    ChargingBaseEntity entity = new ChargingBaseEntity();
-                    entity.ChargeBaseID = info.ChargeBaseID;
-                    entity.Name = info.Name;
-                    entity.Code = info.Code;
-                    entity.ChargeFee = info.ChargeFee;
-                    entity.ParkFee = info.ParkFee;
-                    entity.ChargeNum = info.ChargeNum;
-                    entity.PayType = info.PayType;
-                    entity.StartTime = info.StartTime;
-                    entity.EndTime = info.EndTime;
-                    lstCP.Add(entity);
+                {                    
+                    lstCP.Add(TransChargeBase(info));
                 }
             }
             return lstCP;
 
-        }  
+        }
 
+        public static ChargingBaseEntity TransChargeBase(ChargingBaseInfo info,bool isShowPile=false)
+        {
+            ChargingBaseEntity entity = new ChargingBaseEntity();
+            entity.ChargeBaseID = info.ChargeBaseID;
+            entity.Name = info.Name;
+            entity.Code = info.Code;
+            entity.ChargeFee = info.ChargeFee;
+            entity.ParkFee = info.ParkFee;
+            entity.ChargeNum = info.ChargeNum;
+            entity.PayType = info.PayType;
+            entity.StartTime = info.StartTime;
+            entity.EndTime = info.EndTime;
+            entity.IsUse = info.IsUse;
+            Random rd = new Random();
+            int R = rd.Next(1, 8);
+            entity.imageUrl = FileUrl + "/Images/Charging/" + R+".jpg"; ;
+            if (isShowPile)
+            {
+                entity.chargingPile = new List<ChargingPileEntity>();
+                List<ChargingPileInfo> lstCharging = Cache.Get<List<ChargingPileInfo>>("GetChargingPileInfo" + info.ChargeBaseID);
+                if (lstCharging.IsEmpty())
+                {
+                    lstCharging = ChargeRepository.GetChargingPileInfo(info.ChargeBaseID.ToString()); ;
+                    Cache.Add("GetChargingPileInfo" + info.ChargeBaseID, lstCharging);
+                }
+
+                if (lstCharging != null && lstCharging.Count > 0)
+                {                    
+                    foreach (ChargingPileInfo info1 in lstCharging)
+                    {
+                        ChargingPileEntity entityP = new ChargingPileEntity();
+                        entityP.ID = info1.ID;
+                        entityP.Code = info1.Code;
+                        entityP.ChargingBaseID = info1.ChargingBaseID;
+                        entityP.Standard = info1.Standard;
+                        entityP.SOC = info1.SOC;
+                        entityP.Power = info1.Power + "KW";
+                        entityP.Electric = info1.Electric;
+                        entityP.CElectric = info1.CElectric;
+                        entityP.Voltage = info1.Voltage + "V";
+                        entityP.CVoltage = info1.CVoltage + "V"; 
+                        R = rd.Next(1, 6);
+                        entityP.imageUrl = FileUrl + "/Images/Charging/p" + R + ".jpg"; ;
+                        entity.chargingPile.Add(entityP);
+                    }
+                }
+            }
+            return entity;
+        }
 
 
     }

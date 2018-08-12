@@ -76,9 +76,10 @@ namespace Service.BaseBiz
                 storeEntity.ModifyDate = storeInfo.ModifyDate;
                 storeEntity.Operator = storeInfo.Operator;
                 City city = BaseDataService.GetAllCity().FirstOrDefault(t => t.CityID == storeInfo.CityID)??new City();
-                List<AttachmentEntity> attachments = BaseDataService.GetAttachmentInfoByKyes(storeInfo.AttachmentIDs);
+                List<AttachmentEntity> attachments = BaseDataService.GetAttachmentInfoByKyes(storeInfo.AttachmentIDs, true);
                 storeEntity.CityInfo = city;
                 storeEntity.Attachments = attachments;
+                storeEntity.imageUrl = attachments != null && attachments.Count > 0 ? attachments[0].FilePath : FileUrl + "/Images/store.jpg";
             }
 
 

@@ -31,5 +31,8 @@ namespace DataRepository.DataModel
 
         [DataMapping("CreateDate", DbType.DateTime)]
         public DateTime CreateDate { get; set; }
+
+        [DataMapping("SalerSource", DbType.String)]
+        public string SalerSource { get; set; }
     }
 }

@@ -183,6 +183,7 @@ namespace Service
                 sRelation.SalerCode = sr.SalerCode;
                 sRelation.SalerID = sr.SalerID;
                 sRelation.Status = 1;
+                sRelation.SalerSource = sr.SalerSource;
                 SalerRepository mr = new SalerRepository();
                 mr.CreateSalerRelation(sRelation);
             }
@@ -208,6 +209,27 @@ namespace Service
             return listSalerRelation;
         }
 
+        /// <summary>
+        /// 根据客户注册手机号检索关联的业务员
+        /// </summary>
+        /// <param name="telephone"></param>
+        /// <returns></returns>
+        public static List<SalerRelationEntity> GetSalerCustomerByTelephone(string telephone)
+        {
+            List<SalerRelationEntity> listSalerRelation = new List<SalerRelationEntity>();
+            SalerRepository mr = new SalerRepository();
+            List<SalerRelation> listSaler = mr.GetSalerCustomerByTelephone(telephone);
+            if (listSaler != null && listSaler.Count > 0)
+            {
+                foreach (SalerRelation info in listSaler)
+                {
+                    listSalerRelation.Add(TranslateSalerRelation(info));
+                }
+            }
+            return listSalerRelation;
+        }
+         
+
         public static SalerRelationEntity TranslateSalerRelation(SalerRelation info)
         {
             SalerRelationEntity sr = new SalerRelationEntity();
@@ -217,6 +239,7 @@ namespace Service
             sr.CustomerID = info.CustomerID;
             sr.CustomerCode = info.CustomerCode;
             sr.CreateDate = info.CreateDate;
+            sr.SalerCode = info.SalerSource;
             sr.customer = CustomerService.GetCustomerByID(info.CustomerID);
             return sr;
         }

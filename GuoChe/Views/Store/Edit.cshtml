@@ -145,7 +145,16 @@
                                 <span style="color:red" id="spDesc"></span>
                             </div>
                         </div>  
-
+                        <div class="control-group">
+                            <label class="control-label">生成二维码</label>
+                            <div class="controls">
+                                <div id="qrcode"></div>
+                                <a id="downloadLink"></a>
+                                @*<input type="button" id="execute_qrcode" value="生成二维码" />*@
+                                <input type="text" id="txt_W" value="200" style="width:75px"  maxlength="5" />px <input type="text" id="txt_H" style="width:75px" value="200" maxlength="5" />px
+                                <input type="button" value="下载二维码" onclick="downloadClick()" />
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -174,6 +183,8 @@
 @section Footer{
 <script type="text/javascript" src="~/source/bootstrap-fileinput/js/fileinput.js"></script>
 <script type="text/javascript" src="~/source/bootstrap-fileinput/js/fileinput_locale_zh.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.qrcode.min.js"></script>
+<script type="text/javascript" src="~/Scripts/qrcode.js"></script> 
 <script type="text/javascript" src="~/source/Store.js"></script>
 <script type="text/javascript">
     var maxPicCount = @ViewBag.MaxPicCount;
@@ -187,7 +198,56 @@
 
     });
 
+    //$("#execute_qrcode").bind("click",function(){
 
+    //    var url="http://www.gcev.net/OutWeb/Register?Scode="+$("#SCode").val()+"&SalerSource=Store";
+
+    //    var qrcode = new QRCode(document.getElementById("qrcode"), {
+    //        text: url,
+    //        width: $("#txt_W").val(), //生成的二维码的宽度
+    //        height: $("#txt_H").val(), //生成的二维码的高度
+    //        //scr:'logo.png',
+    //        colorDark : "#000000", // 生成的二维码的深色部分
+    //        colorLight : "#ffffff", //生成二维码的浅色部分
+    //        correctLevel : QRCode.CorrectLevel.H
+    //    });
+    //});
+
+    function downloadClick () {  
+        
+        var url="http://www.gcev.net/OutWeb/Register?Scode="+$("#SupplierCode").val()+"&SalerSource=Store";
+
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+            text: url,
+            width: $("#txt_W").val(), //生成的二维码的宽度
+            height: $("#txt_H").val(), //生成的二维码的高度
+            //scr:'logo.png',
+            colorDark : "#000000", // 生成的二维码的深色部分
+            colorLight : "#ffffff", //生成二维码的浅色部分
+            correctLevel : QRCode.CorrectLevel.H
+        });
+
+        setTimeout(function(){
+            // 获取base64的图片节点
+            var img = document.getElementById('qrcode').getElementsByTagName('img')[0];
+            img.style="display:none";
+            // 构建画布
+            var canvas = document.createElement('canvas');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            canvas.getContext('2d').drawImage(img, 0, 0);
+            // 构造url
+            url = canvas.toDataURL('image/png');
+            // 构造a标签并模拟点击
+            var downloadLink = document.getElementById('downloadLink');
+            downloadLink.setAttribute('href', url);
+            downloadLink.setAttribute('download', $("#SupplierName").val()+'.png');
+            downloadLink.click();
+            img.style="display:none";
+        },2000);
+
+        
+    }
 
 </script>
     

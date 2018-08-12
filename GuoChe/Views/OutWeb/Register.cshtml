@@ -15,13 +15,13 @@
     <script src="~/source/layer.js" type="text/javascript"></script>
     <title>注册</title>
 </head>
-<body>
-    <header>注册</header>
+<body>    
     <div class="logo">
         <img src="~/Images/logo.png" width="100%" height="100%" />
     </div>
     @*<form name="form1" action="RegisterNew" method="post">*@
     <input type="hidden" id="hid_SCode" value="@ViewBag.SCode" />
+    <input type="hidden" id="hid_SourceType" value="@ViewBag.SourceType" />
         <div class="div_f">
             <div class="div_col" id="me">
                 <div class="div_c_l"><span>手机号</span></div>
@@ -44,7 +44,7 @@
             </div>
             <div style="clear:both"></div>
         </div>
-        <div class="div_f">
+        @*<div class="div_f">
             <div class="div_col" id="me">
                 <div class="div_c_l">
                     <span style="width:70px;">登录密码</span>
@@ -65,12 +65,12 @@
                 </div>
             </div>
             <div style="clear:both"></div>
-        </div>
+        </div>*@
         <div class="div_f">
             <div class="div_col" id="me">
                 <div class="div_c_l"><span>邀请人</span></div>
                 <div class="div_c_r">
-                    <input type="text" name="yq" id="yq" value="" placeholder="请输入邀请人">
+                    <input type="text" name="yq" id="yq" readonly="readonly" value="@ViewBag.SCode" >
 
                 </div>
             </div>
@@ -87,7 +87,7 @@
         //手机号
         $(".btn_1").click(function () {
             var phone = $("#phone").val();
-            var vcode = $("#dynamic").val();
+            var vcode = $("#code").val();
             var password = $("#password").val();
             var password_qr=$("#password_qr").val();
 
@@ -119,38 +119,39 @@
                 $("#dynamic").focus();
                 return false;
             }
-            if (password=="") {
-                layer.open({
-                    content: '密码不能为空',
-                    style: 'background:rgba(0,0,0,0.6); color:#fff; border:none;',
-                    time: 3
-                });
-                $("#password").focus();
-                return false;
-            }
-            if (password_qr == "") {
-                layer.open({
-                    content: '确认密码不能为空',
-                    style: 'background:rgba(0,0,0,0.6); color:#fff; border:none;',
-                    time: 3
-                });
-                $("#password").focus();
-                return false;
-            }
-            if (password != password_qr) {
-                layer.open({
-                    content: '两次密码不一致，请重新输入！',
-                    style: 'background:rgba(0,0,0,0.6); color:#fff; border:none;',
-                    time: 3
-                });
-                return false;
-            }
-            var SCode= $("#hid_SCode").val();
+            //if (password=="") {
+            //    layer.open({
+            //        content: '密码不能为空',
+            //        style: 'background:rgba(0,0,0,0.6); color:#fff; border:none;',
+            //        time: 3
+            //    });
+            //    $("#password").focus();
+            //    return false;
+            //}
+            //if (password_qr == "") {
+            //    layer.open({
+            //        content: '确认密码不能为空',
+            //        style: 'background:rgba(0,0,0,0.6); color:#fff; border:none;',
+            //        time: 3
+            //    });
+            //    $("#password").focus();
+            //    return false;
+            //}
+            //if (password != password_qr) {
+            //    layer.open({
+            //        content: '两次密码不一致，请重新输入！',
+            //        style: 'background:rgba(0,0,0,0.6); color:#fff; border:none;',
+            //        time: 3
+            //    });
+            //    return false;
+            //}
+            var SCode = $("#hid_SCode").val();
+            var SourceType = $("#hid_SourceType").val();
             $.ajax({
-                type: 'POST',//提交方式 post 或者get
-                url: "RegisterNew?telephone=" + $("#phone").val() + "&vcode=" + vcode + "&password=" + password + "&Scode=" + Scode,//提交到那里 后他的服务                                
+                type: 'POST',//提交方式 post 或者get                
+                url: "RegisterNew?telephone=" + $("#phone").val() + "&vcode=" + vcode + "&SourceType=" + SourceType + "&Scode=" + SCode,//提交到那里 后他的服务
                 success: function (msg) {
-                    alert(msg);
+                    
                     window.location.href = "/OutWeb/Success";
                 },
                 error: function () {

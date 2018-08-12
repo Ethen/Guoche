@@ -61,12 +61,12 @@ namespace GuoChe.Controllers
         /// 手机注册返回验证码
         /// </summary>
         /// <param name="telephone"></param>
-        /// <param name="timeout">默认一分钟</param>
+        /// <param name="timeout">默认10分钟</param>
         /// <returns></returns>
-        public JsonResult RegisterVCode(string telephone,string timeout="1")
+        public JsonResult RegisterVCode(string telephone,string timeout="10")
         {
             ApiUserEntity viewE = new ApiUserEntity();
-            string vcode= SendSMSService.SendSMSMess(telephone, timeout.ToInt(0));
+            string vcode= SendSMSService.SendVCodeMess(telephone, timeout.ToInt(0));
             if (!string.IsNullOrEmpty(vcode))
             {
                 viewE.vcode = vcode;

@@ -23,14 +23,13 @@ namespace GuoChe.Controllers
         /// 获取所有充电桩信息
         /// 1、 不传 返回所有2、 充电桩ID CPid3、 供应点信息ID ChargeBaseID
         /// </summary>
-        /// <param name="CPid"></param>
         /// <param name="ChargeBaseID"></param>
         /// <returns></returns>
-        public JsonResult ChargingPileInfo(string CPid, string ChargeBaseID)
+        public JsonResult ChargingPileInfo(string ChargeBaseID)
         {
-            List<ChargingPileEntity> lstEntity = ChargeService.GetChargingPileInfo(CPid, ChargeBaseID);
+            List<ChargingBaseEntity> lstEntity = ChargeService.GetChargingPileInfo( ChargeBaseID);
 
-            return Json(JsonHelper.ToJson<List<ChargingPileEntity>>(lstEntity));
+            return Json(JsonHelper.ToJson<List<ChargingBaseEntity>>(lstEntity));
         }
 
         /// <summary>

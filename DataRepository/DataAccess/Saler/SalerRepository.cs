@@ -148,6 +148,7 @@ namespace DataRepository.DataAccess.Saler
             command.AddInputParameter("@CustomerID", DbType.Int64, salerRelation.CustomerID);
             command.AddInputParameter("@SalerID", DbType.Int64, salerRelation.SalerID);
             command.AddInputParameter("@Status", DbType.Int32, salerRelation.Status);
+            command.AddInputParameter("@SalerSource", DbType.String, salerRelation.SalerSource);
             return command.ExecuteNonQuery();
         }
 
@@ -158,5 +159,14 @@ namespace DataRepository.DataAccess.Saler
             command.AddInputParameter("@SalerCode", DbType.String, salerCode);
             return command.ExecuteEntityList<SalerRelation>();
         }
+
+        public List<SalerRelation> GetSalerCustomerByTelephone(string telephone)
+        {
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(SalerStatement.GetSalerCustomerByTelephone, "Text"));
+            command.AddInputParameter("@Mobile", DbType.String, telephone);
+            return command.ExecuteEntityList<SalerRelation>();
+        }
+
+        
     }
 }

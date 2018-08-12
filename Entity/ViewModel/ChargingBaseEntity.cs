@@ -25,6 +25,8 @@ namespace Entity.ViewModel
 
         public int IsUse { get; set; }
 
+        public string imageUrl { get; set; }
+
         public string UseStatus {
             get {
                 string result = "正常使用";
@@ -40,6 +42,11 @@ namespace Entity.ViewModel
         public City CityInfo { get; set; }
 
         public List<BaseDataEntity> PayTypeName { get; set; }
+
+        /// <summary>
+        /// 电站下面电桩数据
+        /// </summary>
+        public List<ChargingPileEntity> chargingPile { get; set; }
 
         
     }

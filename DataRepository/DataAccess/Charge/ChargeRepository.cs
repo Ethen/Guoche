@@ -19,15 +19,11 @@ namespace DataRepository.DataAccess.Charge
         /// <param name="CPid">充电桩ID</param>
         /// <param name="ChargeBaseID">供应点信息ID</param>
         /// <returns></returns>
-        public static List<ChargingPileInfo> GetChargingPileInfo(string CPid, string ChargeBaseID)
+        public static List<ChargingPileInfo> GetChargingPileInfo(string ChargeBaseID)
         {
             List<ChargingPileInfo> result = new List<ChargingPileInfo>();
             string sqltext = ChargeStatement.GetAllChargingPile;
             sqltext += " where 1=1";
-            if (!string.IsNullOrEmpty(CPid))
-            {
-                sqltext += " and ID='" + CPid + "'";
-            }
             if (!string.IsNullOrEmpty(ChargeBaseID))
             {
                 sqltext += " and ChargingBaseID='" + ChargeBaseID + "'";

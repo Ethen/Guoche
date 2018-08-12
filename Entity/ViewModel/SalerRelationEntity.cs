@@ -35,5 +35,9 @@ namespace Entity.ViewModel
         public DateTime CreateDate { get; set; }
 
         public CustomerEntity customer { get; set; }
+        /// <summary>
+        /// 销售源头：门店:Store 业务员:Saler
+        /// </summary>
+        public string SalerSource { get; set; }
     }
 }

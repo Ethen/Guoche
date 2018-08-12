@@ -46,9 +46,11 @@ namespace DataRepository.DataAccess.Saler
 		                                                  WHERE RowNumber BETWEEN @UP+1 AND @UP+@PageSize
 	                                                  END";
 
-        public static string CreateRelation = @"INSERT INTO [SalerAndCustomer] ([CustomerID],[CustomerCode],[SalerID],[SalerCode],[Status]) VALUES ( @CustomerID,@CustomerCode,@SalerID,@SalerCode,@Status )";
+        public static string CreateRelation = @"INSERT INTO [SalerAndCustomer] ([CustomerID],[CustomerCode],[SalerID],[SalerCode],[Status],[SalerSource]) VALUES ( @CustomerID,@CustomerCode,@SalerID,@SalerCode,@Status,@SalerSource )";
 
         public static string GetSalerCustomerBySalerCode = @"SELECT ID,CustomerID,CustomerCode,SalerID,SalerCode,Status,CreateDate  FROM SalerAndCustomer WHERE SalerCode=@SalerCode";
+        
+        public static string GetSalerCustomerByTelephone = @"select a.CustomerID,a.CustomerCode,a.SalerID,a.SalerCode,a.SalerSource from dbo.SalerAndCustomer a,Customer b where a.CustomerID=b.CustomerID and b.Mobile=@Mobile";
 
 
     }

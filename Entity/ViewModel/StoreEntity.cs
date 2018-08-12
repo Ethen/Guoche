@@ -32,6 +32,7 @@ namespace Entity.ViewModel
         public string StartTime { get; set; }
         public string EndTime { get; set; }
         public string Coordinate { get; set; }
+        public string imageUrl { get; set; }
         public int Status { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime ModifyDate { get; set; }

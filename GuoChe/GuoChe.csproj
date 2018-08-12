@@ -280,7 +280,22 @@
     <Content Include="Global.asax" />
     <None Include="Properties\PublishProfiles\web.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Images\Charging\1.jpg" />
+    <Content Include="Images\Charging\2.jpg" />
+    <Content Include="Images\Charging\3.jpg" />
+    <Content Include="Images\Charging\4.jpg" />
+    <Content Include="Images\Charging\5.jpg" />
+    <Content Include="Images\Charging\6.jpg" />
+    <Content Include="Images\Charging\7.jpg" />
+    <Content Include="Images\Charging\8.jpg" />
+    <Content Include="Images\Charging\p1.jpg" />
+    <Content Include="Images\Charging\p2.jpg" />
+    <Content Include="Images\Charging\p3.jpg" />
+    <Content Include="Images\Charging\p4.jpg" />
+    <Content Include="Images\Charging\p5.jpg" />
+    <Content Include="Images\Charging\p6.jpg" />
     <Content Include="Images\index.jpg" />
+    <Content Include="Images\logo.png" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
@@ -798,10 +813,10 @@
     <Content Include="Views\Brand\Edit.cshtml" />
     <Content Include="Views\Saler\Index.cshtml" />
     <Content Include="Views\Saler\Edit.cshtml" />
-    <Content Include="Views\ApiChargingOut\Index.cshtml" />
     <Content Include="Views\OutWeb\Register.cshtml" />
     <Content Include="Views\OutWeb\Success.cshtml" />
     <Content Include="Views\Saler\SalerCustomer.cshtml" />
+    <Content Include="Views\ApiChargingOut\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
